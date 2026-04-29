@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <meta name="description" content="HiFi Buddy is a free, open-source critical-listening tutor that trains your ears to hear what audiophiles hear. 30 curated lessons, ABX blind testing, Plex and Spotify integration." />
+  <meta name="keywords" content="audiophile, critical listening, ABX test, hifi, FLAC, lossless, Plex, Spotify, soundstage, imaging" />
+  <meta name="author" content="HiFi Buddy" />
+
+  <!-- TODO before public launch: drop a 1200x630 og-image.png at assets/og-image.png
+       (dark theme, purple/indigo gradient on #0a0a0f, matching the hero). -->
+  <meta property="og:title" content="HiFi Buddy — Critical-listening tutor for audiophiles" />
+  <meta property="og:description" content="Train your ears on real reference recordings. 30 curated lessons, ABX blind testing, frequency visualizer, equipment-aware annotations." />
+  <meta property="og:url" content="https://hifibuddy.net/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://hifibuddy.net/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <title>HiFi Buddy — Train your ears, hear what audiophiles hear</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+</head>
+<body>
+
+  <!-- Ambient background gradient blobs -->
+  <div class="ambient" aria-hidden="true">
+    <div class="blob blob-purple"></div>
+    <div class="blob blob-indigo"></div>
+    <div class="blob blob-emerald"></div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#" class="logo" aria-label="HiFi Buddy home">
+        <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+          <defs>
+            <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#9b59b6" />
+              <stop offset="100%" stop-color="#667eea" />
+            </linearGradient>
+          </defs>
+          <rect x="3" y="13" width="2.5" height="6" rx="1.25" fill="url(#logoGrad)"/>
+          <rect x="8" y="9" width="2.5" height="14" rx="1.25" fill="url(#logoGrad)"/>
+          <rect x="13" y="5" width="2.5" height="22" rx="1.25" fill="url(#logoGrad)"/>
+          <rect x="18" y="9" width="2.5" height="14" rx="1.25" fill="url(#logoGrad)"/>
+          <rect x="23" y="13" width="2.5" height="6" rx="1.25" fill="url(#logoGrad)"/>
+        </svg>
+        <span>HiFi Buddy</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#why">Why</a>
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a href="#science">The science</a>
+        <a href="#install">Install</a>
+        <a href="https://github.com/hifibuddy/hifi-buddy" class="nav-cta" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-copy reveal">
+        <span class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          Free &amp; open source. No telemetry.
+        </span>
+        <h1>
+          Stop guessing.
+          <span class="grad-text">Start hearing.</span>
+        </h1>
+        <p class="lede">
+          HiFi Buddy is a critical-listening tutor that trains your ears to hear
+          what audiophiles actually hear — soundstage, imaging, micro-detail,
+          transients — using thirty curated lessons built around real
+          reference recordings.
+        </p>
+        <div class="hero-ctas">
+          <a href="#install" class="btn btn-primary">
+            Get Started
+            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="#how" class="btn btn-ghost">See how it works</a>
+        </div>
+        <ul class="hero-meta">
+          <li><span class="dot"></span> 30 lessons</li>
+          <li><span class="dot"></span> Plex + Spotify</li>
+          <li><span class="dot"></span> ABX blind testing</li>
+          <li><span class="dot"></span> Runs locally</li>
+        </ul>
+      </div>
+
+      <!-- Hero visual: stylized waveform / spectrum -->
+      <div class="hero-visual reveal" aria-hidden="true">
+        <div class="visual-card">
+          <div class="visual-header">
+            <span class="vh-track">Dire Straits — Why Worry</span>
+            <span class="vh-source">FLAC · 44.1kHz / 16-bit</span>
+          </div>
+          <div class="waveform">
+            <!-- 60 bars, animated heights via CSS variables -->
+          </div>
+          <div class="timestamps">
+            <div class="ts active">
+              <span class="ts-time">0:42</span>
+              <div class="ts-body">
+                <strong>Soundstage width</strong>
+                <p>Acoustic guitar sits left of center. Notice the room behind it.</p>
+              </div>
+            </div>
+            <div class="ts">
+              <span class="ts-time">1:18</span>
+              <div class="ts-body">
+                <strong>Micro-detail</strong>
+                <p>String squeak as Knopfler shifts position on the fretboard.</p>
+              </div>
+            </div>
+            <div class="ts">
+              <span class="ts-time">2:55</span>
+              <div class="ts-body">
+                <strong>Decay tail</strong>
+                <p>Listen to how long the cymbal rings before silence.</p>
+              </div>
+            </div>
+          </div>
+          <div class="visual-footer">
+            <span class="abx-pill">
+              <span class="abx-dot"></span>
+              ABX ready · 16 trials
+            </span>
+            <span class="visual-shortcut">space to play</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why HiFi Buddy -->
+  <section id="why" class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">Why HiFi Buddy?</span>
+        <h2>Audiophile gear without trained ears is just expensive furniture.</h2>
+        <p class="section-sub">
+          You can spend a year reading reviews and never get better at listening.
+          The only way to hear like an audiophile is to practice — deliberately,
+          with the right material and the right prompts.
+        </p>
+      </div>
+
+      <div class="why-grid">
+        <article class="why-card reveal">
+          <div class="why-num">01</div>
+          <h3>Gear can't listen for you</h3>
+          <p>
+            A $5,000 DAC won't make you a better listener. Trained ears will.
+            HiFi Buddy is the missing layer between your equipment and your
+            perception.
+          </p>
+        </article>
+
+        <article class="why-card reveal">
+          <div class="why-num">02</div>
+          <h3>YouTube reviews can't replace your own ears</h3>
+          <p>
+            Other people's opinions about gear say nothing about what
+            <em>you</em> can hear. The only useful test is the one you run
+            yourself, blind, in your room.
+          </p>
+        </article>
+
+        <article class="why-card reveal">
+          <div class="why-num">03</div>
+          <h3>Lossless debates need data, not vibes</h3>
+          <p>
+            Built-in ABX testing with proper level matching and a binomial
+            p-value. We won't tell you whether FLAC sounds better — we'll tell
+            you whether you can actually tell.
+          </p>
+        </article>
+
+        <article class="why-card reveal">
+          <div class="why-num">04</div>
+          <h3>Local-first, Plex-first</h3>
+          <p>
+            Streams from your own FLAC library through Plex. Spotify is there
+            as backup, not the headline act. Your music, your machine, your
+            rules.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">Features</span>
+        <h2>Everything you need to actually get better at listening.</h2>
+        <p class="section-sub">
+          A focused toolkit. No bloat, no upsell, no subscriptions.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 19V5l16 7-16 7z"/>
+            </svg>
+          </div>
+          <h3>30 curated lessons</h3>
+          <p>
+            Each lesson is built around a single reference track —
+            Dire Straits, Steely Dan, Diana Krall, Aphex Twin, Bill Evans —
+            with timestamped passages calling out specific listening skills.
+          </p>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M3.5 9h17M3.5 15h17M12 3a13 13 0 0 1 0 18M12 3a13 13 0 0 0 0 18"/>
+            </svg>
+          </div>
+          <h3>Plex, Local FLAC, or Spotify</h3>
+          <p>
+            Lossless from Plex (recommended), or point at a folder of FLAC
+            files for fully offline lossless mode, or fall back to Spotify
+            Premium via the Web Playback SDK. One UI, three sources.
+          </p>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M12 7v5l3 2"/>
+            </svg>
+          </div>
+          <h3>Click-to-seek timestamps</h3>
+          <p>
+            Every lesson comes with annotated time markers. Click the
+            timestamp, jump to the moment, and the lesson tells you exactly
+            what you should be hearing right then.
+          </p>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="6" width="7" height="12" rx="1.5"/>
+              <rect x="14" y="6" width="7" height="12" rx="1.5"/>
+              <path d="M10.5 12h3"/>
+            </svg>
+          </div>
+          <h3>ABX blind testing</h3>
+          <p>
+            A proper ABX test runner: 16 trials, level-matched FLAC versus
+            MP3, randomized order, binomial p-value. Find out — actually find
+            out — what you can hear.
+          </p>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 12c2-4 4-4 6 0s4 4 6 0 4-4 6 0"/>
+            </svg>
+          </div>
+          <h3>Frequency visualizer + FR overlay</h3>
+          <p>
+            Real-time spectrum during playback, with an optional headphone
+            frequency-response overlay (39 measured headphones included).
+            See where the sub-bass sits, where the air lives, and what
+            shape your headphones are colouring it through.
+          </p>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 18V6M9 18v-6M14 18V9M19 18V4"/>
+            </svg>
+          </div>
+          <h3>Equipment profiles</h3>
+          <p>
+            Tell HiFi Buddy what you're listening on — headphones, DAC, amp —
+            and lessons annotate accordingly. "Ideal for your open-back
+            headphones." "May be subtle on IEMs." No more guessing whether
+            it's you, the recording, or the gear.
+          </p>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 21V8l9-5 9 5v13"/>
+              <path d="M9 21v-7h6v7"/>
+            </svg>
+          </div>
+          <h3>See the room you're hearing</h3>
+          <p>
+            Ten lessons recorded in iconic rooms — Village Vanguard, Musikverein,
+            L'Olympia, Electric Lady, 30th Street Studio — show a photo of the
+            venue with a note on its acoustic. The room is part of every
+            recording.
+          </p>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 20h9"/>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/>
+            </svg>
+          </div>
+          <h3>Edit timing &amp; export corrections</h3>
+          <p>
+            Different master? Different cut? Edit any lesson's timestamps
+            in place, with M:SS-M:SS validation, and export your corrections
+            as JSON to send upstream. Your edits stick across reloads and
+            travel with your settings backup.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how" class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">How it works</span>
+        <h2>Four steps. No onboarding flow. No account.</h2>
+        <p class="section-sub">
+          Open it. Pick a lesson. Listen. The whole loop is under thirty
+          seconds from launch to first guided listen.
+        </p>
+      </div>
+
+      <ol class="steps">
+        <li class="step reveal">
+          <div class="step-num">1</div>
+          <h3>Pick a lesson</h3>
+          <p>
+            Browse thirty lessons grouped by skill — soundstage, transients,
+            tonal color, separation, air. Each one is built around a track
+            chosen for what it teaches, not what it sells.
+          </p>
+        </li>
+        <li class="step reveal">
+          <div class="step-num">2</div>
+          <h3>Press play</h3>
+          <p>
+            Stream from your Plex library if you have it, or Spotify Premium
+            if you don't. HiFi Buddy negotiates the source and tells you the
+            real bitrate.
+          </p>
+        </li>
+        <li class="step reveal">
+          <div class="step-num">3</div>
+          <h3>Follow the timestamped guide</h3>
+          <p>
+            The lesson scrolls with the music. Each annotation tells you
+            exactly what to listen for, exactly when. Click any timestamp to
+            replay that passage.
+          </p>
+        </li>
+        <li class="step reveal">
+          <div class="step-num">4</div>
+          <h3>Take the ABX test</h3>
+          <p>
+            Optional, but recommended. Sixteen trials, FLAC versus MP3,
+            level-matched and randomized. The result is a number, not an
+            opinion.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- The science -->
+  <section id="science" class="section section-science">
+    <div class="container science-grid">
+      <div class="science-copy reveal">
+        <span class="section-tag">The science</span>
+        <h2>We don't ask if it sounds better. We test whether you can tell.</h2>
+        <p>
+          The audio world is awash in feeling. Cables sound "warmer." DACs
+          sound "more analog." HiFi Buddy doesn't argue with any of that — it
+          just gives you a tool to find out which of those claims survive a
+          blind test on your own ears.
+        </p>
+        <p>
+          The ABX runner plays you sample <strong>A</strong>, sample
+          <strong>B</strong>, and a hidden sample <strong>X</strong> that's
+          either A or B. You guess. We log it. We do that sixteen times,
+          randomize the order, and report a binomial p-value at the end.
+        </p>
+        <p>
+          If you're guessing, the math will say so. If you're hearing
+          something real, the math will back you up. Either way, you've
+          replaced a vibe with a number.
+        </p>
+      </div>
+
+      <div class="science-card reveal">
+        <div class="science-card-head">
+          <span class="science-label">ABX result</span>
+          <span class="science-status">Statistically significant</span>
+        </div>
+        <div class="science-stat">
+          <span class="stat-num">14</span>
+          <span class="stat-denom">/ 16</span>
+        </div>
+        <p class="stat-caption">correct answers · FLAC vs 320kbps MP3</p>
+
+        <div class="pvalue-row">
+          <div>
+            <span class="pv-label">p-value</span>
+            <span class="pv-num">0.0021</span>
+          </div>
+          <div>
+            <span class="pv-label">threshold</span>
+            <span class="pv-num">0.05</span>
+          </div>
+        </div>
+
+        <div class="bar">
+          <div class="bar-fill" style="width: 88%"></div>
+        </div>
+        <p class="science-blurb">
+          You're hearing a real difference. This isn't placebo —
+          the result would happen by chance roughly twice in a thousand runs.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Install -->
+  <section id="install" class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">Get started</span>
+        <h2>One clone. One Python. You're listening in two minutes.</h2>
+        <p class="section-sub">
+          No installer, no signup, no account. Clone the repo, run it locally,
+          point your browser at it.
+        </p>
+      </div>
+
+      <div class="install-grid">
+        <div class="install-code reveal">
+          <div class="code-tabs">
+            <span class="code-tab active">terminal</span>
+            <span class="code-dot"></span>
+            <span class="code-dot"></span>
+            <span class="code-dot"></span>
+          </div>
+          <pre><code><span class="c-prompt">$</span> <span class="c-cmd">git clone</span> https://github.com/hifibuddy/hifi-buddy
+<span class="c-prompt">$</span> <span class="c-cmd">cd</span> hifi-buddy/hifi-buddy-app
+<span class="c-prompt">$</span> <span class="c-cmd">python3</span> server.py
+<span class="c-comment"># open http://127.0.0.1:8091/ in your browser</span></code></pre>
+          <button class="copy-btn" type="button" data-copy="git clone https://github.com/hifibuddy/hifi-buddy && cd hifi-buddy/hifi-buddy-app && python3 server.py">
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <rect x="4" y="4" width="9" height="9" rx="1.5"/>
+              <path d="M3 11V3a1 1 0 0 1 1-1h8"/>
+            </svg>
+            <span>Copy</span>
+          </button>
+        </div>
+
+        <div class="reqs reveal">
+          <h3>What you need</h3>
+          <ul class="req-list">
+            <li>
+              <span class="req-dot"></span>
+              <div>
+                <strong>Python 3.9+</strong>
+                <span>For the local server. No other runtime.</span>
+              </div>
+            </li>
+            <li>
+              <span class="req-dot"></span>
+              <div>
+                <strong>A modern browser</strong>
+                <span>Chrome, Firefox, Safari, Edge — anything with Web Audio.</span>
+              </div>
+            </li>
+            <li>
+              <span class="req-dot"></span>
+              <div>
+                <strong>Plex with Plex Pass</strong>
+                <span>Recommended. For lossless transcoding from your library.</span>
+              </div>
+            </li>
+            <li>
+              <span class="req-dot"></span>
+              <div>
+                <strong>Or Spotify Premium</strong>
+                <span>Falls back to Spotify Web Playback SDK. 256kbps.</span>
+              </div>
+            </li>
+            <li>
+              <span class="req-dot"></span>
+              <div>
+                <strong>Decent headphones</strong>
+                <span>Honestly, you can start with whatever you've got.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Open source -->
+  <section id="open-source" class="section section-os">
+    <div class="container os-inner reveal">
+      <span class="section-tag">Open source</span>
+      <h2>MIT licensed. No tracking. No SaaS.</h2>
+      <p>
+        HiFi Buddy is built in vanilla JavaScript with the Web Audio API and
+        the MusicBrainz catalog. No frameworks. No build step. No bundler. No
+        analytics. The whole thing is one folder you can read in an afternoon.
+      </p>
+      <p>
+        Issues, pull requests, lesson contributions, and reference-track
+        suggestions are all welcome. If you want to add a lesson on a track
+        you love, the format is JSON and the bar is "teaches a real listening
+        skill."
+      </p>
+
+      <div class="os-actions">
+        <a href="https://github.com/hifibuddy/hifi-buddy" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+            <path d="M12 2C6.48 2 2 6.58 2 12.21c0 4.5 2.87 8.32 6.84 9.67.5.1.68-.22.68-.49v-1.7c-2.78.61-3.37-1.21-3.37-1.21-.46-1.18-1.11-1.5-1.11-1.5-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.55 2.34 1.1 2.91.84.09-.66.35-1.1.63-1.36-2.22-.26-4.55-1.13-4.55-5.04 0-1.11.39-2.02 1.03-2.74-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05a9.34 9.34 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.74 0 3.92-2.34 4.78-4.57 5.03.36.32.68.94.68 1.9v2.81c0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.21C22 6.58 17.52 2 12 2z"/>
+          </svg>
+          View on GitHub
+        </a>
+        <a href="#install" class="btn btn-ghost">Read the install guide</a>
+      </div>
+
+      <div class="built-with">
+        <span class="bw-label">Built with</span>
+        <span class="bw-item">vanilla JS</span>
+        <span class="bw-sep">·</span>
+        <span class="bw-item">Web Audio API</span>
+        <span class="bw-sep">·</span>
+        <span class="bw-item">D3</span>
+        <span class="bw-sep">·</span>
+        <span class="bw-item">MusicBrainz</span>
+        <span class="bw-sep">·</span>
+        <span class="bw-item">Python stdlib</span>
+        <span class="bw-sep">·</span>
+        <span class="bw-item">no frameworks</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true">
+          <use href="#logoGrad"></use>
+          <rect x="3" y="13" width="2.5" height="6" rx="1.25" fill="#9b59b6"/>
+          <rect x="8" y="9" width="2.5" height="14" rx="1.25" fill="#8a6bc7"/>
+          <rect x="13" y="5" width="2.5" height="22" rx="1.25" fill="#7a7dd8"/>
+          <rect x="18" y="9" width="2.5" height="14" rx="1.25" fill="#667eea"/>
+          <rect x="23" y="13" width="2.5" height="6" rx="1.25" fill="#667eea"/>
+        </svg>
+        <span>HiFi Buddy</span>
+      </div>
+      <p class="footer-note">
+        Made for audiophiles who don't want to be sold to.
+      </p>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="https://github.com/hifibuddy/hifi-buddy" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="#install">Install</a>
+        <a href="#science">The science</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>

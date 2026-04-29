@@ -1,0 +1,3574 @@
+{
+  "skills": [
+    {
+      "id": "soundstage",
+      "name": "Soundstage",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"16\" height=\"16\"><path d=\"M2 12a10 10 0 0 1 20 0\"/><path d=\"M5 12a7 7 0 0 1 14 0\"/><path d=\"M8 12a4 4 0 0 1 8 0\"/></svg>",
+      "color": "#667eea",
+      "description": "The perceived spatial width, depth, and height of a recording. A good soundstage makes you forget you're wearing headphones.",
+      "tip": "Close your eyes. Can you sense a 3D space? How wide does the music extend beyond your head?"
+    },
+    {
+      "id": "imaging",
+      "name": "Imaging",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"16\" height=\"16\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/><line x1=\"22\" y1=\"12\" x2=\"18\" y2=\"12\"/><line x1=\"6\" y1=\"12\" x2=\"2\" y2=\"12\"/><line x1=\"12\" y1=\"6\" x2=\"12\" y2=\"2\"/><line x1=\"12\" y1=\"22\" x2=\"12\" y2=\"18\"/></svg>",
+      "color": "#e05555",
+      "description": "The precise placement of instruments and voices within the soundstage. Great imaging lets you point to each player.",
+      "tip": "Can you tell exactly where the guitar is? The piano? Each instrument should have a distinct position."
+    },
+    {
+      "id": "detail",
+      "name": "Detail & Resolution",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"16\" height=\"16\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><line x1=\"21\" y1=\"21\" x2=\"16.65\" y2=\"16.65\"/></svg>",
+      "color": "#2ecc71",
+      "description": "Micro-details like finger slides on guitar strings, breath before a vocal line, the texture of a cymbal's decay.",
+      "tip": "Listen for the small things \u2014 room reflections, pick attacks, lip sounds. They reveal recording quality."
+    },
+    {
+      "id": "dynamics",
+      "name": "Dynamics",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"16\" height=\"16\"><polygon points=\"13 2 3 14 12 14 11 22 21 10 12 10 13 2\" fill=\"currentColor\" fill-opacity=\"0.15\"/></svg>",
+      "color": "#e6a817",
+      "description": "The contrast between quiet and loud passages. Macro-dynamics are loud vs. soft sections; micro-dynamics are subtle volume variations within phrases.",
+      "tip": "Does the music breathe? Do quiet passages feel genuinely soft, and climaxes feel powerful without distortion?"
+    },
+    {
+      "id": "tonal-color",
+      "name": "Tonal Color / Timbre",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"16\" height=\"16\"><circle cx=\"13.5\" cy=\"6.5\" r=\"1.5\" fill=\"currentColor\"/><circle cx=\"17.5\" cy=\"10.5\" r=\"1.5\" fill=\"currentColor\"/><circle cx=\"8.5\" cy=\"7.5\" r=\"1.5\" fill=\"currentColor\"/><circle cx=\"6.5\" cy=\"12.5\" r=\"1.5\" fill=\"currentColor\"/><path d=\"M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.43-.18-.83-.44-1.12-.29-.29-.44-.65-.44-1.12a1.64 1.64 0 0 1 1.67-1.67h2c3.05 0 5.55-2.5 5.55-5.55C21.97 6.01 17.46 2 12 2z\"/></svg>",
+      "color": "#9b59b6",
+      "description": "The natural tonal quality that distinguishes a Steinway from a Bosendorfer, a Strat from a Les Paul. Accurate timbre means instruments sound real.",
+      "tip": "Does the piano sound wooden and resonant? Does the saxophone have warmth and reed texture? Compare to live instruments."
+    },
+    {
+      "id": "bass",
+      "name": "Bass Quality",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"16\" height=\"16\"><polygon points=\"11 5 6 9 2 9 2 15 6 15 11 19 11 5\"/><path d=\"M15.54 8.46a5 5 0 0 1 0 7.07\"/><path d=\"M19.07 4.93a10 10 0 0 1 0 14.14\"/></svg>",
+      "color": "#e67e22",
+      "description": "Not how much bass, but how good. Extension (how low), texture (can you hear the string vibrate?), speed (tight or bloated), and decay.",
+      "tip": "Can you distinguish between an upright bass, electric bass, and synth bass? Good bass has pitch definition, not just rumble."
+    },
+    {
+      "id": "separation",
+      "name": "Instrument Separation",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"16\" height=\"16\"><line x1=\"6\" y1=\"3\" x2=\"6\" y2=\"15\"/><circle cx=\"18\" cy=\"6\" r=\"3\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><path d=\"M18 9a9 9 0 0 1-9 9\"/></svg>",
+      "color": "#1abc9c",
+      "description": "The ability to distinguish individual instruments even in dense passages. Poor separation makes everything sound mushed together.",
+      "tip": "In a busy passage, can you follow one instrument without losing it? Try tracking the bass line through a full chorus."
+    },
+    {
+      "id": "transients",
+      "name": "Transients & Attack",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"16\" height=\"16\"><polyline points=\"22 12 18 12 15 21 9 3 6 12 2 12\"/></svg>",
+      "color": "#f39c12",
+      "description": "The initial sharp onset of a note \u2014 the pick hitting a string, the stick hitting a snare, the hammer hitting a piano wire. Fast, clean transients sound realistic.",
+      "tip": "Snare drums are the best test. Does the snare have a sharp crack, or does it sound rounded and soft?"
+    },
+    {
+      "id": "air",
+      "name": "Air & Space",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"16\" height=\"16\"><path d=\"M9.59 4.59A2 2 0 1 1 11 8H2\"/><path d=\"M12.59 19.41A2 2 0 1 0 14 16H2\"/><path d=\"M17.73 7.73A2.5 2.5 0 1 1 19.5 12H2\"/></svg>",
+      "color": "#3498db",
+      "description": "The sense of atmosphere and room around instruments. You can 'hear' the recording space \u2014 a concert hall, a studio, a church.",
+      "tip": "After a note ends, can you hear the room? Natural reverb decay reveals recording space."
+    },
+    {
+      "id": "layering",
+      "name": "Depth Layering",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"16\" height=\"16\"><polygon points=\"12 2 2 7 12 12 22 7 12 2\"/><polyline points=\"2 17 12 22 22 17\"/><polyline points=\"2 12 12 17 22 12\"/></svg>",
+      "color": "#8e44ad",
+      "description": "Instruments placed at different distances \u2014 some upfront, some mid-field, some far back. Like looking through a window into a 3D scene.",
+      "tip": "Are the vocals right in front of you while the drums sit further back? This front-to-back depth creates realism."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "lesson-001",
+      "title": "Your First Soundstage",
+      "difficulty": "beginner",
+      "skills": [
+        "soundstage",
+        "imaging",
+        "detail",
+        "dynamics"
+      ],
+      "album": {
+        "title": "Brothers in Arms",
+        "artist": "Dire Straits",
+        "year": 1985,
+        "genre": "rock",
+        "label": "Vertigo / Warner Bros.",
+        "format": "One of the first major albums recorded entirely digitally (DDD). The CD master is reference-quality.",
+        "masteredBy": "Bob Ludwig"
+      },
+      "track": {
+        "title": "Money for Nothing",
+        "duration": "8:26",
+        "musicbrainzRecordingId": "e6c7f0d6-2b44-435c-b321-2fb6bff9a555",
+        "versionNote": "Album version on Brothers in Arms (1985), 8:26. Bob Ludwig master. NOT the 4:08 radio edit."
+      },
+      "guide": {
+        "intro": "This was one of the first albums recorded fully digitally and it shows. The sound is pristine, wide, and perfectly placed. Knopfler's guitar tone is legendary \u2014 recorded with minimal processing, it's a benchmark for natural electric guitar sound.",
+        "listenFor": [
+          {
+            "time": "0:00-0:30",
+            "skill": "soundstage",
+            "note": "Synth intro opens wide across the stereo field. Sting's processed 'I want my MTV' floats in space, extending beyond your ears. This is soundstage width before any rhythm enters. Open-back headphones make this dramatically wider than closed-backs."
+          },
+          {
+            "time": "1:30-2:00",
+            "skill": "dynamics",
+            "note": "The band-entry moment. After 90 seconds of atmospheric synth, a snare crack heralds drums, bass, and Knopfler's iconic guitar riff arriving full-force. This is macro-dynamics: the power contrast between the sparse intro and the wall of sound. Feel the physical impact in your chest \u2014 the loudness contrast is intentional and uncompressed."
+          },
+          {
+            "time": "2:00-2:45",
+            "skill": "imaging",
+            "note": "First verse with full instrumentation. Knopfler's lead guitar sits slightly left of center, second guitar layer to the right, drums center-rear, bass anchoring center. You should be able to point to each player's exact stereo position \u2014 that's imaging precision. The 1985 DDD recording (one of the first all-digital major albums) makes this surgically clear."
+          },
+          {
+            "time": "2:45-3:30",
+            "skill": "detail",
+            "note": "Knopfler's rhythm guitar during the verse. You can hear each pick stroke on the wound strings, the subtle muting technique, the amp's natural breakup. This level of micro-detail reveals how pristine the source recording is \u2014 Bob Ludwig's master preserves every transient. Try to follow the picking pattern note-for-note."
+          },
+          {
+            "time": "5:00-5:40",
+            "skill": "soundstage",
+            "note": "The spacious breakdown. The band drops to a quieter, almost Hawaiian-flavored guitar passage. Close your eyes \u2014 drums sit well behind the guitars in the depth field, and the stereo image opens up further than the verses did. This is soundstage *depth*, not just width \u2014 the sense that there's air behind the guitars."
+          }
+        ],
+        "takeaway": "Soundstage is the 'room' your headphones create. Great recordings on good equipment make the music exist outside your head, not trapped between your ears. The HD560s excel here because their open-back design allows air to move naturally."
+      },
+      "equipment": {
+        "source": "CD or FLAC 16/44.1 \u2014 the original digital master is excellent. Avoid compressed MP3s which collapse the stereo image.",
+        "whyItMatters": "This recording was born digital, so CD/FLAC gives you exactly what the engineers heard. The wide stereo image collapses dramatically on low-bitrate streams."
+      },
+      "abx": {
+        "segment": "1:30-2:00",
+        "skill": "dynamics",
+        "defaultBitrate": 192,
+        "rationale": "The band-entry transition is where MP3 compression most audibly degrades the dynamic contrast."
+      }
+    },
+    {
+      "id": "lesson-002",
+      "title": "The Art of Detail",
+      "difficulty": "beginner",
+      "skills": [
+        "detail",
+        "tonal-color",
+        "separation"
+      ],
+      "album": {
+        "title": "Aja",
+        "artist": "Steely Dan",
+        "year": 1977,
+        "genre": "rock",
+        "label": "ABC Records",
+        "format": "Analog recording with meticulous multi-tracking. The 1999 remaster by Schnee/Grundman is reference.",
+        "masteredBy": "Bernie Grundman"
+      },
+      "track": {
+        "title": "Aja",
+        "duration": "7:57",
+        "musicbrainzRecordingId": "9a3103bd-f1fb-4ff6-8528-5f280d944dc4",
+        "versionNote": "Album version on Aja (1977), 8:00."
+      },
+      "guide": {
+        "intro": "Steely Dan were notorious perfectionists. They used the best session musicians in LA and spent months on each track. 'Aja' is considered one of the best-produced rock albums ever made \u2014 every note is intentional, every microphone placement calculated.",
+        "listenFor": [
+          {
+            "time": "0:00-0:30",
+            "skill": "tonal-color",
+            "note": "The Fender Rhodes electric piano has a glassy, bell-like quality. Notice how it shimmers \u2014 that's the natural timbre of the instrument. On good headphones, you can hear the tine mechanism that gives the Rhodes its unique voice.",
+            "bestRevealedBy": [
+              "open-back",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "bright-tuned"
+            ],
+            "headphoneNote": "Warm open-backs preserve timbre; bright-tuned cans skew the natural color."
+          },
+          {
+            "time": "0:30-1:00",
+            "skill": "detail",
+            "note": "When the guitar enters, listen for the pick attack \u2014 the initial 'tick' before the note blooms. You can distinguish between picked notes and legato slides. This micro-detail separates reference headphones from consumer ones.",
+            "bestRevealedBy": [
+              "lossless",
+              "planar",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "lossy"
+            ],
+            "headphoneNote": "A neutral chain on lossless surfaces micro-detail; lossy sources smear the finest cues."
+          },
+          {
+            "time": "3:15-4:00",
+            "skill": "detail",
+            "note": "Steve Gadd's legendary drum solo. Listen for the stick hitting different parts of the snare \u2014 center vs rim, the ghost notes between main hits. On revealing headphones, each hit has unique texture.",
+            "bestRevealedBy": [
+              "lossless",
+              "planar",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "lossy"
+            ],
+            "headphoneNote": "A neutral chain on lossless surfaces micro-detail; lossy sources smear the finest cues."
+          },
+          {
+            "time": "4:30-5:30",
+            "skill": "tonal-color",
+            "note": "Wayne Shorter's tenor saxophone solo. Can you feel the warmth of the reed vibrating? The slight breathiness? Compare mentally to a synthesized sax \u2014 the real instrument has infinitely more color and life.",
+            "bestRevealedBy": [
+              "open-back",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "bright-tuned"
+            ],
+            "headphoneNote": "Warm open-backs preserve timbre; bright-tuned cans skew the natural color."
+          },
+          {
+            "time": "6:00-7:00",
+            "skill": "separation",
+            "note": "Multiple instruments play simultaneously: piano, guitar, bass, drums, sax. Try following just the bass line. Then listen again following the piano. Great separation means you can isolate any instrument at will.",
+            "bestRevealedBy": [
+              "planar",
+              "neutral-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "muddy-bass-cans"
+            ],
+            "headphoneNote": "Planars with neutral amps keep lines distinct; muddy-bass cans smear them together."
+          }
+        ],
+        "takeaway": "Detail retrieval is about hearing what's actually in the recording. Cheap headphones smooth over micro-details, making everything sound 'okay but vague.' The HD560s are known for their analytical, revealing nature \u2014 they hide nothing."
+      },
+      "equipment": {
+        "source": "The 1999 remaster (not the original CD) or any high-res remaster. FLAC 24/96 if available. The analog tape source has more information than CD can capture.",
+        "whyItMatters": "Steely Dan's recordings have incredible dynamic range and detail \u2014 compressed streams lose the subtle ghost notes and harmonic overtones that make this recording special."
+      },
+      "abx": {
+        "segment": "0:30-1:00",
+        "skill": "detail",
+        "defaultBitrate": 192,
+        "rationale": "micro-details (pick attacks, breaths, room reflections) are first to disappear under lossy compression"
+      }
+    },
+    {
+      "id": "lesson-003",
+      "title": "Feeling the Dynamics",
+      "difficulty": "beginner",
+      "skills": [
+        "dynamics",
+        "bass",
+        "layering"
+      ],
+      "album": {
+        "title": "Rumours",
+        "artist": "Fleetwood Mac",
+        "year": 1977,
+        "genre": "rock",
+        "label": "Warner Bros.",
+        "format": "Analog recording. The 2004 remaster or original pressing are reference. Avoid the loudness-war remaster.",
+        "masteredBy": "Ken Caillat / Richard Dashut (recording)"
+      },
+      "track": {
+        "title": "The Chain",
+        "duration": "4:28",
+        "musicbrainzRecordingId": "ab00e50b-0d13-4f05-8705-f23906ad843e",
+        "versionNote": "Album version on Rumours (1977), 4:29."
+      },
+      "guide": {
+        "intro": "Rumours was recorded during intense personal turmoil \u2014 two couples in the band were breaking up simultaneously. That emotional energy is embedded in the dynamics. 'The Chain' is five separate musical fragments stitched together, and the dynamic journey is extraordinary.",
+        "listenFor": [
+          {
+            "time": "0:00-0:30",
+            "skill": "dynamics",
+            "note": "The song starts delicately with soft finger-picked guitar and gentle vocals. Notice how LOW the volume level is. This quiet opening is setting up the dynamic contrast that comes later. Resist the urge to turn up the volume.",
+            "bestRevealedBy": [
+              "planar",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "iem"
+            ],
+            "headphoneNote": "Planars with a punchy amp slam these shifts; IEMs can compress the macro-dynamic contrast."
+          },
+          {
+            "time": "0:30-1:15",
+            "skill": "layering",
+            "note": "Instruments gradually layer in \u2014 each addition slightly raises the energy. This is micro-dynamics: small, incremental increases in intensity that create momentum without sudden jumps.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar",
+              "lossless"
+            ],
+            "weakOn": [
+              "mushy-mid-cans"
+            ],
+            "headphoneNote": "Open planars resolve front-to-back depth; mushy-mid cans flatten the layers."
+          },
+          {
+            "time": "2:50-3:10",
+            "skill": "dynamics",
+            "note": "The breakdown \u2014 everything drops away. Just a single bass note. The silence after the full band is as powerful as the loudest moment. This contrast IS dynamics. The quiet makes the loud impactful.",
+            "bestRevealedBy": [
+              "planar",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "iem"
+            ],
+            "headphoneNote": "Planars with a punchy amp slam these shifts; IEMs can compress the macro-dynamic contrast."
+          },
+          {
+            "time": "3:10-3:30",
+            "skill": "bass",
+            "note": "John McVie's iconic bass riff. On the HD560s, you can feel the roundness of each note, the slight fret buzz, the way the low E string sustains differently than the higher notes. This is bass QUALITY \u2014 texture and pitch definition, not just thump.",
+            "bestRevealedBy": [
+              "planar",
+              "closed-back",
+              "lossless"
+            ],
+            "weakOn": [
+              "bass-shy-iem",
+              "open-back"
+            ],
+            "headphoneNote": "Planars and sealed cans render texture and weight; bass-shy IEMs miss the foundation."
+          },
+          {
+            "time": "3:30-4:28",
+            "skill": "dynamics",
+            "note": "The final build to the climax. The band crescendos together \u2014 drums get harder, guitars get thicker, vocals get more urgent. This is macro-dynamics at its finest. If you set your volume for the quiet intro, this section should hit you physically.",
+            "bestRevealedBy": [
+              "planar",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "iem"
+            ],
+            "headphoneNote": "Planars with a punchy amp slam these shifts; IEMs can compress the macro-dynamic contrast."
+          }
+        ],
+        "takeaway": "Dynamics are the emotional engine of music. Modern loudness-war mastering crushes dynamics, making everything the same volume. Well-mastered recordings like this have a huge range from whisper to roar. Always set your volume during the quietest part \u2014 if that's comfortable, the loud parts will be thrilling, not painful."
+      },
+      "equipment": {
+        "source": "The 2004 remaster is best. Original CD is also excellent. Avoid the '2013 remaster' which is louder but less dynamic.",
+        "whyItMatters": "Dynamic range needs lossless audio to preserve. Streaming services apply normalization that can reduce the very dynamic contrasts this song is famous for."
+      },
+      "abx": {
+        "segment": "0:00-0:30",
+        "skill": "dynamics",
+        "defaultBitrate": 192,
+        "rationale": "macro-dynamic transitions are where MP3 compression first loses headroom"
+      }
+    },
+    {
+      "id": "lesson-004",
+      "title": "Space Between the Notes",
+      "difficulty": "beginner",
+      "skills": [
+        "air",
+        "imaging",
+        "detail",
+        "tonal-color"
+      ],
+      "album": {
+        "title": "Come Away with Me",
+        "artist": "Norah Jones",
+        "year": 2002,
+        "genre": "jazz",
+        "label": "Blue Note",
+        "format": "Analog recording to tape, mixed by Jay Newland. Deliberately old-school warm production with exceptional microphone technique.",
+        "masteredBy": "Ted Jensen (Sterling Sound)"
+      },
+      "track": {
+        "title": "Don't Know Why",
+        "duration": "3:07",
+        "musicbrainzRecordingId": "e39179f3-ba13-41d2-935f-7f9c85e0aca9",
+        "versionNote": "Album version on Come Away With Me (2002), 3:07."
+      },
+      "guide": {
+        "intro": "This album won 8 Grammys partly because it sounds impossibly good. Recorded to analog tape with minimal processing, it captures the natural air and space of a small studio session. Jones's voice is recorded intimately \u2014 you're sitting right in front of her.",
+        "listenFor": [
+          {
+            "time": "0:00-0:15",
+            "skill": "air",
+            "note": "The piano opens alone. Listen to the space AROUND the notes \u2014 between the decay of one chord and the attack of the next. You can hear the room. That reverb tail isn't artificial; it's the actual recording space captured by the microphones.",
+            "bestRevealedBy": [
+              "open-back",
+              "lossless",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "closed-back",
+              "lossy"
+            ],
+            "headphoneNote": "Open-backs let the high-frequency air breathe; closed-backs and lossy sources bottle it up."
+          },
+          {
+            "time": "0:15-0:30",
+            "skill": "imaging",
+            "note": "Norah's voice enters dead center, slightly forward in the mix. The piano sits behind and slightly to the right. The brush drums are further back. Notice this front-to-back depth \u2014 it's 3D imaging.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar"
+            ],
+            "weakOn": [
+              "closed-back-budget"
+            ],
+            "headphoneNote": "Planars and good open-backs pinpoint placement; budget closed-backs blur the image."
+          },
+          {
+            "time": "0:45-1:00",
+            "skill": "detail",
+            "note": "Listen for the brush strokes on the snare drum. You can hear individual bristles dragging across the drumhead. This kind of texture is destroyed by compression and low-bitrate encoding.",
+            "bestRevealedBy": [
+              "lossless",
+              "planar",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "lossy"
+            ],
+            "headphoneNote": "A neutral chain on lossless surfaces micro-detail; lossy sources smear the finest cues."
+          },
+          {
+            "time": "1:00-1:30",
+            "skill": "tonal-color",
+            "note": "The upright bass enters. Notice how DIFFERENT it sounds from an electric bass \u2014 woody, resonant, with visible string vibration. You can almost tell it's a large hollow wooden instrument just from the timbre.",
+            "bestRevealedBy": [
+              "open-back",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "bright-tuned"
+            ],
+            "headphoneNote": "Warm open-backs preserve timbre; bright-tuned cans skew the natural color."
+          },
+          {
+            "time": "2:00-2:30",
+            "skill": "air",
+            "note": "In the spaces between vocal phrases, don't just hear silence \u2014 hear the room tone, the natural ambience. This 'air' is what makes the recording feel alive rather than sterile.",
+            "bestRevealedBy": [
+              "open-back",
+              "lossless",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "closed-back",
+              "lossy"
+            ],
+            "headphoneNote": "Open-backs let the high-frequency air breathe; closed-backs and lossy sources bottle it up."
+          }
+        ],
+        "takeaway": "Air and space are the opposite of what compression does. Compressed, loud masters fill every gap with noise. Great recordings preserve the silence, the room, the natural decay. Open-back headphones are essential here \u2014 they let air physically flow, matching the airy recording."
+      },
+      "equipment": {
+        "source": "CD or FLAC. The original master is excellent. This was tracked to analog tape, so the warmth is baked into the recording.",
+        "whyItMatters": "The subtle room ambience and breath sounds are the first casualties of lossy compression. Lossless lets you hear the studio, not just the instruments."
+      },
+      "abx": {
+        "segment": "0:45-1:00",
+        "skill": "detail",
+        "defaultBitrate": 192,
+        "rationale": "micro-details (pick attacks, breaths, room reflections) are first to disappear under lossy compression"
+      }
+    },
+    {
+      "id": "lesson-005",
+      "title": "Deep Bass Done Right",
+      "difficulty": "beginner",
+      "skills": [
+        "bass",
+        "transients",
+        "detail",
+        "dynamics"
+      ],
+      "album": {
+        "title": "Random Access Memories",
+        "artist": "Daft Punk",
+        "year": 2013,
+        "genre": "electronic",
+        "label": "Columbia",
+        "format": "Recorded in professional studios with live musicians and analog synths. Mixed by Mick Guzauski. One of the best-produced modern albums.",
+        "masteredBy": "Bob Ludwig (Gateway Mastering)"
+      },
+      "track": {
+        "title": "Giorgio by Moroder",
+        "duration": "9:04",
+        "musicbrainzRecordingId": "cac27da9-20c5-4722-9a25-f2c26e2c04cf",
+        "versionNote": "Album version on Random Access Memories (2013), 9:04."
+      },
+      "guide": {
+        "intro": "Daft Punk deliberately chose to record with live musicians and vintage analog equipment to create something that sounded warm, dynamic, and alive. Giorgio Moroder narrates his own story while the music evolves from 70s click track to full disco-electronic fusion. Bob Ludwig's mastering is exemplary.",
+        "listenFor": [
+          {
+            "time": "0:00-2:00",
+            "skill": "detail",
+            "note": "Giorgio Moroder narrates his early career over a programmatic click pulse and slowly building synth bass. His voice is recorded with extraordinary intimacy \u2014 accent, breath, the quiet room around him, even the click of his lighter. This is the most-isolated vocal in the entire album; ideal for hearing micro-detail your gear preserves vs. smears. The pulse under him is metronomic but not yet 'drums' \u2014 that arrives next."
+          },
+          {
+            "time": "2:00-2:45",
+            "skill": "transients",
+            "note": "The full band hits at ~2:00. Snare crack, hi-hat sizzle, kick drum punch \u2014 all arriving together after two minutes of just narration. This is the transient test: does the snare have a sharp, distinct attack, or does it sound rounded and soft? Is the hi-hat metallic and clear, or hashy? Fast drivers (planar magnetics, well-tuned dynamics) render this transition cleanly; slow drivers blur it."
+          },
+          {
+            "time": "3:00-4:00",
+            "skill": "bass",
+            "note": "The bass guitar (Nathan East) locks in tight with the kick drum. Listen for distinct pitch on each bass note \u2014 you should hear the melody being played, not just low-frequency rumble. On revealing systems you'll catch the texture of fingers on wound strings. The kick should be tight and dry, the bass tuneful, both in lockstep."
+          },
+          {
+            "time": "4:30-5:30",
+            "skill": "bass",
+            "note": "The Moog Modular synth bass takes over from the bass guitar. Compare the textures: smoother, more sustained, with different harmonic content and a Moog-filter sweep coloring it. Two completely different bass instruments occupying the same register \u2014 your system should let you hear the *shape* of each, not just the low-end energy."
+          },
+          {
+            "time": "7:30-9:00",
+            "skill": "dynamics",
+            "note": "The climax: layers of synthesizers, orchestra, bass guitar, drum kit, and electric guitar all stacked. Despite the density the mix never clips or grows fatiguing \u2014 that's mastering and arrangement craft. Macro-dynamic peaks should feel powerful, not loud. If your system congests or compresses the soundstage here, that's a tell."
+          }
+        ],
+        "takeaway": "Bass quality isn't about quantity. The HD560s won't shake your jaw like bass-heavy cans, but they'll show you the SHAPE of each bass note \u2014 its pitch, texture, attack, and decay. That's bass quality. Once you hear it, boomy bass sounds crude by comparison."
+      },
+      "equipment": {
+        "source": "FLAC or CD. The vinyl release is also excellent. This album was specifically mastered for dynamic range.",
+        "whyItMatters": "The low-frequency detail and synth textures need lossless encoding. Lossy compression particularly damages low-frequency transients and subtle synth harmonics."
+      },
+      "abx": {
+        "segment": "7:30-9:00",
+        "skill": "dynamics",
+        "defaultBitrate": 192,
+        "rationale": "The climax build is where MP3 compression most audibly degrades the orchestral + electronic layering and dynamic ceiling."
+      }
+    },
+    {
+      "id": "lesson-006",
+      "title": "Layered Complexity",
+      "difficulty": "intermediate",
+      "skills": [
+        "separation",
+        "layering",
+        "air",
+        "dynamics"
+      ],
+      "album": {
+        "title": "OK Computer",
+        "artist": "Radiohead",
+        "year": 1997,
+        "genre": "rock",
+        "label": "Parlophone / Capitol",
+        "format": "Recorded by Nigel Godrich in various locations including a mansion. Brilliant use of space, effects, and unconventional production.",
+        "masteredBy": "Chris Blair"
+      },
+      "track": {
+        "title": "Let Down",
+        "duration": "4:59",
+        "musicbrainzRecordingId": "47b02a82-c3bf-4647-b894-dd1c8f608e7f",
+        "versionNote": "Album version on OK Computer (1997), 4:59."
+      },
+      "guide": {
+        "intro": "Radiohead and producer Nigel Godrich create dense, multi-layered soundscapes that reward careful listening. 'Let Down' was recorded at 3am in the ballroom of a mansion to capture a specific reverb. It layers multiple guitar tracks, polyrhythmic elements, and Yorke's multi-tracked vocals into something that sounds simple but is profoundly complex.",
+        "listenFor": [
+          {
+            "time": "0:00-0:30",
+            "skill": "layering",
+            "note": "Three guitars play interlocking patterns at different tempos. One is in the left channel, one right, one center-ish. Each follows a slightly different rhythmic pattern. Try to count how many distinct guitar parts you can hear.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar",
+              "lossless"
+            ],
+            "weakOn": [
+              "mushy-mid-cans"
+            ],
+            "headphoneNote": "Open planars resolve front-to-back depth; mushy-mid cans flatten the layers."
+          },
+          {
+            "time": "0:45-1:15",
+            "skill": "separation",
+            "note": "When Yorke's vocal enters, it sits above the guitars in the depth field. The bass is behind and below. With good separation, you should be able to follow ANY single element without the others obscuring it. Try following just the bass.",
+            "bestRevealedBy": [
+              "planar",
+              "neutral-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "muddy-bass-cans"
+            ],
+            "headphoneNote": "Planars with neutral amps keep lines distinct; muddy-bass cans smear them together."
+          },
+          {
+            "time": "2:00-2:30",
+            "skill": "layering",
+            "note": "Background vocal harmonies appear in the mid-distance. They're NOT at the same depth as the lead vocal \u2014 they sit further back, like a choir behind a soloist. This front-to-back placement is depth layering.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar",
+              "lossless"
+            ],
+            "weakOn": [
+              "mushy-mid-cans"
+            ],
+            "headphoneNote": "Open planars resolve front-to-back depth; mushy-mid cans flatten the layers."
+          },
+          {
+            "time": "3:30-4:00",
+            "skill": "dynamics",
+            "note": "The climax arrives with overlapping vocal lines and swelling guitars. Despite maximum density, you can still pick out individual elements. This is the ultimate test of separation \u2014 maintaining clarity in complexity.",
+            "bestRevealedBy": [
+              "planar",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "iem"
+            ],
+            "headphoneNote": "Planars with a punchy amp slam these shifts; IEMs can compress the macro-dynamic contrast."
+          },
+          {
+            "time": "4:00-4:59",
+            "skill": "air",
+            "note": "The song decays into reverb and fading guitars. Listen to how the room sound envelops the ending \u2014 that's the actual mansion ballroom they recorded in. The natural reverb is haunting and real.",
+            "bestRevealedBy": [
+              "open-back",
+              "lossless",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "closed-back",
+              "lossy"
+            ],
+            "headphoneNote": "Open-backs let the high-frequency air breathe; closed-backs and lossy sources bottle it up."
+          }
+        ],
+        "takeaway": "Layering is the art of placing things at different depths. Like a painting with foreground, middle ground, and background. Cheap headphones flatten everything to the same plane. Resolving headphones restore the original spatial intent."
+      },
+      "equipment": {
+        "source": "Original CD master or FLAC rip. The 2008 'audiophile' reissue is good but the original Chris Blair master is preferred by many.",
+        "whyItMatters": "The subtle polyrhythmic interplay between guitars requires resolution to appreciate. Lossy formats merge the closely-spaced guitar tones together."
+      },
+      "abx": {
+        "segment": "3:30-4:00",
+        "skill": "dynamics",
+        "defaultBitrate": 192,
+        "rationale": "macro-dynamic transitions are where MP3 compression first loses headroom"
+      },
+      "venue": {
+        "name": "St Catherine's Court",
+        "location": "Bath, England",
+        "type": "home-studio",
+        "caption": "16th-century Tudor manor house north of Bath. Radiohead recorded much of OK Computer here in 1996, including 'Let Down' — cut at 3am in the ballroom to capture its natural reverb.",
+        "image": {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/1/1f/St_Catherines_Court1.jpg",
+          "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1f/St_Catherines_Court1.jpg",
+          "alt": "St Catherine's Court, a Tudor manor house near Bath, England",
+          "license": "CC BY-SA 2.0",
+          "author": "Roger Cornfoot",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:St_Catherines_Court1.jpg"
+        }
+      }
+    },
+    {
+      "id": "lesson-007",
+      "title": "Vocal Textures",
+      "difficulty": "intermediate",
+      "skills": [
+        "tonal-color",
+        "detail",
+        "air",
+        "dynamics"
+      ],
+      "album": {
+        "title": "Grace",
+        "artist": "Jeff Buckley",
+        "year": 1994,
+        "genre": "rock",
+        "label": "Columbia",
+        "format": "Produced by Andy Wallace with exceptional vocal capture. Buckley's four-octave range is fully preserved.",
+        "masteredBy": "Howie Weinberg"
+      },
+      "track": {
+        "title": "Hallelujah",
+        "duration": "6:53",
+        "musicbrainzRecordingId": "da1308d1-6037-4ba1-b6fc-a643a4201140",
+        "versionNote": "Album version on Grace (1994), 6:53. NOT live cuts or other covers."
+      },
+      "guide": {
+        "intro": "Jeff Buckley possessed one of the most remarkable voices in recorded music \u2014 a four-octave range with complete emotional control. His version of Leonard Cohen's 'Hallelujah' is a masterclass in vocal texture, dynamics, and intimate recording. You can hear every nuance of his voice, from whisper to full-throated cry.",
+        "listenFor": [
+          {
+            "time": "0:00-0:30",
+            "skill": "tonal-color",
+            "note": "The guitar has a shimmering, almost harp-like quality \u2014 Buckley's unique open tunings create harmonic overtones you can hear ringing above the fundamental notes. The timbre is unlike standard guitar tone.",
+            "bestRevealedBy": [
+              "open-back",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "bright-tuned"
+            ],
+            "headphoneNote": "Warm open-backs preserve timbre; bright-tuned cans skew the natural color."
+          },
+          {
+            "time": "0:30-1:30",
+            "skill": "detail",
+            "note": "Buckley's voice enters softly. Listen for the slight breathiness at the start of phrases, the way his voice cracks with intention, the tiny variations in vibrato. These micro-details are the difference between 'nice voice' and 'transcendent performance.'",
+            "bestRevealedBy": [
+              "lossless",
+              "planar",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "lossy"
+            ],
+            "headphoneNote": "A neutral chain on lossless surfaces micro-detail; lossy sources smear the finest cues."
+          },
+          {
+            "time": "2:30-3:30",
+            "skill": "air",
+            "note": "The space around the voice is as important as the voice itself. Between phrases, you hear the room \u2014 the mic capturing not just his voice but the air around him. This intimacy makes you feel present at the recording.",
+            "bestRevealedBy": [
+              "open-back",
+              "lossless",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "closed-back",
+              "lossy"
+            ],
+            "headphoneNote": "Open-backs let the high-frequency air breathe; closed-backs and lossy sources bottle it up."
+          },
+          {
+            "time": "4:00-5:00",
+            "skill": "dynamics",
+            "note": "He builds from a whisper to a soaring cry. Don't adjust your volume \u2014 let the dynamic range work. The contrast between the quiet vulnerability and the powerful crescendo is the emotional core. This range only exists in well-mastered lossless audio.",
+            "bestRevealedBy": [
+              "planar",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "iem"
+            ],
+            "headphoneNote": "Planars with a punchy amp slam these shifts; IEMs can compress the macro-dynamic contrast."
+          },
+          {
+            "time": "5:30-6:53",
+            "skill": "tonal-color",
+            "note": "The final 'Hallelujah' repetitions \u2014 each one has different vocal color. One is breathy, one is full, one cracks with emotion. This is timbre variation: the same note sung with completely different tonal quality. Resolving headphones let you feel each shift.",
+            "bestRevealedBy": [
+              "open-back",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "bright-tuned"
+            ],
+            "headphoneNote": "Warm open-backs preserve timbre; bright-tuned cans skew the natural color."
+          }
+        ],
+        "takeaway": "The human voice is the ultimate test of audio quality because everyone knows intuitively what a real voice sounds like. If a recording makes a voice feel 'present' \u2014 like the singer is right there \u2014 the chain from mic to your ears is working. The HD560s are praised specifically for vocal clarity."
+      },
+      "equipment": {
+        "source": "The original 1994 CD master is very good. FLAC rip is ideal. Some prefer the 2004 Legacy Edition remaster for slightly more openness.",
+        "whyItMatters": "Vocal harmonics and micro-textures exist in the upper frequency range (8-16kHz) that lossy compression aggressively cuts. The breathy details and room air are literally deleted in MP3/AAC."
+      },
+      "abx": {
+        "segment": "4:00-5:00",
+        "skill": "dynamics",
+        "defaultBitrate": 192,
+        "rationale": "macro-dynamic transitions are where MP3 compression first loses headroom"
+      }
+    },
+    {
+      "id": "lesson-008",
+      "title": "The Weight of Atmosphere",
+      "difficulty": "intermediate",
+      "skills": [
+        "bass",
+        "air",
+        "layering",
+        "tonal-color"
+      ],
+      "album": {
+        "title": "Mezzanine",
+        "artist": "Massive Attack",
+        "year": 1998,
+        "genre": "electronic",
+        "label": "Virgin",
+        "format": "Dense, atmospheric production with sub-bass that tests speaker/headphone extension. Neil Davidge and 3D created a sonic world.",
+        "masteredBy": "Denis Blackham"
+      },
+      "track": {
+        "title": "Teardrop",
+        "duration": "5:30",
+        "musicbrainzRecordingId": "f3bba4cd-8018-468b-902e-bc8f029593e5",
+        "versionNote": "Album version on Mezzanine (1998), 5:30."
+      },
+      "guide": {
+        "intro": "Mezzanine is one of the most atmospheric albums ever made. 'Teardrop' layers Elizabeth Fraser's ethereal vocals over a sampled harpsichord, deep sub-bass, and skittering beats. The bass extends into frequencies most speakers can't reproduce \u2014 but the HD560s will reveal them.",
+        "listenFor": [
+          {
+            "time": "0:00-0:20",
+            "skill": "bass",
+            "note": "A sub-bass pulse enters almost subliminally. You may feel it more than hear it. This is bass extension \u2014 sound below 60Hz. On the HD560s, it's there but subtle. On lesser headphones, it simply vanishes.",
+            "bestRevealedBy": [
+              "planar",
+              "closed-back",
+              "lossless"
+            ],
+            "weakOn": [
+              "bass-shy-iem",
+              "open-back"
+            ],
+            "headphoneNote": "Planars and sealed cans render texture and weight; bass-shy IEMs miss the foundation."
+          },
+          {
+            "time": "0:20-0:50",
+            "skill": "tonal-color",
+            "note": "The harpsichord sample has a brittle, metallic quality \u2014 completely different from a piano. Notice the plucked, decayed character. The production preserves the original instrument's color while bathing it in reverb.",
+            "bestRevealedBy": [
+              "open-back",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "bright-tuned"
+            ],
+            "headphoneNote": "Warm open-backs preserve timbre; bright-tuned cans skew the natural color."
+          },
+          {
+            "time": "0:50-1:30",
+            "skill": "air",
+            "note": "Elizabeth Fraser's vocal floats ABOVE the instruments, swimming in reverb. It's not dry and present like Buckley \u2014 it's deliberately distant, ghostly. The air and space around her voice is the production's signature.",
+            "bestRevealedBy": [
+              "open-back",
+              "lossless",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "closed-back",
+              "lossy"
+            ],
+            "headphoneNote": "Open-backs let the high-frequency air breathe; closed-backs and lossy sources bottle it up."
+          },
+          {
+            "time": "2:00-3:00",
+            "skill": "layering",
+            "note": "Count the layers: sub-bass (deepest), kick drum, harpsichord (mid-depth), percussion (slightly forward), vocal (floating above). Each exists at a different depth. This is studio layering at its most intentional.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar",
+              "lossless"
+            ],
+            "weakOn": [
+              "mushy-mid-cans"
+            ],
+            "headphoneNote": "Open planars resolve front-to-back depth; mushy-mid cans flatten the layers."
+          },
+          {
+            "time": "4:00-5:00",
+            "skill": "bass",
+            "note": "The bass pulse has been there the entire song, unchanging. But now that the other elements have shifted, you notice it differently. Good sub-bass is felt physically \u2014 a weight in the low end that gives the track gravitas without overwhelming.",
+            "bestRevealedBy": [
+              "planar",
+              "closed-back",
+              "lossless"
+            ],
+            "weakOn": [
+              "bass-shy-iem",
+              "open-back"
+            ],
+            "headphoneNote": "Planars and sealed cans render texture and weight; bass-shy IEMs miss the foundation."
+          }
+        ],
+        "takeaway": "Atmosphere in music comes from the intentional use of space, reverb, and frequency extremes. The HD560s are open-back, meaning bass doesn't build up artificially. What you hear is what's actually in the recording \u2014 honest, textured low-end rather than boomy resonance."
+      },
+      "equipment": {
+        "source": "FLAC or CD. The original 1998 master is excellent. The vinyl reissue is also well-regarded.",
+        "whyItMatters": "Sub-bass information below 80Hz is the first thing lossy codecs discard. The entire foundation of this track \u2014 that subliminal pulse \u2014 disappears in low-bitrate streams."
+      },
+      "abx": {
+        "segment": "0:00-0:20",
+        "skill": "bass",
+        "defaultBitrate": 192,
+        "rationale": "low-frequency texture and harmonic content suffer measurably at lower bitrates"
+      }
+    },
+    {
+      "id": "lesson-009",
+      "title": "Precision and Transparency",
+      "difficulty": "intermediate",
+      "skills": [
+        "imaging",
+        "transients",
+        "separation",
+        "air"
+      ],
+      "album": {
+        "title": "Kind of Blue",
+        "artist": "Miles Davis",
+        "year": 1959,
+        "genre": "jazz",
+        "label": "Columbia",
+        "format": "Recorded by Fred Plaut at Columbia's 30th Street Studio \u2014 the legendary 'Church.' The 1997 remaster by Mark Wilder corrected the original speed error.",
+        "masteredBy": "Mark Wilder (1997 remaster)"
+      },
+      "track": {
+        "title": "So What",
+        "duration": "9:22",
+        "musicbrainzRecordingId": "b9c6bcfa-89eb-4b01-83b2-49327ee2e896",
+        "versionNote": "Album version on Kind of Blue (1959), 9:25."
+      },
+      "guide": {
+        "intro": "Kind of Blue is the best-selling jazz album of all time, and the 30th Street Studio recording captures a live quintet with astonishing realism. Each musician is placed in a precise stereo position. The 1997 remaster corrected a speed error that plagued all earlier versions and restored the original studio sound.",
+        "listenFor": [
+          {
+            "time": "0:00-0:33",
+            "skill": "imaging",
+            "note": "Bill Evans's piano and Paul Chambers's bass open with a conversation. Piano is slightly left, bass slightly right. The placement is so precise you could draw a map of the studio. This is the gold standard of stereo imaging in jazz.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar"
+            ],
+            "weakOn": [
+              "closed-back-budget"
+            ],
+            "headphoneNote": "Planars and good open-backs pinpoint placement; budget closed-backs blur the image."
+          },
+          {
+            "time": "0:33-1:30",
+            "skill": "transients",
+            "note": "When Miles enters on trumpet, notice the initial attack of each note \u2014 the burst of air, the brass buzz. Then the note sustains and decays naturally. The transient gives Miles's horn its bite; the sustain gives it warmth.",
+            "bestRevealedBy": [
+              "planar",
+              "fast-driver",
+              "lossless"
+            ],
+            "weakOn": [
+              "slow-dynamic",
+              "lossy"
+            ],
+            "headphoneNote": "Fast planar drivers nail the attack; slow dynamics and lossy codecs round it off."
+          },
+          {
+            "time": "1:30-3:00",
+            "skill": "imaging",
+            "note": "Miles's trumpet is center-left. When Coltrane solos later, he's center-right. Cannonball Adderley is further right. The piano stays left. This isn't panning trickery \u2014 it's where they physically stood in the studio.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar"
+            ],
+            "weakOn": [
+              "closed-back-budget"
+            ],
+            "headphoneNote": "Planars and good open-backs pinpoint placement; budget closed-backs blur the image."
+          },
+          {
+            "time": "3:00-5:00",
+            "skill": "separation",
+            "note": "During Coltrane's solo, Jimmy Cobb's brushes on the ride cymbal provide constant texture. Can you hear the brush pattern clearly beneath the saxophone? On resolving headphones, the cymbal has its own space and never masks the solo.",
+            "bestRevealedBy": [
+              "planar",
+              "neutral-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "muddy-bass-cans"
+            ],
+            "headphoneNote": "Planars with neutral amps keep lines distinct; muddy-bass cans smear them together."
+          },
+          {
+            "time": "6:00-8:00",
+            "skill": "air",
+            "note": "The 30th Street Studio was a converted church with a high ceiling. You can HEAR that room in the natural reverb around each instrument. It's not artificial \u2014 it's captured acoustic space. This is why the recording sounds alive, not sterile.",
+            "bestRevealedBy": [
+              "open-back",
+              "lossless",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "closed-back",
+              "lossy"
+            ],
+            "headphoneNote": "Open-backs let the high-frequency air breathe; closed-backs and lossy sources bottle it up."
+          }
+        ],
+        "takeaway": "Jazz is the ultimate headphone test because it captures real instruments in real space with minimal processing. There's nowhere for bad equipment to hide. If Kind of Blue sounds flat and congested on your headphones, they're not resolving enough."
+      },
+      "equipment": {
+        "source": "The 1997 Columbia Legacy remaster (corrected speed) or the 2013 SACD/hi-res remaster. Avoid early CDs with the speed error. FLAC 24/96 is ideal.",
+        "whyItMatters": "The natural room acoustics and instrument separation require lossless quality. The subtle reverb tails and cymbal textures that create the sense of 'being there' are among the first things lost in compression."
+      },
+      "abx": {
+        "segment": "0:33-1:30",
+        "skill": "transients",
+        "defaultBitrate": 192,
+        "rationale": "fast attack transients reveal codec smearing immediately"
+      },
+      "venue": {
+        "name": "30th Street Studio (Adams Memorial Church)",
+        "location": "New York City, USA",
+        "year": 1875,
+        "type": "studio",
+        "caption": "Columbia Records' legendary 'The Church' — a converted Presbyterian church at 207 East 30th Street. Vaulted wood ceiling and 100-foot length gave it an acoustic no engineer has matched since. Kind of Blue was cut here in 1959. Demolished in 1981.",
+        "image": {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/7/7c/%28King1893NYC%29_pg375_ADAMS_MEMORIAL_CHURCH%2C_PRESBYTERIAN%2C_211_EAST_30TH_STREET.jpg",
+          "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/%28King1893NYC%29_pg375_ADAMS_MEMORIAL_CHURCH%2C_PRESBYTERIAN%2C_211_EAST_30TH_STREET.jpg/500px-%28King1893NYC%29_pg375_ADAMS_MEMORIAL_CHURCH%2C_PRESBYTERIAN%2C_211_EAST_30TH_STREET.jpg",
+          "alt": "Adams Memorial Presbyterian Church, 211 East 30th Street, NYC — later Columbia's 30th Street Studio",
+          "license": "public domain",
+          "author": "Moses King (King's Handbook of New York City, 1893)",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:(King1893NYC)_pg375_ADAMS_MEMORIAL_CHURCH,_PRESBYTERIAN,_211_EAST_30TH_STREET.jpg"
+        }
+      }
+    },
+    {
+      "id": "lesson-010",
+      "title": "Classical Grandeur",
+      "difficulty": "advanced",
+      "skills": [
+        "soundstage",
+        "dynamics",
+        "layering",
+        "tonal-color"
+      ],
+      "album": {
+        "title": "Beethoven: Symphony No. 7",
+        "artist": "Carlos Kleiber / Vienna Philharmonic",
+        "year": 1976,
+        "genre": "classical",
+        "label": "Deutsche Grammophon",
+        "format": "Analog recording at the Musikverein, Vienna \u2014 one of the world's greatest concert halls. The natural acoustics are captured magnificently.",
+        "masteredBy": "DG Originals remaster"
+      },
+      "track": {
+        "title": "Symphony No. 7 - II. Allegretto",
+        "duration": "8:09",
+        "musicbrainzRecordingId": "d277c8c4-720a-43cd-8757-9fe82db9859f",
+        "versionNote": "Carlos Kleiber & Vienna Philharmonic, 1976 Deutsche Grammophon recording, 8:09. NOT live recordings or other conductors."
+      },
+      "guide": {
+        "intro": "Classical music is the most demanding test of audio reproduction. A full symphony orchestra has an enormous dynamic range, frequency range, and spatial complexity. Kleiber's Beethoven 7th with the Vienna Philharmonic in the Musikverein is a legendary recording \u2014 the hall itself is an instrument, and you can hear every corner of it.",
+        "listenFor": [
+          {
+            "time": "0:00-1:00",
+            "skill": "soundstage",
+            "note": "The movement opens with low strings playing the famous theme. The soundstage should feel ENORMOUS compared to pop recordings. The Musikverein is a shoebox hall, and the sound wraps around you. On open-backs, this should feel like sitting in the concert hall.",
+            "bestRevealedBy": [
+              "open-back"
+            ],
+            "weakOn": [
+              "closed-back",
+              "iem"
+            ],
+            "headphoneNote": "Open-back cans render this width effortlessly; closed-backs and IEMs collapse it inward."
+          },
+          {
+            "time": "1:00-2:00",
+            "skill": "layering",
+            "note": "As instruments join, they're placed at physical distances: first violins forward-left, cellos forward-right, winds behind, brass far back, timpani furthest. You're hearing actual orchestral seating translated through microphones into headphones.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar",
+              "lossless"
+            ],
+            "weakOn": [
+              "mushy-mid-cans"
+            ],
+            "headphoneNote": "Open planars resolve front-to-back depth; mushy-mid cans flatten the layers."
+          },
+          {
+            "time": "2:30-3:30",
+            "skill": "dynamics",
+            "note": "The theme builds from pianissimo to forte with utter control. An orchestra can go from near-silence to overwhelming power \u2014 a dynamic range of 70+ dB. If your source is compressed, this contrast is destroyed.",
+            "bestRevealedBy": [
+              "planar",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "iem"
+            ],
+            "headphoneNote": "Planars with a punchy amp slam these shifts; IEMs can compress the macro-dynamic contrast."
+          },
+          {
+            "time": "4:00-5:30",
+            "skill": "tonal-color",
+            "note": "Listen to the difference between the string sections: violins are bright and silvery, violas are darker and throatier, cellos are rich and woody, basses are deep and resonant. Each section has distinct timbre even playing the same melody.",
+            "bestRevealedBy": [
+              "open-back",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "bright-tuned"
+            ],
+            "headphoneNote": "Warm open-backs preserve timbre; bright-tuned cans skew the natural color."
+          },
+          {
+            "time": "6:00-8:00",
+            "skill": "soundstage",
+            "note": "The full orchestra reaches its climax. Despite 80+ musicians playing, the Musikverein's acoustics maintain clarity. The brass blazes from the back of the stage while strings sing in front. This front-to-back depth is orchestral soundstage at its most grand.",
+            "bestRevealedBy": [
+              "open-back"
+            ],
+            "weakOn": [
+              "closed-back",
+              "iem"
+            ],
+            "headphoneNote": "Open-back cans render this width effortlessly; closed-backs and IEMs collapse it inward."
+          }
+        ],
+        "takeaway": "Classical music separates good audio from great audio. If an orchestra sounds like a wall of mush, your chain is failing. If you can hear the hall, place the sections, and feel the dynamic swells \u2014 your HD560s and lossless source are doing their job. This is what they were designed for."
+      },
+      "equipment": {
+        "source": "CD or FLAC. The DG Originals remaster is excellent. SACD/hi-res if available. Classical demands lossless \u2014 the hall acoustics contain information across the entire frequency and dynamic range.",
+        "whyItMatters": "A full orchestra occupies the entire frequency range (20Hz-20kHz) and dynamic range (40+ dB). Lossy codecs struggle with the complexity of 80+ instruments, and dynamic range compression destroys the pianissimo-to-fortissimo journey."
+      },
+      "abx": {
+        "segment": "2:30-3:30",
+        "skill": "dynamics",
+        "defaultBitrate": 192,
+        "rationale": "macro-dynamic transitions are where MP3 compression first loses headroom"
+      },
+      "venue": {
+        "name": "Musikverein, Goldener Saal",
+        "location": "Vienna, Austria",
+        "year": 1870,
+        "type": "concert-hall",
+        "caption": "The Vienna Philharmonic's home — a 1,744-seat shoebox hall with an unmatched 'wood-and-gold' acoustic. Considered one of the three best concert halls on Earth. Reverb time around 2 seconds; the room itself is part of every recording.",
+        "image": {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Wien_-_Musikverein%2C_gro%C3%9Fer_Saal.JPG",
+          "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Wien_-_Musikverein%2C_gro%C3%9Fer_Saal.JPG/960px-Wien_-_Musikverein%2C_gro%C3%9Fer_Saal.JPG",
+          "alt": "Interior of the Goldener Saal (Golden Hall) of the Musikverein, Vienna",
+          "license": "CC BY-SA 4.0",
+          "author": "C.Stadler/Bwag",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Wien_-_Musikverein,_gro%C3%9Fer_Saal.JPG"
+        }
+      }
+    },
+    {
+      "id": "lesson-011",
+      "title": "Electronic Precision",
+      "difficulty": "advanced",
+      "skills": [
+        "transients",
+        "bass",
+        "separation",
+        "air",
+        "detail"
+      ],
+      "album": {
+        "title": "Music Has the Right to Children",
+        "artist": "Boards of Canada",
+        "year": 1998,
+        "genre": "electronic",
+        "label": "Warp",
+        "format": "Meticulously crafted analog-digital hybrid production. Every sound is intentionally degraded, layered, and placed. The lo-fi aesthetic is paradoxically high-fidelity.",
+        "masteredBy": "Boards of Canada (self-mastered)"
+      },
+      "track": {
+        "title": "Roygbiv",
+        "duration": "2:31",
+        "musicbrainzRecordingId": "2a72cd7b-f566-4c91-8e9b-7b33b95dfff7",
+        "versionNote": "Album version on Music Has the Right to Children (1998), 2:31."
+      },
+      "guide": {
+        "intro": "Boards of Canada create music that sounds like faded memories \u2014 warm, hazy, nostalgic. But beneath the lo-fi veneer is meticulous sound design. Every crackle, every detuned synth, every degraded sample is intentional. Good headphones reveal the extraordinary detail hiding inside the haze.",
+        "listenFor": [
+          {
+            "time": "0:00-0:15",
+            "skill": "detail",
+            "note": "The opening synth melody has a deliberate wow-and-flutter, like a damaged tape. But listen closely \u2014 it's not random degradation. It's precisely controlled analog synthesis. On revealing headphones, you hear the intentionality.",
+            "bestRevealedBy": [
+              "lossless",
+              "planar",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "lossy"
+            ],
+            "headphoneNote": "A neutral chain on lossless surfaces micro-detail; lossy sources smear the finest cues."
+          },
+          {
+            "time": "0:15-0:45",
+            "skill": "transients",
+            "note": "The beat enters with a hip-hop-style drum break. Notice the crispness of the hi-hat \u2014 it's been processed but retains its metallic attack. The kick has a specific 'thud' texture. Each percussive hit has been individually sculpted.",
+            "bestRevealedBy": [
+              "planar",
+              "fast-driver",
+              "lossless"
+            ],
+            "weakOn": [
+              "slow-dynamic",
+              "lossy"
+            ],
+            "headphoneNote": "Fast planar drivers nail the attack; slow dynamics and lossy codecs round it off."
+          },
+          {
+            "time": "0:45-1:15",
+            "skill": "bass",
+            "note": "A warm bass synth enters, detuned slightly. On good headphones, you can hear the detuning as a gentle beating between two slightly-mismatched frequencies. This is synthesis detail \u2014 the literal sound of waveform mathematics.",
+            "bestRevealedBy": [
+              "planar",
+              "closed-back",
+              "lossless"
+            ],
+            "weakOn": [
+              "bass-shy-iem",
+              "open-back"
+            ],
+            "headphoneNote": "Planars and sealed cans render texture and weight; bass-shy IEMs miss the foundation."
+          },
+          {
+            "time": "1:15-1:45",
+            "skill": "separation",
+            "note": "Multiple synth layers play simultaneously \u2014 melody, counter-melody, bass, pads, beats. Despite the warm, blurry aesthetic, each layer occupies its own frequency space. Try isolating the background pad \u2014 it's a different texture from the main melody.",
+            "bestRevealedBy": [
+              "planar",
+              "neutral-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "muddy-bass-cans"
+            ],
+            "headphoneNote": "Planars with neutral amps keep lines distinct; muddy-bass cans smear them together."
+          },
+          {
+            "time": "2:00-2:31",
+            "skill": "air",
+            "note": "The track fades with tape noise and harmonic artifacts. This 'noise' is actually part of the composition \u2014 it creates the atmosphere. On resolving headphones, you hear that the noise has stereo movement and tonal color, not just static hiss.",
+            "bestRevealedBy": [
+              "open-back",
+              "lossless",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "closed-back",
+              "lossy"
+            ],
+            "headphoneNote": "Open-backs let the high-frequency air breathe; closed-backs and lossy sources bottle it up."
+          }
+        ],
+        "takeaway": "Good audio reproduction isn't just for 'clean' recordings. Lo-fi and experimental music benefits enormously from resolving headphones because you hear the intentionality \u2014 the difference between accidental noise and artistic texture. Boards of Canada on good equipment is a revelation."
+      },
+      "equipment": {
+        "source": "FLAC or CD. The Warp original master is well-regarded. The analog character of the production is baked in, so lossless preserves the intentional texture.",
+        "whyItMatters": "Paradoxically, lo-fi music needs hi-fi reproduction. Lossy compression adds its own artifacts that compete with the intentional artifacts in the music, creating an indistinct mess."
+      },
+      "abx": {
+        "segment": "0:15-0:45",
+        "skill": "transients",
+        "defaultBitrate": 192,
+        "rationale": "fast attack transients reveal codec smearing immediately"
+      }
+    },
+    {
+      "id": "lesson-012",
+      "title": "The Live Experience",
+      "difficulty": "advanced",
+      "skills": [
+        "soundstage",
+        "dynamics",
+        "air",
+        "imaging"
+      ],
+      "album": {
+        "title": "Live in Paris",
+        "artist": "Diana Krall",
+        "year": 2002,
+        "genre": "jazz",
+        "label": "Verve Records",
+        "format": "Recorded live at the Olympia Theatre in Paris, late 2001. Produced by Tommy LiPuma; engineered and mixed by Al Schmitt. Widely regarded as one of the best-sounding jazz live recordings ever released.",
+        "masteredBy": "Doug Sax (original); Al Schmitt mix"
+      },
+      "track": {
+        "title": "I Love Being Here With You",
+        "duration": "5:45",
+        "musicbrainzRecordingId": "5444c6d0-b7ff-4e49-bb73-eaf2731926e7",
+        "versionNote": "Album opener on Live in Paris (2002), 5:45. Recorded live at the Olympia Theatre."
+      },
+      "guide": {
+        "intro": "Live recordings are the ultimate reference because you're hearing real instruments in a real space with a real audience. Diana Krall's Live in Paris, captured at the Olympia Theatre and produced by Tommy LiPuma with Al Schmitt at the console, is a touchstone of audiophile jazz fidelity. 'I Love Being Here With You' opens the album with audience applause and instantly demonstrates everything live recording does well: room presence, natural instrument placement, and uncompressed dynamics.",
+        "listenFor": [
+          {
+            "time": "0:00-0:30",
+            "skill": "air",
+            "note": "Before the first note, listen to the room itself \u2014 the Olympia Theatre breathing through the recording. You'll hear audience presence, natural reverb, and the quiet rustle of a working theatre. This is what 'air' means in audio: the sense of physical space that distinguishes a live venue from a studio mix. Open-back headphones make this dramatically more obvious than closed-backs.",
+            "bestRevealedBy": [
+              "open-back",
+              "lossless",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "closed-back",
+              "lossy"
+            ],
+            "headphoneNote": "Open-backs let the high-frequency air breathe; closed-backs and lossy sources bottle it up."
+          },
+          {
+            "time": "0:30-1:30",
+            "skill": "imaging",
+            "note": "As Krall's voice enters with the band, listen to the instrument placement: her piano anchored center, upright bass slightly right, drums center-rear with brushwork, guitar to the side. Unlike studio mixing where placement is artificial, every position here corresponds to where the musicians physically stood on stage. You should be able to point to each player.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar"
+            ],
+            "weakOn": [
+              "closed-back-budget"
+            ],
+            "headphoneNote": "Planars and good open-backs pinpoint placement; budget closed-backs blur the image."
+          },
+          {
+            "time": "1:30-2:45",
+            "skill": "soundstage",
+            "note": "Through the first verse and into the swing, the full ensemble fills the soundstage. Notice how wide the image feels \u2014 the small jazz combo isn't crammed into a narrow stereo picture, it's spread naturally across the theatre. Real soundstage has both width and depth: the audience sits behind you, the band sits in front.",
+            "bestRevealedBy": [
+              "open-back"
+            ],
+            "weakOn": [
+              "closed-back",
+              "iem"
+            ],
+            "headphoneNote": "Open-back cans render this width effortlessly; closed-backs and IEMs collapse it inward."
+          },
+          {
+            "time": "2:45-4:00",
+            "skill": "dynamics",
+            "note": "Live jazz lives in micro-dynamics \u2014 the small accents and decays that get compressed out of studio polish. Krall's piano fills, the walking bass, the drummer's brushed snare all breathe with subtle volume variation. Compare this to a heavily-mastered modern pop track and you'll feel the difference: real instruments, real volume, real space, no limiter glued across the master.",
+            "bestRevealedBy": [
+              "planar",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "iem"
+            ],
+            "headphoneNote": "Planars with a punchy amp slam these shifts; IEMs can compress the macro-dynamic contrast."
+          },
+          {
+            "time": "4:00-5:45",
+            "skill": "imaging",
+            "note": "As the song heads into its tag and final applause, focus on consistency: each musician has stayed in position throughout. Listen for individual audience cues \u2014 coughs, scattered applause, the pre-applause hush before the last note. Stable imaging across an entire performance is a hallmark of great live recording technique, and it's what makes you feel like you're sitting in the room rather than listening to a postcard of one.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar"
+            ],
+            "weakOn": [
+              "closed-back-budget"
+            ],
+            "headphoneNote": "Planars and good open-backs pinpoint placement; budget closed-backs blur the image."
+          }
+        ],
+        "takeaway": "Live recordings teach you what 'real' sounds like \u2014 because they ARE real. Once your ears calibrate to the sound of actual instruments in actual space, you'll notice when studio recordings get it right and when they don't. Krall's Live in Paris is a reference point for jazz fidelity the way Stop Making Sense is for rock: different idiom, same lesson \u2014 the room is the instrument."
+      },
+      "equipment": {
+        "source": "CD or 24-bit FLAC. The 2002 Verve mastering is reference-quality; the 2016 SACD/Blu-ray release adds additional headroom and dynamic range.",
+        "whyItMatters": "Live recordings have wide dynamic range (audience quiet \u2192 swing-band crescendo) and complex spatial information that lossy codecs struggle to preserve. The 'you are there' feeling requires lossless."
+      },
+      "abx": {
+        "segment": "2:45-4:00",
+        "skill": "dynamics",
+        "defaultBitrate": 192,
+        "rationale": "macro-dynamic transitions are where MP3 compression first loses headroom"
+      },
+      "venue": {
+        "name": "L'Olympia",
+        "location": "Paris, France",
+        "year": 1893,
+        "type": "concert-hall",
+        "caption": "2,000-seat Parisian music hall on Boulevard des Capucines, opened 1893. Edith Piaf, Brel, the Beatles all played here. Diana Krall recorded Live in Paris over four nights in November 2001 — the room's intimate red-velvet ambience is audible in every track.",
+        "image": {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Paris_Olympia_Hall_Salle_05012013_-_panoramio.jpg",
+          "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Paris_Olympia_Hall_Salle_05012013_-_panoramio.jpg/960px-Paris_Olympia_Hall_Salle_05012013_-_panoramio.jpg",
+          "alt": "Auditorium of L'Olympia in Paris, viewed from the rear of the hall",
+          "license": "CC BY-SA 3.0",
+          "author": "rene boulay",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Paris_Olympia_Hall_Salle_05012013_-_panoramio.jpg"
+        }
+      }
+    },
+    {
+      "id": "lesson-013",
+      "title": "Hip-Hop Production Basics",
+      "difficulty": "beginner",
+      "skills": [
+        "bass",
+        "transients",
+        "layering"
+      ],
+      "album": {
+        "title": "Illmatic",
+        "artist": "Nas",
+        "year": 1994,
+        "genre": "hip-hop",
+        "label": "Columbia",
+        "format": "Produced by DJ Premier, Pete Rock, Q-Tip, Large Professor, and L.E.S. A masterclass in sample-based production with boom-bap drums recorded at D&D, Chung King, and Battery Studios.",
+        "masteredBy": "Chris Gehringer"
+      },
+      "track": {
+        "title": "N.Y. State of Mind",
+        "duration": "4:54",
+        "musicbrainzRecordingId": "ee9eaab7-99e5-4ffe-8876-5b6882ef3d23",
+        "versionNote": "Album version on Illmatic (1994), 4:54."
+      },
+      "guide": {
+        "intro": "Illmatic redefined hip-hop production by layering jazz samples over hard-hitting boom-bap drums. DJ Premier's production on this track is a clinic in how sampling creates new textures from old recordings. The low-end foundation and drum transients are exceptional test material for any headphone.",
+        "listenFor": [
+          {
+            "time": "0:00-0:20",
+            "skill": "layering",
+            "note": "The track opens with a muted trumpet jazz sample sitting in the background while a piano loop occupies the mid-ground. Notice how these sampled elements are placed at different depths \u2014 the trumpet is distant and filtered, the piano is more present. This is layering through EQ and processing.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar",
+              "lossless"
+            ],
+            "weakOn": [
+              "mushy-mid-cans"
+            ],
+            "headphoneNote": "Open planars resolve front-to-back depth; mushy-mid cans flatten the layers."
+          },
+          {
+            "time": "0:20-0:45",
+            "skill": "transients",
+            "note": "The boom-bap kick and snare drop in. DJ Premier's drum programming has razor-sharp transients \u2014 the snare cracks with authority, the kick has a punchy thud. Listen for the attack on each drum hit; good headphones reveal the difference between the dry snare hit and its short room decay.",
+            "bestRevealedBy": [
+              "planar",
+              "fast-driver",
+              "lossless"
+            ],
+            "weakOn": [
+              "slow-dynamic",
+              "lossy"
+            ],
+            "headphoneNote": "Fast planar drivers nail the attack; slow dynamics and lossy codecs round it off."
+          },
+          {
+            "time": "0:45-1:30",
+            "skill": "bass",
+            "note": "The bass line sits deep in the mix, providing a warm foundation under Nas's voice. It has pitch definition \u2014 you can follow the actual notes moving. On revealing headphones, the bass has texture and contour rather than being one-note rumble.",
+            "bestRevealedBy": [
+              "planar",
+              "closed-back",
+              "lossless"
+            ],
+            "weakOn": [
+              "bass-shy-iem",
+              "open-back"
+            ],
+            "headphoneNote": "Planars and sealed cans render texture and weight; bass-shy IEMs miss the foundation."
+          },
+          {
+            "time": "2:00-2:45",
+            "skill": "layering",
+            "note": "During the verse, count the layers: Nas's voice (upfront and centered), the looped piano sample, the jazz trumpet stab, the kick, the snare, the hi-hat pattern, and a subtle background pad. Premier stacks these elements so each occupies its own frequency and stereo space.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar",
+              "lossless"
+            ],
+            "weakOn": [
+              "mushy-mid-cans"
+            ],
+            "headphoneNote": "Open planars resolve front-to-back depth; mushy-mid cans flatten the layers."
+          },
+          {
+            "time": "3:30-4:20",
+            "skill": "transients",
+            "note": "Listen to the hi-hat pattern throughout \u2014 it has a specific metallic shimmer that differs from the snare's crack and the kick's thump. Each percussive element has its own transient character. On flat, revealing headphones, these textures are distinct rather than blurred together.",
+            "bestRevealedBy": [
+              "planar",
+              "fast-driver",
+              "lossless"
+            ],
+            "weakOn": [
+              "slow-dynamic",
+              "lossy"
+            ],
+            "headphoneNote": "Fast planar drivers nail the attack; slow dynamics and lossy codecs round it off."
+          }
+        ],
+        "takeaway": "Hip-hop production is an underappreciated audiophile discipline. Sample-based music tests layering and separation, boom-bap drums test transient response, and the deep bass foundation tests low-frequency extension and texture. If you can hear each sample source as a distinct element, your headphones are doing their job."
+      },
+      "equipment": {
+        "source": "CD or FLAC. The original 1994 Columbia master is preferred by many. The 2014 20th anniversary remaster adds slight loudness but is also good. Avoid low-bitrate streams.",
+        "whyItMatters": "The layered samples and drum transients need lossless to maintain their distinct textures. Lossy compression tends to smear the sharp snare attacks and blur the subtle jazz samples into an indistinct wash."
+      },
+      "abx": {
+        "segment": "0:20-0:45",
+        "skill": "transients",
+        "defaultBitrate": 192,
+        "rationale": "fast attack transients reveal codec smearing immediately"
+      }
+    },
+    {
+      "id": "lesson-014",
+      "title": "Acoustic Recording Purity",
+      "difficulty": "beginner",
+      "skills": [
+        "air",
+        "tonal-color",
+        "detail"
+      ],
+      "album": {
+        "title": "Pink Moon",
+        "artist": "Nick Drake",
+        "year": 1972,
+        "genre": "folk",
+        "label": "Island Records",
+        "format": "Recorded in two overnight sessions at Sound Techniques studio, London, by engineer John Wood. Just voice and guitar with minimal overdubs. One of the purest acoustic recordings ever made.",
+        "masteredBy": "Robert Kirby (original); remastered by Bob Ludwig (2000)"
+      },
+      "track": {
+        "title": "Pink Moon",
+        "duration": "2:04",
+        "musicbrainzRecordingId": "d840d505-c0e0-44fe-9c03-3a272cfff88e",
+        "versionNote": "Album version on Pink Moon (1972), 2:04."
+      },
+      "guide": {
+        "intro": "Nick Drake recorded Pink Moon in just two late-night sessions \u2014 voice, acoustic guitar, and nothing else. Engineer John Wood placed a single pair of microphones to capture both voice and guitar simultaneously in the intimate Sound Techniques studio. The result is one of the most honest acoustic recordings in existence, with nowhere to hide imperfections.",
+        "listenFor": [
+          {
+            "time": "0:00-0:15",
+            "skill": "air",
+            "note": "The guitar enters alone. Immediately you hear the room \u2014 the small, warm studio space around the instrument. The air between the microphone and the guitar body is captured. On open-back headphones, this sounds like being in the room with Drake.",
+            "bestRevealedBy": [
+              "open-back",
+              "lossless",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "closed-back",
+              "lossy"
+            ],
+            "headphoneNote": "Open-backs let the high-frequency air breathe; closed-backs and lossy sources bottle it up."
+          },
+          {
+            "time": "0:15-0:35",
+            "skill": "tonal-color",
+            "note": "Drake's guitar has a distinctive woody, resonant tone \u2014 he used alternate tunings that create rich, ringing overtones. Notice how the body of the guitar resonates differently on bass notes versus treble. The wood of the instrument is audible in the timbre.",
+            "bestRevealedBy": [
+              "open-back",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "bright-tuned"
+            ],
+            "headphoneNote": "Warm open-backs preserve timbre; bright-tuned cans skew the natural color."
+          },
+          {
+            "time": "0:35-1:00",
+            "skill": "detail",
+            "note": "When Drake's voice enters, listen for the intimate details: the slight intake of breath before a phrase, the proximity effect giving warmth to quieter words, the natural room reflection of his voice off the studio walls. These micro-details only survive in lossless audio.",
+            "bestRevealedBy": [
+              "lossless",
+              "planar",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "lossy"
+            ],
+            "headphoneNote": "A neutral chain on lossless surfaces micro-detail; lossy sources smear the finest cues."
+          },
+          {
+            "time": "1:00-1:30",
+            "skill": "air",
+            "note": "In the pauses between vocal phrases, the room doesn't go silent \u2014 there's a living ambience, the natural tone of the studio space continuing. This 'air' is what separates a real acoustic recording from a digitally processed one.",
+            "bestRevealedBy": [
+              "open-back",
+              "lossless",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "closed-back",
+              "lossy"
+            ],
+            "headphoneNote": "Open-backs let the high-frequency air breathe; closed-backs and lossy sources bottle it up."
+          },
+          {
+            "time": "1:30-2:04",
+            "skill": "detail",
+            "note": "As the song ends, the guitar's final notes decay naturally into the room. You can hear the strings vibrating until they stop, the body resonance fading, the room absorbing the last energy. This unprocessed decay is a purity test for your entire audio chain.",
+            "bestRevealedBy": [
+              "lossless",
+              "planar",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "lossy"
+            ],
+            "headphoneNote": "A neutral chain on lossless surfaces micro-detail; lossy sources smear the finest cues."
+          }
+        ],
+        "takeaway": "A solo acoustic recording is the most transparent test of audio reproduction. There are no production tricks, no multi-tracking, no effects. What you hear is a person, an instrument, and a room. If it sounds real and present, your headphones are telling the truth."
+      },
+      "equipment": {
+        "source": "The 2000 Bob Ludwig remaster is excellent. FLAC 16/44.1 from CD. The original pressing is also prized. Avoid over-processed remasters.",
+        "whyItMatters": "With only voice and guitar, every nuance matters. Lossy compression removes the subtle room tone and guitar body resonance that make this recording feel alive rather than flat."
+      },
+      "abx": {
+        "segment": "0:35-1:00",
+        "skill": "detail",
+        "defaultBitrate": 192,
+        "rationale": "micro-details (pick attacks, breaths, room reflections) are first to disappear under lossy compression"
+      }
+    },
+    {
+      "id": "lesson-015",
+      "title": "Female Vocal Excellence",
+      "difficulty": "beginner",
+      "skills": [
+        "tonal-color",
+        "dynamics",
+        "air"
+      ],
+      "album": {
+        "title": "Live at Blues Alley",
+        "artist": "Eva Cassidy",
+        "year": 1996,
+        "genre": "jazz/blues",
+        "label": "Blix Street Records",
+        "format": "Recorded live at Blues Alley jazz club in Georgetown, Washington D.C., by Chris Biondo. A raw, intimate live capture with minimal processing \u2014 voice, guitar, and small band in a small room.",
+        "masteredBy": "Chris Biondo"
+      },
+      "track": {
+        "title": "Fields of Gold",
+        "duration": "4:59",
+        "musicbrainzRecordingId": "655b107e-fe9e-450b-bbe8-96359f8e15ae",
+        "versionNote": "Live version on Live at Blues Alley (1996), 4:59. NOT the studio version on Songbird (~4:25)."
+      },
+      "guide": {
+        "intro": "Eva Cassidy's voice is one of the most extraordinary instruments ever recorded. This live album, captured at a small jazz club months before her untimely death, presents her voice with devastating intimacy. The room is small enough that you hear every breath, every dynamic shift, every tonal shading of a voice that could move from jazz to blues to folk in a single phrase.",
+        "listenFor": [
+          {
+            "time": "0:00-0:30",
+            "skill": "tonal-color",
+            "note": "Cassidy's guitar introduction has a warm, nylon-string character. When her voice enters, notice the tonal richness \u2014 a natural warmth in the lower register that opens into a clear, bell-like upper range. This vocal timbre is extraordinarily complex, with multiple harmonic layers.",
+            "bestRevealedBy": [
+              "open-back",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "bright-tuned"
+            ],
+            "headphoneNote": "Warm open-backs preserve timbre; bright-tuned cans skew the natural color."
+          },
+          {
+            "time": "0:30-1:15",
+            "skill": "air",
+            "note": "You can hear the room around her voice \u2014 the small club, the close audience, the ambient reflections off walls. Between phrases, the silence is alive with room tone. This is the 'air' of a live recording that no studio effect can replicate.",
+            "bestRevealedBy": [
+              "open-back",
+              "lossless",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "closed-back",
+              "lossy"
+            ],
+            "headphoneNote": "Open-backs let the high-frequency air breathe; closed-backs and lossy sources bottle it up."
+          },
+          {
+            "time": "1:15-2:15",
+            "skill": "dynamics",
+            "note": "Cassidy drops to a near-whisper, then swells to full power within a single phrase. The dynamic range of her voice is enormous. Don't adjust your volume \u2014 let the quiet moments be quiet and the powerful moments wash over you. This is real vocal dynamics, not compression.",
+            "bestRevealedBy": [
+              "planar",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "iem"
+            ],
+            "headphoneNote": "Planars with a punchy amp slam these shifts; IEMs can compress the macro-dynamic contrast."
+          },
+          {
+            "time": "2:30-3:30",
+            "skill": "tonal-color",
+            "note": "As the song builds emotionally, her voice shifts timbre \u2014 from breathy and intimate to full-throated and resonant, with a slight natural vibrato on sustained notes. Each color change carries emotional meaning. Revealing headphones let you feel every shift.",
+            "bestRevealedBy": [
+              "open-back",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "bright-tuned"
+            ],
+            "headphoneNote": "Warm open-backs preserve timbre; bright-tuned cans skew the natural color."
+          },
+          {
+            "time": "3:45-4:42",
+            "skill": "air",
+            "note": "The final notes hang in the club's air. You can hear the audience's held breath, the room absorbing the last vibrations of her voice. Then the applause \u2014 distant, real, from a small crowd. The transition from music to silence to applause is a timeline of the live recording space.",
+            "bestRevealedBy": [
+              "open-back",
+              "lossless",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "closed-back",
+              "lossy"
+            ],
+            "headphoneNote": "Open-backs let the high-frequency air breathe; closed-backs and lossy sources bottle it up."
+          }
+        ],
+        "takeaway": "The female voice is one of the most demanding tests for audio equipment because our ears are most sensitive in the frequency range where it lives (1-4kHz). Any harshness, sibilance, or coloration is immediately obvious. When a recording makes a voice sound human and present, every link in the chain is working."
+      },
+      "equipment": {
+        "source": "CD or FLAC. The Blix Street release is the definitive version. The simplicity of the recording \u2014 live to two-track with minimal processing \u2014 means what you hear is what was there.",
+        "whyItMatters": "Vocal harmonics and the subtle room ambience of a live club are fragile. Lossy compression strips the upper harmonics that give Cassidy's voice its distinctive shimmer and presence."
+      },
+      "abx": {
+        "segment": "1:15-2:15",
+        "skill": "dynamics",
+        "defaultBitrate": 192,
+        "rationale": "macro-dynamic transitions are where MP3 compression first loses headroom"
+      },
+      "venue": {
+        "name": "Blues Alley",
+        "location": "Washington, D.C., USA",
+        "year": 1965,
+        "type": "jazz-club",
+        "caption": "America's oldest continuously operating jazz supper club, tucked in a Georgetown carriage-house alley. Roughly 125 seats, brick walls, low ceiling. Eva Cassidy's Live at Blues Alley was recorded across two nights in January 1996 — you can hear the room's intimate dimensions on every breath.",
+        "image": {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Blues_Alley_Front.jpg",
+          "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Blues_Alley_Front.jpg/960px-Blues_Alley_Front.jpg",
+          "alt": "Front entrance of Blues Alley jazz club, Washington DC",
+          "license": "CC BY-SA 2.0",
+          "author": "Rudi Riet",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Blues_Alley_Front.jpg"
+        }
+      }
+    },
+    {
+      "id": "lesson-016",
+      "title": "Electronic Textures",
+      "difficulty": "intermediate",
+      "skills": [
+        "layering",
+        "bass",
+        "air"
+      ],
+      "album": {
+        "title": "Selected Ambient Works 85-92",
+        "artist": "Aphex Twin",
+        "year": 1992,
+        "genre": "electronic/ambient",
+        "label": "Apollo / R&S Records",
+        "format": "Recorded by Richard D. James on modified analog synthesizers, a Commodore home computer, and various tape machines. Lo-fi equipment producing remarkably textured, layered sound.",
+        "masteredBy": "Original pressing by R&S Records"
+      },
+      "track": {
+        "title": "Xtal",
+        "duration": "4:54",
+        "musicbrainzRecordingId": "e5e5e3c9-8515-4abf-aebb-7529b4e9aa0b",
+        "versionNote": "Album version on Selected Ambient Works 85-92 (1992), 4:54."
+      },
+      "guide": {
+        "intro": "Richard D. James created these tracks as a teenager using modified synths, tape loops, and early digital equipment. Despite the humble origins, Selected Ambient Works 85-92 is a landmark of electronic texture. 'Xtal' layers shimmering pads, deep bass, and ethereal vocal samples into a sonic world that rewards deep listening on revealing equipment.",
+        "listenFor": [
+          {
+            "time": "0:00-0:30",
+            "skill": "air",
+            "note": "A wash of reverb-drenched pads opens the track, creating an enormous sense of space. This is synthetic air \u2014 reverb and delay used to construct a virtual room. On open-back headphones, the sound seems to exist in a vast, undefined space around your head.",
+            "bestRevealedBy": [
+              "open-back",
+              "lossless",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "closed-back",
+              "lossy"
+            ],
+            "headphoneNote": "Open-backs let the high-frequency air breathe; closed-backs and lossy sources bottle it up."
+          },
+          {
+            "time": "0:30-1:00",
+            "skill": "bass",
+            "note": "A deep, round bass pulse enters, almost felt more than heard. It's an analog synth bass with warm harmonic content \u2014 not the tight, defined bass of acoustic instruments, but a broader, enveloping low-frequency foundation. Follow its movement; it has melody.",
+            "bestRevealedBy": [
+              "planar",
+              "closed-back",
+              "lossless"
+            ],
+            "weakOn": [
+              "bass-shy-iem",
+              "open-back"
+            ],
+            "headphoneNote": "Planars and sealed cans render texture and weight; bass-shy IEMs miss the foundation."
+          },
+          {
+            "time": "1:00-2:00",
+            "skill": "layering",
+            "note": "Count the layers: the ambient pad (furthest back), the bass pulse (low and wide), a mid-frequency synth arpeggio, scattered breakbeat drums (forward and crisp), and ghostly vocal samples (floating above). Each layer exists at a different depth and frequency, creating a three-dimensional soundscape.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar",
+              "lossless"
+            ],
+            "weakOn": [
+              "mushy-mid-cans"
+            ],
+            "headphoneNote": "Open planars resolve front-to-back depth; mushy-mid cans flatten the layers."
+          },
+          {
+            "time": "2:00-3:00",
+            "skill": "layering",
+            "note": "New melodic elements drift in and out without announcement. James layers synth lines that overlap and interweave. On revealing headphones, you notice these aren't repeated loops \u2014 subtle variations in the patterns emerge, revealing a composition that's more complex than it first appears.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar",
+              "lossless"
+            ],
+            "weakOn": [
+              "mushy-mid-cans"
+            ],
+            "headphoneNote": "Open planars resolve front-to-back depth; mushy-mid cans flatten the layers."
+          },
+          {
+            "time": "3:30-4:54",
+            "skill": "air",
+            "note": "The track breathes in its final section, layers dropping away and returning. The reverb tails of different elements overlap, creating a continuously shifting ambient space. The 'air' here is entirely constructed \u2014 synthetic reverb simulating a space that doesn't physically exist, yet utterly convincing.",
+            "bestRevealedBy": [
+              "open-back",
+              "lossless",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "closed-back",
+              "lossy"
+            ],
+            "headphoneNote": "Open-backs let the high-frequency air breathe; closed-backs and lossy sources bottle it up."
+          }
+        ],
+        "takeaway": "Electronic ambient music tests different qualities than acoustic recordings. Instead of real room acoustics, you're evaluating how well your headphones render synthetic spaces, textured bass, and layered synthesis. The best equipment makes these artificial worlds feel tangible and three-dimensional."
+      },
+      "equipment": {
+        "source": "FLAC or CD. The original R&S/Apollo pressing is well-regarded. The lo-fi source material means CD quality captures everything, but lossless is essential to preserve the layered textures.",
+        "whyItMatters": "The overlapping reverb tails and subtle synth variations are exactly what lossy codecs discard as 'noise.' In ambient music, those textures ARE the music."
+      },
+      "abx": {
+        "segment": "0:30-1:00",
+        "skill": "bass",
+        "defaultBitrate": 192,
+        "rationale": "low-frequency texture and harmonic content suffer measurably at lower bitrates"
+      }
+    },
+    {
+      "id": "lesson-017",
+      "title": "Jazz Piano Intimacy",
+      "difficulty": "intermediate",
+      "skills": [
+        "imaging",
+        "air",
+        "detail"
+      ],
+      "album": {
+        "title": "Waltz for Debby",
+        "artist": "Bill Evans Trio",
+        "year": 1961,
+        "genre": "jazz",
+        "label": "Riverside Records",
+        "format": "Recorded live at the Village Vanguard, New York City, by engineer Dave Jones. A legendary live trio recording capturing piano, bass, and drums in one of the world's most famous jazz clubs.",
+        "masteredBy": "Jack Higgins (original); remastered by Keepnews Collection"
+      },
+      "track": {
+        "title": "Waltz for Debby",
+        "duration": "6:55",
+        "musicbrainzRecordingId": "404c2404-588f-4afa-b6e9-1ddb43d12314",
+        "versionNote": "Live version (Take 2) from the Village Vanguard sessions, June 25 1961, 6:54. NOT the 1956 studio version on New Jazz Conceptions (~3:00)."
+      },
+      "guide": {
+        "intro": "Bill Evans's trio with Scott LaFaro on bass and Paul Motian on drums recorded this live at the Village Vanguard just eleven days before LaFaro's death. The intimate club setting captures the interplay between three musicians listening and responding to each other in real time. The Vanguard's distinctive wedge-shaped room creates a unique acoustic signature.",
+        "listenFor": [
+          {
+            "time": "0:00-0:30",
+            "skill": "imaging",
+            "note": "Evans's piano occupies the left-center of the image. You can almost pinpoint the instrument's position on the Vanguard's small stage. The stereo placement reflects the actual microphone positions in the club \u2014 this is documentary imaging, not studio construction.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar"
+            ],
+            "weakOn": [
+              "closed-back-budget"
+            ],
+            "headphoneNote": "Planars and good open-backs pinpoint placement; budget closed-backs blur the image."
+          },
+          {
+            "time": "0:30-1:15",
+            "skill": "detail",
+            "note": "Listen to Evans's touch on the keys \u2014 the hammers striking the strings with varying intensity. Some notes are gentle and bell-like; others have a percussive attack. You can hear the mechanical action of the piano, the dampers lifting. This is the detail that separates a real piano from a digital one.",
+            "bestRevealedBy": [
+              "lossless",
+              "planar",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "lossy"
+            ],
+            "headphoneNote": "A neutral chain on lossless surfaces micro-detail; lossy sources smear the finest cues."
+          },
+          {
+            "time": "1:15-2:30",
+            "skill": "air",
+            "note": "Between phrases, listen for the club \u2014 audience murmurs, clinking glasses, the ambient tone of the room. This isn't noise to be eliminated; it's the proof that you're hearing a real performance in a real space. The Vanguard's low ceiling creates a warm, intimate acoustic.",
+            "bestRevealedBy": [
+              "open-back",
+              "lossless",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "closed-back",
+              "lossy"
+            ],
+            "headphoneNote": "Open-backs let the high-frequency air breathe; closed-backs and lossy sources bottle it up."
+          },
+          {
+            "time": "3:00-4:30",
+            "skill": "imaging",
+            "note": "Scott LaFaro's bass enters more prominently, positioned to the right. His interplay with Evans creates a stereo conversation \u2014 notes pass between left and right as piano and bass respond to each other. Motian's brushwork sits behind both, providing a rhythmic backdrop at a further depth.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar"
+            ],
+            "weakOn": [
+              "closed-back-budget"
+            ],
+            "headphoneNote": "Planars and good open-backs pinpoint placement; budget closed-backs blur the image."
+          },
+          {
+            "time": "5:00-6:30",
+            "skill": "detail",
+            "note": "In the trio's final passages, focus on LaFaro's bass technique \u2014 you can hear his fingers plucking the thick strings, the woody resonance of the instrument's body, the slight buzz of the string against the fingerboard on faster passages. These are the micro-details that make live jazz the ultimate audio test.",
+            "bestRevealedBy": [
+              "lossless",
+              "planar",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "lossy"
+            ],
+            "headphoneNote": "A neutral chain on lossless surfaces micro-detail; lossy sources smear the finest cues."
+          }
+        ],
+        "takeaway": "A piano trio in a small club is one of the purest tests of imaging and detail. Three instruments, three positions, one room. If you can close your eyes and point to each player, and hear the wood and strings and air of each instrument, your audio chain is truly transparent."
+      },
+      "equipment": {
+        "source": "The Keepnews Collection remaster or the Analogue Productions SACD are both excellent. Original Riverside pressings are prized. FLAC 24/96 if available.",
+        "whyItMatters": "The subtle club ambience, piano hammer detail, and bass string texture are extremely delicate information. Lossy compression erases the room tone and smooths the mechanical piano details into a generic 'keyboard' sound."
+      },
+      "abx": {
+        "segment": "0:30-1:15",
+        "skill": "detail",
+        "defaultBitrate": 192,
+        "rationale": "micro-details (pick attacks, breaths, room reflections) are first to disappear under lossy compression"
+      },
+      "venue": {
+        "name": "Village Vanguard",
+        "location": "New York City, USA",
+        "year": 1935,
+        "type": "jazz-club",
+        "caption": "A wedge-shaped basement room at 178 Seventh Avenue South — 123 seats, fifteen steps down from the street. Bill Evans Trio recorded here on Sunday June 25, 1961, ten days before bassist Scott LaFaro died. The pie-shape gives the club its uniquely close, dry sound.",
+        "image": {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Village_Vanguard%2C_178_7th_Ave_S%2C_New_York%2C_NY_10014%2C_August_2008.jpg",
+          "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Village_Vanguard%2C_178_7th_Ave_S%2C_New_York%2C_NY_10014%2C_August_2008.jpg/960px-Village_Vanguard%2C_178_7th_Ave_S%2C_New_York%2C_NY_10014%2C_August_2008.jpg",
+          "alt": "Awning of the Village Vanguard jazz club on Seventh Avenue South in Greenwich Village",
+          "license": "CC BY-SA 4.0",
+          "author": "Dada1960",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Village_Vanguard,_178_7th_Ave_S,_New_York,_NY_10014,_August_2008.jpg"
+        }
+      }
+    },
+    {
+      "id": "lesson-018",
+      "title": "Metal Dynamics",
+      "difficulty": "intermediate",
+      "skills": [
+        "dynamics",
+        "bass",
+        "transients"
+      ],
+      "album": {
+        "title": "Lateralus",
+        "artist": "Tool",
+        "year": 2001,
+        "genre": "progressive metal",
+        "label": "Volcano Entertainment",
+        "format": "Recorded at Cello Studios (formerly Ocean Way) and The Hook, produced by David Bottrill. Exceptional dynamic range for a metal recording, with meticulous attention to drum and bass tones.",
+        "masteredBy": "Bob Ludwig (Gateway Mastering)"
+      },
+      "track": {
+        "title": "Lateralus",
+        "duration": "9:24",
+        "musicbrainzRecordingId": "1f56ef4e-6da0-460d-b208-6499b9fab314",
+        "versionNote": "Album version on Lateralus (2001), 9:24."
+      },
+      "guide": {
+        "intro": "Tool's Lateralus defies the metal stereotype of compressed, distorted walls of noise. Bob Ludwig's mastering preserves enormous dynamic range, and David Bottrill's production gives each instrument its own space. Danny Carey's polyrhythmic drumming and Justin Chancellor's bass tone are audiophile-grade, making this one of the best-produced heavy records ever made.",
+        "listenFor": [
+          {
+            "time": "0:00-0:40",
+            "skill": "dynamics",
+            "note": "The song opens with a quiet, almost meditative bass and drum pattern. The volume is deliberately restrained. Resist turning it up \u2014 this quiet opening is setting up the enormous dynamic contrast that follows. The difference between this intro and the full-band sections is staggering.",
+            "bestRevealedBy": [
+              "planar",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "iem"
+            ],
+            "headphoneNote": "Planars with a punchy amp slam these shifts; IEMs can compress the macro-dynamic contrast."
+          },
+          {
+            "time": "0:40-1:30",
+            "skill": "bass",
+            "note": "Justin Chancellor's bass has a distinctive growling tone with heavy distortion, yet the notes remain clearly defined. On revealing headphones, you can hear the fundamental pitch beneath the distortion harmonics. This is bass quality in a heavy context \u2014 texture and definition coexisting with aggression.",
+            "bestRevealedBy": [
+              "planar",
+              "closed-back",
+              "lossless"
+            ],
+            "weakOn": [
+              "bass-shy-iem",
+              "open-back"
+            ],
+            "headphoneNote": "Planars and sealed cans render texture and weight; bass-shy IEMs miss the foundation."
+          },
+          {
+            "time": "2:00-3:30",
+            "skill": "transients",
+            "note": "Danny Carey's drumming is the star. Listen to the attack of each hit \u2014 the crack of the snare, the sharp ping of the ride cymbal, the deep thud of the kick drum. Despite playing complex polyrhythms in odd time signatures, every hit is distinct. The transient clarity is breathtaking.",
+            "bestRevealedBy": [
+              "planar",
+              "fast-driver",
+              "lossless"
+            ],
+            "weakOn": [
+              "slow-dynamic",
+              "lossy"
+            ],
+            "headphoneNote": "Fast planar drivers nail the attack; slow dynamics and lossy codecs round it off."
+          },
+          {
+            "time": "5:00-6:30",
+            "skill": "dynamics",
+            "note": "The song builds through its middle section with escalating intensity. Then it drops to near-silence before the climactic explosion. This quiet-loud architecture has enormous macro-dynamic range \u2014 far more than typical modern metal, which is often compressed into a narrow loudness band.",
+            "bestRevealedBy": [
+              "planar",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "iem"
+            ],
+            "headphoneNote": "Planars with a punchy amp slam these shifts; IEMs can compress the macro-dynamic contrast."
+          },
+          {
+            "time": "7:30-9:24",
+            "skill": "transients",
+            "note": "The final section features all four musicians at full intensity. Even at maximum volume and complexity, each drum hit retains its transient attack, the guitar riffs have defined note separation, and the bass maintains its pitch clarity. Bob Ludwig's mastering ensures the loudest moments never clip or smear.",
+            "bestRevealedBy": [
+              "planar",
+              "fast-driver",
+              "lossless"
+            ],
+            "weakOn": [
+              "slow-dynamic",
+              "lossy"
+            ],
+            "headphoneNote": "Fast planar drivers nail the attack; slow dynamics and lossy codecs round it off."
+          }
+        ],
+        "takeaway": "Well-produced metal is an exceptional audiophile test because it combines extreme dynamics, dense layering, and demanding transients. If your headphones can handle Lateralus without the drums smearing or the bass becoming muddy, they can handle anything."
+      },
+      "equipment": {
+        "source": "CD or FLAC. The original 2001 master by Bob Ludwig is excellent and has not been remastered into a louder version. This is increasingly rare for a major-label metal album.",
+        "whyItMatters": "Metal's dense instrumentation and wide dynamic range need lossless encoding. Lossy compression rounds off the drum transients that give this recording its visceral impact and blurs the distorted guitar textures together."
+      },
+      "abx": {
+        "segment": "0:00-0:40",
+        "skill": "dynamics",
+        "defaultBitrate": 192,
+        "rationale": "macro-dynamic transitions are where MP3 compression first loses headroom"
+      }
+    },
+    {
+      "id": "lesson-019",
+      "title": "Singer-Songwriter Clarity",
+      "difficulty": "intermediate",
+      "skills": [
+        "tonal-color",
+        "detail",
+        "air"
+      ],
+      "album": {
+        "title": "Blue",
+        "artist": "Joni Mitchell",
+        "year": 1971,
+        "genre": "folk/singer-songwriter",
+        "label": "Reprise Records",
+        "format": "Produced by Joni Mitchell, recorded by Henry Lewy at A&M Studios, Hollywood. Sparse, intimate production featuring primarily voice, piano, guitar, and Appalachian dulcimer.",
+        "masteredBy": "Bernie Grundman (original); remastered by Bernie Grundman (2021 Asylum Years set)"
+      },
+      "track": {
+        "title": "A Case of You",
+        "duration": "4:21",
+        "musicbrainzRecordingId": "052ea50e-79cc-4b29-a1e7-b79781c1fc91",
+        "versionNote": "Album version on Blue (1971), 4:21. The Joni Mitchell original, NOT a cover."
+      },
+      "guide": {
+        "intro": "Blue is often cited as the greatest singer-songwriter album ever made, and its production is a key reason why. Henry Lewy's engineering at A&M Studios captures Mitchell's voice with startling intimacy \u2014 you hear every inflection, every breath, every subtle shift in emotion. The sparse arrangements leave nowhere to hide, making this a transparency test for any audio system.",
+        "listenFor": [
+          {
+            "time": "0:00-0:25",
+            "skill": "tonal-color",
+            "note": "Mitchell plays the Appalachian dulcimer \u2014 a rare instrument with a distinctive nasal, droning quality entirely unlike guitar or piano. On revealing headphones, the buzzing strings and hollow wooden body create a unique timbre that you should be able to identify as something other than any common instrument.",
+            "bestRevealedBy": [
+              "open-back",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "bright-tuned"
+            ],
+            "headphoneNote": "Warm open-backs preserve timbre; bright-tuned cans skew the natural color."
+          },
+          {
+            "time": "0:25-1:00",
+            "skill": "detail",
+            "note": "Mitchell's voice enters with remarkable proximity. You can hear the mechanics of her singing \u2014 the opening of her mouth before a phrase, the slight pitch bends between notes, the way consonants form. This is the detail of a close-miked vocal recorded with care.",
+            "bestRevealedBy": [
+              "lossless",
+              "planar",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "lossy"
+            ],
+            "headphoneNote": "A neutral chain on lossless surfaces micro-detail; lossy sources smear the finest cues."
+          },
+          {
+            "time": "1:00-2:00",
+            "skill": "air",
+            "note": "The space around the vocal and dulcimer is defined by A&M Studios' acoustics \u2014 a warm, dry room that gives intimacy without claustrophobia. In the pauses between phrases, listen for the natural room tone. It's quiet but present, giving the recording a sense of place.",
+            "bestRevealedBy": [
+              "open-back",
+              "lossless",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "closed-back",
+              "lossy"
+            ],
+            "headphoneNote": "Open-backs let the high-frequency air breathe; closed-backs and lossy sources bottle it up."
+          },
+          {
+            "time": "2:30-3:15",
+            "skill": "tonal-color",
+            "note": "As Mitchell moves through her vocal range, her timbre changes character \u2014 the lower notes have a husky warmth, the middle register is clear and focused, and higher notes take on a piercing, almost fragile quality. These shifts are emotional as well as acoustic.",
+            "bestRevealedBy": [
+              "open-back",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "bright-tuned"
+            ],
+            "headphoneNote": "Warm open-backs preserve timbre; bright-tuned cans skew the natural color."
+          },
+          {
+            "time": "3:30-4:21",
+            "skill": "detail",
+            "note": "The final verse is the most emotionally exposed. Listen for the micro-dynamics of her delivery \u2014 words that are half-sung, half-spoken, notes that waver with controlled vibrato, consonants that carry as much meaning as the vowels. This level of vocal nuance is what separates lossless from lossy.",
+            "bestRevealedBy": [
+              "lossless",
+              "planar",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "lossy"
+            ],
+            "headphoneNote": "A neutral chain on lossless surfaces micro-detail; lossy sources smear the finest cues."
+          }
+        ],
+        "takeaway": "Singer-songwriter recordings strip music to its essence: a voice, an instrument, and a room. Without layered production to mask imperfections, every quality of the recording chain is exposed. If Blue sounds intimate and real, your headphones are faithfully reproducing what the microphones captured."
+      },
+      "equipment": {
+        "source": "The 2021 Bernie Grundman remaster is superb. The original Reprise CD is also excellent. FLAC from either source.",
+        "whyItMatters": "The sparse arrangement means every sonic detail carries weight. Lossy compression removes the subtle room acoustics and vocal micro-textures that make this recording feel like Mitchell is performing just for you."
+      },
+      "abx": {
+        "segment": "0:25-1:00",
+        "skill": "detail",
+        "defaultBitrate": 192,
+        "rationale": "micro-details (pick attacks, breaths, room reflections) are first to disappear under lossy compression"
+      }
+    },
+    {
+      "id": "lesson-020",
+      "title": "R&B Warmth",
+      "difficulty": "intermediate",
+      "skills": [
+        "bass",
+        "layering",
+        "tonal-color"
+      ],
+      "album": {
+        "title": "Voodoo",
+        "artist": "D'Angelo",
+        "year": 2000,
+        "genre": "neo-soul/R&B",
+        "label": "Virgin Records",
+        "format": "Produced by D'Angelo and Questlove, recorded at Electric Lady Studios, New York. Live instrumentation with analog warmth, featuring Questlove on drums, Pino Palladino on bass, and Charlie Hunter on guitar.",
+        "masteredBy": "Bob Power (mix); Herb Powers (mastering)"
+      },
+      "track": {
+        "title": "Untitled (How Does It Feel)",
+        "duration": "4:21",
+        "musicbrainzRecordingId": "8925bd9e-b3e6-45ef-8f3b-a724d9f08e79",
+        "versionNote": "Single/radio edit (4:21) on Virgin Records compilations. NOT the 7:10 album version on Voodoo. Lesson timestamps are approximated from the original album-version structure \u2014 actual cuts in the single edit may shift by a few seconds."
+      },
+      "guide": {
+        "intro": "Voodoo is a landmark of warm, organic production in an era of clinical digital recording. Recorded at Jimi Hendrix's Electric Lady Studios with live musicians playing together, it has a richness and depth that rewards audiophile listening. 'Untitled' is a slow-burning soul masterpiece where every instrument seems to glow with analog warmth.",
+        "listenFor": [
+          {
+            "time": "0:00-0:25",
+            "skill": "bass",
+            "note": "Pino Palladino's bass guitar enters with an extraordinarily warm, round tone. Each note has a full harmonic envelope \u2014 fundamental, second harmonic, third harmonic \u2014 creating a bass sound that you feel in your chest. On good headphones, the individual harmonics are distinguishable.",
+            "bestRevealedBy": [
+              "planar",
+              "closed-back",
+              "lossless"
+            ],
+            "weakOn": [
+              "bass-shy-iem",
+              "open-back"
+            ],
+            "headphoneNote": "Planars and sealed cans render texture and weight; bass-shy IEMs miss the foundation."
+          },
+          {
+            "time": "0:25-1:00",
+            "skill": "layering",
+            "note": "Instruments enter gradually: bass, then drums, then guitar textures, then keyboard pads, then D'Angelo's voice. Each layer is placed at a different depth and frequency range. The mix is dense but never crowded \u2014 Electric Lady Studios' analog console provides natural separation.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar",
+              "lossless"
+            ],
+            "weakOn": [
+              "mushy-mid-cans"
+            ],
+            "headphoneNote": "Open planars resolve front-to-back depth; mushy-mid cans flatten the layers."
+          },
+          {
+            "time": "1:00-1:50",
+            "skill": "tonal-color",
+            "note": "D'Angelo's multi-tracked vocals create a choir of himself. Notice how each vocal layer has slightly different timbre \u2014 some are breathier, some more nasal, some more chest-voiced. The analog recording preserves the natural warmth and variation of each take.",
+            "bestRevealedBy": [
+              "open-back",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "bright-tuned"
+            ],
+            "headphoneNote": "Warm open-backs preserve timbre; bright-tuned cans skew the natural color."
+          },
+          {
+            "time": "2:00-2:50",
+            "skill": "bass",
+            "note": "Palladino shifts into a more melodic bass line. Follow the bass as it moves \u2014 it's not just holding down the low end but playing a counter-melody to D'Angelo's vocal. On revealing headphones, the bass has the texture of fingers on wound strings, not just low-frequency energy.",
+            "bestRevealedBy": [
+              "planar",
+              "closed-back",
+              "lossless"
+            ],
+            "weakOn": [
+              "bass-shy-iem",
+              "open-back"
+            ],
+            "headphoneNote": "Planars and sealed cans render texture and weight; bass-shy IEMs miss the foundation."
+          },
+          {
+            "time": "3:20-4:21",
+            "skill": "tonal-color",
+            "note": "The climax brings all elements together in full warmth. Questlove's drums have a deliberately softened, vintage character \u2014 not sharp transients but pillowy, warm hits. The entire mix glows with the harmonic saturation of analog tape recording. This is what 'warmth' means in audio \u2014 pleasant even-harmonic distortion.",
+            "bestRevealedBy": [
+              "open-back",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "bright-tuned"
+            ],
+            "headphoneNote": "Warm open-backs preserve timbre; bright-tuned cans skew the natural color."
+          }
+        ],
+        "takeaway": "Warmth in audio isn't vague \u2014 it's the presence of even-order harmonics from analog recording equipment: tube preamps, tape saturation, transformer coloration. Voodoo is soaked in this warmth. Neutral, revealing headphones let you hear it clearly rather than adding their own coloration."
+      },
+      "equipment": {
+        "source": "CD or FLAC. The original Virgin Records master preserves the analog warmth beautifully. This was one of the last major albums recorded entirely to analog tape.",
+        "whyItMatters": "The analog tape warmth and bass harmonics that define this album's character are exactly what lossy codecs strip away. Low-bitrate streams make Voodoo sound thin and clinical \u2014 the opposite of its intent."
+      },
+      "abx": {
+        "segment": "0:00-0:25",
+        "skill": "bass",
+        "defaultBitrate": 192,
+        "rationale": "low-frequency texture and harmonic content suffer measurably at lower bitrates"
+      },
+      "venue": {
+        "name": "Electric Lady Studios",
+        "location": "New York City, USA",
+        "year": 1970,
+        "type": "studio",
+        "caption": "Built by Jimi Hendrix in 1970 at 52 West 8th Street, Greenwich Village. Curved walls, no parallel surfaces, custom John Storyk acoustic design. D'Angelo cut Voodoo here over four years (1995–99) — the warm, rounded room sound is part of the record's signature.",
+        "image": {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Electric_Lady_Studios_2013.jpg",
+          "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Electric_Lady_Studios_2013.jpg/960px-Electric_Lady_Studios_2013.jpg",
+          "alt": "Front entrance of Electric Lady Studios on West 8th Street, Greenwich Village",
+          "license": "CC BY-SA 3.0",
+          "author": "Jhsounds",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Electric_Lady_Studios_2013.jpg"
+        }
+      }
+    },
+    {
+      "id": "lesson-021",
+      "title": "Post-Rock Build",
+      "difficulty": "intermediate",
+      "skills": [
+        "dynamics",
+        "soundstage",
+        "layering"
+      ],
+      "album": {
+        "title": "( )",
+        "artist": "Sigur Ros",
+        "year": 2002,
+        "genre": "post-rock",
+        "label": "FatCat Records",
+        "format": "Recorded at Sundlaugin (a converted swimming pool) in Mosfellsbaer, Iceland. Produced by the band with Ken Thomas. The unique recording space gives an enormous, cathedral-like reverb.",
+        "masteredBy": "Ray Staff (Whitfield Street)"
+      },
+      "track": {
+        "title": "Untitled #3 (Samskeyti)",
+        "duration": "6:33",
+        "musicbrainzRecordingId": "dcd561c9-1366-4d50-885b-d827b17f0292",
+        "versionNote": "Album version on ( ) (2002), 6:33."
+      },
+      "guide": {
+        "intro": "Sigur Ros recorded this untitled album in a converted swimming pool in Iceland, and the space defines the sound. The tracks build from near-silence to overwhelming walls of sound, testing dynamic range and soundstage like few other recordings. 'Samskeyti' is a slowly unfolding landscape of bowed guitar, strings, and atmospheric textures.",
+        "listenFor": [
+          {
+            "time": "0:00-0:45",
+            "skill": "layering",
+            "note": "A single keyboard tone sustains, joined gradually by a second voice, then a third. Each enters at a different pitch and subtly different position. This is the most basic form of layering \u2014 adding voices one by one until a chord emerges from individual tones.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar",
+              "lossless"
+            ],
+            "weakOn": [
+              "mushy-mid-cans"
+            ],
+            "headphoneNote": "Open planars resolve front-to-back depth; mushy-mid cans flatten the layers."
+          },
+          {
+            "time": "0:45-2:00",
+            "skill": "soundstage",
+            "note": "As the piece develops, the sound fills an enormous space. The converted swimming pool's natural reverb creates a soundstage that seems impossibly wide and deep. On open-back headphones, it extends well beyond your head, creating a sense of being inside a vast, resonant chamber.",
+            "bestRevealedBy": [
+              "open-back"
+            ],
+            "weakOn": [
+              "closed-back",
+              "iem"
+            ],
+            "headphoneNote": "Open-back cans render this width effortlessly; closed-backs and IEMs collapse it inward."
+          },
+          {
+            "time": "2:00-3:30",
+            "skill": "dynamics",
+            "note": "The build is glacially slow but relentless. Compare the volume now to the opening \u2014 the increase has been so gradual you may not have noticed. This is the essence of post-rock dynamics: patient, cumulative growth rather than sudden changes. Set your volume for this section; the climax is coming.",
+            "bestRevealedBy": [
+              "planar",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "iem"
+            ],
+            "headphoneNote": "Planars with a punchy amp slam these shifts; IEMs can compress the macro-dynamic contrast."
+          },
+          {
+            "time": "3:30-5:00",
+            "skill": "layering",
+            "note": "Strings, bowed guitar, organ, and voices merge into a dense but transparent wall of sound. On resolving headphones, this wall resolves into individual threads \u2014 you can pick out the violin from the bowed guitar, the organ from the synth pad. Poor headphones collapse this into an indistinct wash.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar",
+              "lossless"
+            ],
+            "weakOn": [
+              "mushy-mid-cans"
+            ],
+            "headphoneNote": "Open planars resolve front-to-back depth; mushy-mid cans flatten the layers."
+          },
+          {
+            "time": "5:00-6:33",
+            "skill": "dynamics",
+            "note": "The climax arrives \u2014 a massive swell of orchestral and electronic forces. The dynamic range from the opening to this moment is enormous. If you set your volume correctly at the start, this should be genuinely overwhelming. Then it fades, and the swimming pool's reverb carries the decay into silence.",
+            "bestRevealedBy": [
+              "planar",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "iem"
+            ],
+            "headphoneNote": "Planars with a punchy amp slam these shifts; IEMs can compress the macro-dynamic contrast."
+          }
+        ],
+        "takeaway": "Post-rock tests the extremes of dynamic range and soundstage. The genre's signature quiet-to-loud architecture requires headphones that can handle whisper-quiet subtlety and overwhelming crescendos without distortion. If the climax is as thrilling as the quiet opening is delicate, your equipment is working."
+      },
+      "equipment": {
+        "source": "CD or FLAC. The FatCat Records master preserves the full dynamic range. Vinyl is also excellent. The swimming pool reverb needs lossless to maintain its spatial character.",
+        "whyItMatters": "The extreme dynamic range and reverb-rich soundscapes are the first casualties of loudness normalization and lossy compression. Streaming services compress the very quiet-to-loud journey that defines this music."
+      },
+      "abx": {
+        "segment": "2:00-3:30",
+        "skill": "dynamics",
+        "defaultBitrate": 192,
+        "rationale": "macro-dynamic transitions are where MP3 compression first loses headroom"
+      }
+    },
+    {
+      "id": "lesson-022",
+      "title": "Reggae Space",
+      "difficulty": "intermediate",
+      "skills": [
+        "imaging",
+        "bass",
+        "separation"
+      ],
+      "album": {
+        "title": "Exodus",
+        "artist": "Bob Marley & The Wailers",
+        "year": 1977,
+        "genre": "reggae",
+        "label": "Island Records / Tuff Gong",
+        "format": "Recorded at Harry J Studios, Kingston, Jamaica, and Island Studios, London. Produced by Chris Blackwell and the Wailers. Mixed on an API console by Aston 'Family Man' Barrett and Chris Blackwell.",
+        "masteredBy": "Ted Jensen (2001 Deluxe Edition remaster)"
+      },
+      "track": {
+        "title": "Jamming",
+        "duration": "3:31",
+        "musicbrainzRecordingId": "d7a3a2c6-8ae9-4855-90ba-144f5ebf2994",
+        "versionNote": "Album version on Exodus (1977), 3:31."
+      },
+      "guide": {
+        "intro": "Reggae is one of the most spatially interesting genres in music. Its production style \u2014 heavy bass, skank guitar placed wide, vocals centered, percussion scattered across the stereo field \u2014 creates a uniquely open, spacious sound. Exodus, named by Time magazine as the album of the 20th century, showcases this spatial architecture at its finest.",
+        "listenFor": [
+          {
+            "time": "0:00-0:20",
+            "skill": "imaging",
+            "note": "The classic reggae arrangement: the skank guitar rhythm sits firmly in one channel while the bass occupies the center-low position. Notice how the guitar's position is deliberately off-center \u2014 this asymmetry is a hallmark of reggae mixing and creates the genre's characteristic openness.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar"
+            ],
+            "weakOn": [
+              "closed-back-budget"
+            ],
+            "headphoneNote": "Planars and good open-backs pinpoint placement; budget closed-backs blur the image."
+          },
+          {
+            "time": "0:20-0:50",
+            "skill": "bass",
+            "note": "Aston 'Family Man' Barrett's bass is the heartbeat of reggae. On revealing headphones, his bass has extraordinary depth and warmth \u2014 you can hear the round attack of his thumb on the strings, the sustain of each note, and the way the low frequencies interact with the kick drum. This is bass as melody.",
+            "bestRevealedBy": [
+              "planar",
+              "closed-back",
+              "lossless"
+            ],
+            "weakOn": [
+              "bass-shy-iem",
+              "open-back"
+            ],
+            "headphoneNote": "Planars and sealed cans render texture and weight; bass-shy IEMs miss the foundation."
+          },
+          {
+            "time": "0:50-1:30",
+            "skill": "separation",
+            "note": "Reggae mixing places each element in its own pocket: bass (center-low), drums (center), skank guitar (hard left or right), lead guitar (opposite side), keyboards (mid-field), vocals (center-front). On good headphones, each instrument occupies its own space without overlap.",
+            "bestRevealedBy": [
+              "planar",
+              "neutral-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "muddy-bass-cans"
+            ],
+            "headphoneNote": "Planars with neutral amps keep lines distinct; muddy-bass cans smear them together."
+          },
+          {
+            "time": "1:30-2:15",
+            "skill": "imaging",
+            "note": "Marley's lead vocal sits dead center and upfront, with the I-Threes backing vocals spread behind and slightly wider. This front-center versus back-wide imaging creates depth \u2014 the lead is intimate, the harmonies are atmospheric. Notice how each backing singer has a slightly different position.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar"
+            ],
+            "weakOn": [
+              "closed-back-budget"
+            ],
+            "headphoneNote": "Planars and good open-backs pinpoint placement; budget closed-backs blur the image."
+          },
+          {
+            "time": "2:30-3:31",
+            "skill": "separation",
+            "note": "In the final section, all elements play together at full energy. Despite the density, the open reggae arrangement maintains separation. Try following just the hi-hat, then just the bass, then just the organ. Each should be independently trackable \u2014 that's the genius of reggae spatial mixing.",
+            "bestRevealedBy": [
+              "planar",
+              "neutral-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "muddy-bass-cans"
+            ],
+            "headphoneNote": "Planars with neutral amps keep lines distinct; muddy-bass cans smear them together."
+          }
+        ],
+        "takeaway": "Reggae's genius is in its use of space. Where rock fills every frequency, reggae deliberately leaves gaps, creating an open, breathing mix that tests imaging and separation. If your headphones can place each instrument in its own pocket of space, they're revealing the mix as intended."
+      },
+      "equipment": {
+        "source": "The 2001 Ted Jensen Deluxe Edition remaster is excellent. CD or FLAC. The original Island pressing is also well-regarded. Avoid over-compressed modern remasters.",
+        "whyItMatters": "Reggae's spatial openness depends on preserving the silence between instruments. Lossy compression fills these gaps with artifacts, collapsing the spacious mix into a flat, congested sound."
+      },
+      "abx": {
+        "segment": "0:20-0:50",
+        "skill": "bass",
+        "defaultBitrate": 192,
+        "rationale": "low-frequency texture and harmonic content suffer measurably at lower bitrates"
+      },
+      "venue": {
+        "name": "Island Studios (Basing Street)",
+        "location": "Notting Hill, London, UK",
+        "year": 1969,
+        "type": "studio",
+        "caption": "A converted 19th-century Congregational chapel at 8–10 Basing Street, opened by Chris Blackwell as Island's home studio in 1969. Marley & The Wailers cut Exodus here in 1977 while Bob was in self-imposed London exile after the Kingston shooting. The chapel's wood interior gives the album its warm, woody bottom-end.",
+        "image": {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Former_Congregational_Chapel%2C_Basing_Street%2C_London_W11_%28June_2021%29_%282%29.jpg",
+          "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Former_Congregational_Chapel%2C_Basing_Street%2C_London_W11_%28June_2021%29_%282%29.jpg/960px-Former_Congregational_Chapel%2C_Basing_Street%2C_London_W11_%28June_2021%29_%282%29.jpg",
+          "alt": "Former Congregational Chapel on Basing Street, Notting Hill — home of Island Studios",
+          "license": "CC0",
+          "author": "Hassocks5489",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Former_Congregational_Chapel,_Basing_Street,_London_W11_(June_2021)_(2).jpg"
+        }
+      }
+    },
+    {
+      "id": "lesson-023",
+      "title": "Country Storytelling",
+      "difficulty": "intermediate",
+      "skills": [
+        "tonal-color",
+        "detail",
+        "dynamics"
+      ],
+      "album": {
+        "title": "American IV: The Man Comes Around",
+        "artist": "Johnny Cash",
+        "year": 2002,
+        "genre": "country/americana",
+        "label": "American Recordings / Lost Highway",
+        "format": "Produced by Rick Rubin. Sparse, intimate production recorded at Cash's cabin in Hendersonville, Tennessee, and in various studios. Minimal processing lets Cash's aged voice stand exposed.",
+        "masteredBy": "Vlado Meller"
+      },
+      "track": {
+        "title": "Hurt",
+        "duration": "3:38",
+        "musicbrainzRecordingId": "25d8de5e-3662-4ffd-8dea-511a696ac3e7",
+        "versionNote": "Johnny Cash version on American IV: The Man Comes Around (2002), 3:38. NOT the Nine Inch Nails original."
+      },
+      "guide": {
+        "intro": "Johnny Cash's cover of Nine Inch Nails' 'Hurt,' recorded near the end of his life, is one of the most emotionally devastating recordings in popular music. Rick Rubin's production is deliberately sparse \u2014 Cash's worn, trembling voice and a simple acoustic guitar, gradually joined by piano and strings. The recording captures the fragility of a legendary voice in its final chapter.",
+        "listenFor": [
+          {
+            "time": "0:00-0:30",
+            "skill": "tonal-color",
+            "note": "Cash's acoustic guitar has a warm, slightly brittle quality \u2014 you can hear the age of the strings and the character of the wood. The guitar tone is unprocessed and honest, with natural resonances and the subtle buzz of fingers on frets.",
+            "bestRevealedBy": [
+              "open-back",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "bright-tuned"
+            ],
+            "headphoneNote": "Warm open-backs preserve timbre; bright-tuned cans skew the natural color."
+          },
+          {
+            "time": "0:30-1:00",
+            "skill": "detail",
+            "note": "Cash's voice enters, and the detail is extraordinary \u2014 and heartbreaking. You hear the tremor of age, the slight wavering on sustained notes, the catch in his throat. The close miking captures every imperfection, and every imperfection carries emotional weight. This is the power of detail in audio.",
+            "bestRevealedBy": [
+              "lossless",
+              "planar",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "lossy"
+            ],
+            "headphoneNote": "A neutral chain on lossless surfaces micro-detail; lossy sources smear the finest cues."
+          },
+          {
+            "time": "1:00-1:45",
+            "skill": "dynamics",
+            "note": "Cash sings with quiet restraint, his voice barely above speaking volume. The piano enters softly beneath. This deliberate quietness is dynamic intention \u2014 Rubin preserves the intimacy by keeping the levels low. The emotional power comes from vulnerability, not volume.",
+            "bestRevealedBy": [
+              "planar",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "iem"
+            ],
+            "headphoneNote": "Planars with a punchy amp slam these shifts; IEMs can compress the macro-dynamic contrast."
+          },
+          {
+            "time": "1:45-2:30",
+            "skill": "tonal-color",
+            "note": "A subtle string arrangement enters, adding warmth beneath the sparse vocals. Notice the contrast: Cash's voice is dry and close, the strings are reverberant and distant. This timbral contrast between intimate dryness and spacious warmth creates emotional depth.",
+            "bestRevealedBy": [
+              "open-back",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "bright-tuned"
+            ],
+            "headphoneNote": "Warm open-backs preserve timbre; bright-tuned cans skew the natural color."
+          },
+          {
+            "time": "2:30-3:38",
+            "skill": "dynamics",
+            "note": "The song builds to its most intense moment \u2014 Cash's voice strains with emotion on 'empire of dirt.' Then everything falls away to just voice and guitar for the final 'you could have it all.' The dynamic arc from quiet resignation to emotional peak to devastating quietness is masterful.",
+            "bestRevealedBy": [
+              "planar",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "iem"
+            ],
+            "headphoneNote": "Planars with a punchy amp slam these shifts; IEMs can compress the macro-dynamic contrast."
+          }
+        ],
+        "takeaway": "Sometimes the most powerful audio test isn't technical perfection \u2014 it's whether a recording can make you feel something. If Cash's voice on 'Hurt' gives you chills through your headphones, the entire chain is communicating emotion, which is ultimately what high-fidelity audio is for."
+      },
+      "equipment": {
+        "source": "CD or FLAC. The American Recordings master is well-done. The sparse production means the recording quality is fully exposed \u2014 there's nothing to hide behind.",
+        "whyItMatters": "The vocal tremors and breath sounds that carry the emotional weight of this performance are fragile high-frequency details. Lossy compression smooths these away, turning a devastating performance into a merely good one."
+      },
+      "abx": {
+        "segment": "1:00-1:45",
+        "skill": "dynamics",
+        "defaultBitrate": 192,
+        "rationale": "macro-dynamic transitions are where MP3 compression first loses headroom"
+      },
+      "venue": {
+        "name": "Cash Cabin Studio",
+        "location": "Hendersonville, Tennessee, USA",
+        "year": 1979,
+        "type": "home-studio",
+        "caption": "A hand-hewn log cabin Johnny Cash built in 1979 behind his house on Old Hickory Lake — first as a writing retreat, then converted to a studio by son John Carter Cash. American IV: The Man Comes Around (2002) was tracked here. Wood walls, fireplace, the original cabin acoustic intact.",
+        "image": {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Cash_Cabin_Studio.jpg",
+          "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Cash_Cabin_Studio.jpg/960px-Cash_Cabin_Studio.jpg",
+          "alt": "Exterior of Cash Cabin Studio, a log cabin in Hendersonville, Tennessee",
+          "license": "CC BY-SA 2.0",
+          "author": "CJ Sorg",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cash_Cabin_Studio.jpg"
+        }
+      }
+    },
+    {
+      "id": "lesson-024",
+      "title": "Binaural Recording",
+      "difficulty": "advanced",
+      "skills": [
+        "soundstage",
+        "imaging",
+        "air"
+      ],
+      "album": {
+        "title": "The Ultimate Headphone Demonstration Disc",
+        "artist": "Various Artists",
+        "year": 2013,
+        "genre": "audiophile/binaural",
+        "label": "Chesky Records",
+        "format": "Recorded with the Chesky Binaural+ technique using a single-point stereo microphone array placed at head height. No mixing, no overdubs, no compression. Pure binaural capture.",
+        "masteredBy": "David Chesky / Nicholas Prout"
+      },
+      "track": {
+        "title": "Magnificat - Amber Rubarth",
+        "duration": "3:45",
+        "versionNote": "Audiophile demonstration recording on a Chesky Records release. Not on streaming services \u2014 play from local FLAC/Plex only.",
+        "audiophilePressing": true
+      },
+      "guide": {
+        "intro": "Binaural recording captures sound the way your ears actually hear it \u2014 using microphones placed at ear distance, preserving the timing and level differences your brain uses to localize sound. Chesky Records pioneered modern binaural recording, and this demonstration disc is specifically designed for headphone listening. The spatial effect on good headphones is startling.",
+        "listenFor": [
+          {
+            "time": "0:00-0:25",
+            "skill": "soundstage",
+            "note": "The binaural capture creates a soundstage that extends dramatically outside your head \u2014 unlike conventional stereo, which often sounds trapped between your ears. On open-back headphones, instruments seem to exist in a real room around you, not in a line between left and right.",
+            "bestRevealedBy": [
+              "open-back"
+            ],
+            "weakOn": [
+              "closed-back",
+              "iem"
+            ],
+            "headphoneNote": "Open-back cans render this width effortlessly; closed-backs and IEMs collapse it inward."
+          },
+          {
+            "time": "0:25-1:00",
+            "skill": "imaging",
+            "note": "Each instrument has a three-dimensional position: not just left/right, but forward/back and above/below. The binaural technique preserves the inter-aural timing differences your brain uses for localization. Close your eyes and try to point to each sound source \u2014 you should be able to with surprising accuracy.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar"
+            ],
+            "weakOn": [
+              "closed-back-budget"
+            ],
+            "headphoneNote": "Planars and good open-backs pinpoint placement; budget closed-backs blur the image."
+          },
+          {
+            "time": "1:00-1:45",
+            "skill": "air",
+            "note": "The recording space \u2014 a church \u2014 is extraordinarily present. You can hear the height of the ceiling in the reverb character, the distance to the walls in the early reflections. This is 'air' taken to its extreme: the room IS the recording, not just a background element.",
+            "bestRevealedBy": [
+              "open-back",
+              "lossless",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "closed-back",
+              "lossy"
+            ],
+            "headphoneNote": "Open-backs let the high-frequency air breathe; closed-backs and lossy sources bottle it up."
+          },
+          {
+            "time": "1:45-2:30",
+            "skill": "imaging",
+            "note": "As the performance builds, notice how instruments maintain their fixed positions \u2014 they don't wander or shift. This stability is a hallmark of binaural recording: because the microphone doesn't move, the spatial image is rock-solid. Pan-potted studio recordings rarely achieve this coherence.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar"
+            ],
+            "weakOn": [
+              "closed-back-budget"
+            ],
+            "headphoneNote": "Planars and good open-backs pinpoint placement; budget closed-backs blur the image."
+          },
+          {
+            "time": "2:30-3:45",
+            "skill": "soundstage",
+            "note": "In the final passages, the full reverb of the recording space decays naturally. The soundstage doesn't just have width \u2014 it has depth extending far behind the performers, as the room reflections reach you from all directions. This is what 'three-dimensional audio' actually means.",
+            "bestRevealedBy": [
+              "open-back"
+            ],
+            "weakOn": [
+              "closed-back",
+              "iem"
+            ],
+            "headphoneNote": "Open-back cans render this width effortlessly; closed-backs and IEMs collapse it inward."
+          }
+        ],
+        "takeaway": "Binaural recording is headphone-optimized by design. It bypasses the normal limitations of stereo reproduction by capturing the exact acoustic information your ears need for spatial perception. If any recording can make headphones disappear, it's a well-made binaural one."
+      },
+      "equipment": {
+        "source": "FLAC or hi-res download from HDtracks or Chesky's own store. 24/96 is available and recommended. This recording was engineered specifically for headphone playback.",
+        "whyItMatters": "The subtle inter-aural timing differences (measured in microseconds) that create the binaural effect are extremely sensitive to encoding artifacts. Lossy compression can destroy the spatial cues, collapsing the 3D effect into flat stereo."
+      },
+      "abx": {
+        "skip": true,
+        "reason": "Audiophile pressing \u2014 not on streaming services."
+      }
+    },
+    {
+      "id": "lesson-025",
+      "title": "Direct-to-Disc",
+      "difficulty": "advanced",
+      "skills": [
+        "transients",
+        "dynamics",
+        "detail"
+      ],
+      "album": {
+        "title": "The Sheffield Drum Record",
+        "artist": "Jim Keltner / Ron Tutt",
+        "year": 1981,
+        "genre": "audiophile/percussion",
+        "label": "Sheffield Lab",
+        "format": "Direct-to-disc recording: no tape, no mixing, no post-processing. The performance is cut directly to the lacquer master in real time. What you hear is exactly what the microphones captured in a single take.",
+        "masteredBy": "Doug Sax (Sheffield Lab)"
+      },
+      "track": {
+        "title": "Track 1 - Jim Keltner",
+        "duration": "4:30",
+        "versionNote": "Sheffield Lab direct-to-disc recording (1981 audiophile pressing). Not on streaming services \u2014 play from local FLAC/Plex only.",
+        "audiophilePressing": true
+      },
+      "guide": {
+        "intro": "Direct-to-disc is the purest form of recorded audio. There is no tape machine, no mixing console, no editing. The musicians' performance is cut directly onto the vinyl master lacquer in real time. Sheffield Lab, founded by legendary mastering engineer Doug Sax, pioneered this technique. The result is startling immediacy and transient speed that no other format can match.",
+        "listenFor": [
+          {
+            "time": "0:00-0:30",
+            "skill": "transients",
+            "note": "Jim Keltner's first snare hit will startle you. Without tape's inherent transient softening, the attack is blindingly fast \u2014 the stick hits the head, and you hear the impact with zero processing between the event and the recording. Compare this transient speed to any conventionally recorded drum sound.",
+            "bestRevealedBy": [
+              "planar",
+              "fast-driver",
+              "lossless"
+            ],
+            "weakOn": [
+              "slow-dynamic",
+              "lossy"
+            ],
+            "headphoneNote": "Fast planar drivers nail the attack; slow dynamics and lossy codecs round it off."
+          },
+          {
+            "time": "0:30-1:15",
+            "skill": "dynamics",
+            "note": "Keltner plays with enormous dynamic variation \u2014 ghost notes barely audible, then full-power rim shots. The dynamic range is limited only by the vinyl medium (about 70dB), with no compressor or limiter in the chain. The contrast between soft and loud is as extreme as live drumming.",
+            "bestRevealedBy": [
+              "planar",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "iem"
+            ],
+            "headphoneNote": "Planars with a punchy amp slam these shifts; IEMs can compress the macro-dynamic contrast."
+          },
+          {
+            "time": "1:15-2:15",
+            "skill": "detail",
+            "note": "Listen to the brushwork passages. You can hear individual bristles crossing the snare head, the changing texture as the brush changes angle and pressure. With no processing in the chain, every micro-detail the microphone captured is preserved intact.",
+            "bestRevealedBy": [
+              "lossless",
+              "planar",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "lossy"
+            ],
+            "headphoneNote": "A neutral chain on lossless surfaces micro-detail; lossy sources smear the finest cues."
+          },
+          {
+            "time": "2:15-3:15",
+            "skill": "transients",
+            "note": "The cymbal work reveals another advantage of direct-to-disc: the high-frequency shimmer of cymbals is captured with extraordinary clarity. The initial splash, the harmonic buildup, and the long decay are all preserved without the phase shifts that tape introduces.",
+            "bestRevealedBy": [
+              "planar",
+              "fast-driver",
+              "lossless"
+            ],
+            "weakOn": [
+              "slow-dynamic",
+              "lossy"
+            ],
+            "headphoneNote": "Fast planar drivers nail the attack; slow dynamics and lossy codecs round it off."
+          },
+          {
+            "time": "3:30-4:30",
+            "skill": "detail",
+            "note": "In the final section, Keltner uses the full drum kit. You can hear the tuning of each drum \u2014 the pitch relationship between the toms, the snare tension, the kick drum beater material. These details are the fingerprint of the instrument and the player, preserved with absolute fidelity.",
+            "bestRevealedBy": [
+              "lossless",
+              "planar",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "lossy"
+            ],
+            "headphoneNote": "A neutral chain on lossless surfaces micro-detail; lossy sources smear the finest cues."
+          }
+        ],
+        "takeaway": "Direct-to-disc recording removes every possible source of degradation between the performance and the listener. It's the closest you can get to being in the room with the musician. If you've never heard a D2D recording, it recalibrates your understanding of what recorded music can sound like."
+      },
+      "equipment": {
+        "source": "Original Sheffield Lab vinyl pressing is the definitive format. If available digitally, FLAC rip from a quality pressing. The entire point of D2D is the unbroken analog chain from microphone to groove.",
+        "whyItMatters": "The transient speed and micro-detail that make direct-to-disc special are precisely what every form of processing \u2014 tape, digital conversion, lossy encoding \u2014 degrades. Hearing this recording is hearing what's lost in normal production."
+      },
+      "abx": {
+        "skip": true,
+        "reason": "Audiophile pressing \u2014 not on streaming services."
+      }
+    },
+    {
+      "id": "lesson-026",
+      "title": "Tube vs Solid-State",
+      "difficulty": "advanced",
+      "skills": [
+        "tonal-color",
+        "detail"
+      ],
+      "album": {
+        "title": "At the Pershing: But Not for Me",
+        "artist": "Ahmad Jamal Trio",
+        "year": 1958,
+        "genre": "jazz",
+        "label": "Argo Records",
+        "format": "Recorded live at the Pershing Hotel Lounge, Chicago, with all-tube recording equipment typical of the late 1950s. The warm, harmonically rich sound is a benchmark of the tube recording era.",
+        "masteredBy": "Original Argo pressing; remastered for CD by various"
+      },
+      "track": {
+        "title": "Poinciana",
+        "duration": "8:08",
+        "musicbrainzRecordingId": "670cc8bc-18a4-4a82-8c12-1812ae9c3623",
+        "versionNote": "Live version from At the Pershing: But Not for Me (1958), 8:09. Ahmad Jamal Trio."
+      },
+      "guide": {
+        "intro": "This 1958 recording was made with entirely tube-based equipment \u2014 microphones with tube preamps, tube mixing console, tube tape machine electronics. The result is a sonic character that epitomizes what audiophiles mean by 'tube warmth': a rich, even-harmonic saturation that makes instruments glow. Ahmad Jamal's innovative use of space and dynamics made this a massive crossover hit.",
+        "listenFor": [
+          {
+            "time": "0:00-0:45",
+            "skill": "tonal-color",
+            "note": "Jamal's piano has a warmth and roundness that's distinctly different from modern digital recordings. The tube signal chain adds subtle even-harmonic distortion \u2014 second and fourth harmonics \u2014 that gives each note a fuller, richer body. The piano doesn't just make notes; it glows.",
+            "bestRevealedBy": [
+              "open-back",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "bright-tuned"
+            ],
+            "headphoneNote": "Warm open-backs preserve timbre; bright-tuned cans skew the natural color."
+          },
+          {
+            "time": "0:45-2:00",
+            "skill": "detail",
+            "note": "Despite the warm character, detail is not sacrificed. Listen to the way Jamal's right hand articulates individual notes \u2014 each has a distinct attack and decay. The tube equipment preserves transient detail while adding harmonic richness. This is the tube paradox: warm yet detailed.",
+            "bestRevealedBy": [
+              "lossless",
+              "planar",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "lossy"
+            ],
+            "headphoneNote": "A neutral chain on lossless surfaces micro-detail; lossy sources smear the finest cues."
+          },
+          {
+            "time": "2:00-3:30",
+            "skill": "tonal-color",
+            "note": "Israel Crosby's bass has an extraordinary wooden warmth through the tube chain. You can almost feel the resonating body of the instrument. Compare this mental sound to a modern, digitally recorded bass \u2014 the tube version has a roundness and organic quality that digital recordings struggle to replicate.",
+            "bestRevealedBy": [
+              "open-back",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "bright-tuned"
+            ],
+            "headphoneNote": "Warm open-backs preserve timbre; bright-tuned cans skew the natural color."
+          },
+          {
+            "time": "4:00-5:30",
+            "skill": "detail",
+            "note": "Jamal's signature technique \u2014 using silence as a musical element \u2014 is perfectly captured. The way notes ring into the room, the tube preamps preserving every nuance of the piano's sustain and decay, the natural compression of the tube output stage gently shaping the dynamics. Every silence is as detailed as every note.",
+            "bestRevealedBy": [
+              "lossless",
+              "planar",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "lossy"
+            ],
+            "headphoneNote": "A neutral chain on lossless surfaces micro-detail; lossy sources smear the finest cues."
+          },
+          {
+            "time": "6:00-8:00",
+            "skill": "tonal-color",
+            "note": "Vernel Fournier's famous 'Poinciana' rhythm on the hi-hat has a shimmering, almost liquid quality through the tube recording chain. On solid-state equipment, the same cymbal tends to sound sharper and more metallic. The tube coloration softens the high-frequency energy into something musical rather than analytical.",
+            "bestRevealedBy": [
+              "open-back",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "bright-tuned"
+            ],
+            "headphoneNote": "Warm open-backs preserve timbre; bright-tuned cans skew the natural color."
+          }
+        ],
+        "takeaway": "Tube recordings have a tonal character that's unmistakable once you learn to hear it: warmer, rounder, with a natural compression that flatters acoustic instruments. Understanding this coloration helps you identify what's 'the recording' versus 'your equipment' \u2014 the foundation of critical listening."
+      },
+      "equipment": {
+        "source": "The Argo original pressing on vinyl is the holy grail. The various CD remasters are good; the Verve/MPS reissue is solid. FLAC from CD preserves the tube character well.",
+        "whyItMatters": "The subtle harmonic richness that defines the tube recording character exists in the upper harmonics and low-level detail that lossy compression removes. Stripped of these harmonics, a tube recording loses the very quality that makes it special."
+      },
+      "abx": {
+        "segment": "0:45-2:00",
+        "skill": "detail",
+        "defaultBitrate": 192,
+        "rationale": "micro-details (pick attacks, breaths, room reflections) are first to disappear under lossy compression"
+      },
+      "venue": {
+        "name": "Pershing Hotel Lounge",
+        "location": "Chicago, Illinois, USA",
+        "year": 1916,
+        "type": "jazz-club",
+        "caption": "A 350-seat lounge inside the Pershing Hotel at 64th & Cottage Grove on Chicago's South Side — once the largest Black-owned hotel in the city. Ahmad Jamal Trio recorded At the Pershing: But Not for Me here on January 16–17, 1958. The hotel was demolished in the 1980s; only this audio remains.",
+        "image": {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Hotel_Pershing_%28NBY_415459%29.jpg",
+          "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Hotel_Pershing_%28NBY_415459%29.jpg/500px-Hotel_Pershing_%28NBY_415459%29.jpg",
+          "alt": "Vintage Curt Teich postcard of the Hotel Pershing, Chicago, c. 1948",
+          "license": "public domain",
+          "author": "Curt Teich (postcard, copyright not renewed)",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hotel_Pershing_(NBY_415459).jpg"
+        }
+      }
+    },
+    {
+      "id": "lesson-027",
+      "title": "Vinyl Mastering",
+      "difficulty": "advanced",
+      "skills": [
+        "dynamics",
+        "bass",
+        "tonal-color"
+      ],
+      "album": {
+        "title": "In the Court of the Crimson King",
+        "artist": "King Crimson",
+        "year": 1969,
+        "genre": "progressive rock",
+        "label": "Island Records / Atlantic",
+        "format": "Recorded at Wessex Sound Studios, London. The original 1969 vinyl master by George 'Porky' Peckham is legendary. Steven Wilson's 2009 remix and subsequent vinyl remaster are the modern reference.",
+        "masteredBy": "George 'Porky' Peckham (original); remastered by Robert Fripp / Simon Heyworth"
+      },
+      "track": {
+        "title": "21st Century Schizoid Man",
+        "duration": "7:21",
+        "musicbrainzRecordingId": "cf9b5d27-b568-4a84-a35f-aff40743a7cf",
+        "versionNote": "Album version on In the Court of the Crimson King (1969), 7:21."
+      },
+      "guide": {
+        "intro": "This album has been mastered and remastered for vinyl more times than almost any other rock record, making it a fascinating study in vinyl mastering philosophy. The original 'Porky' cut is raw and dynamic. The Steven Wilson-era remasters are more detailed but differently balanced. Vinyl mastering is an art of compromise \u2014 and hearing those choices teaches you what mastering does.",
+        "listenFor": [
+          {
+            "time": "0:00-0:20",
+            "skill": "dynamics",
+            "note": "The opening assault of distorted saxophone, heavy guitar, and crashing drums is one of rock's most aggressive openings. On a well-mastered vinyl transfer, the attack is ferocious but not clipped. Compare this to the original CD, which is noticeably flatter. Vinyl mastering preserves the peak energy.",
+            "bestRevealedBy": [
+              "planar",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "iem"
+            ],
+            "headphoneNote": "Planars with a punchy amp slam these shifts; IEMs can compress the macro-dynamic contrast."
+          },
+          {
+            "time": "0:20-1:30",
+            "skill": "tonal-color",
+            "note": "The distorted, overdriven ensemble sound has a specific character through vinyl mastering \u2014 slightly warmer and rounder than digital. The RIAA equalization curve used in vinyl playback adds a subtle bass boost and treble roll-off that many listeners find more 'natural' than flat digital reproduction.",
+            "bestRevealedBy": [
+              "open-back",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "bright-tuned"
+            ],
+            "headphoneNote": "Warm open-backs preserve timbre; bright-tuned cans skew the natural color."
+          },
+          {
+            "time": "2:00-3:30",
+            "skill": "bass",
+            "note": "Greg Lake's bass and Michael Giles's kick drum drive the instrumental section. On vinyl, bass below 300Hz is summed to mono (a physical limitation of the medium) \u2014 yet the bass doesn't sound diminished. Good vinyl mastering uses this constraint to create focused, powerful low end.",
+            "bestRevealedBy": [
+              "planar",
+              "closed-back",
+              "lossless"
+            ],
+            "weakOn": [
+              "bass-shy-iem",
+              "open-back"
+            ],
+            "headphoneNote": "Planars and sealed cans render texture and weight; bass-shy IEMs miss the foundation."
+          },
+          {
+            "time": "4:00-5:30",
+            "skill": "dynamics",
+            "note": "The complex time-signature instrumental section has enormous dynamic variation \u2014 sudden stops, explosive entries, quiet passages. Vinyl's groove modulation handles these dynamics differently than digital: peaks create wider grooves, and the physical medium limits absolute loudness. This constraint enforces dynamic mastering.",
+            "bestRevealedBy": [
+              "planar",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "iem"
+            ],
+            "headphoneNote": "Planars with a punchy amp slam these shifts; IEMs can compress the macro-dynamic contrast."
+          },
+          {
+            "time": "6:00-7:21",
+            "skill": "tonal-color",
+            "note": "The final return of the main riff and the chaotic ending reveal the full character of vinyl mastering. The harmonic distortion of the cutting lathe and playback cartridge adds a layer of warmth that isn't in the digital master. This is the vinyl 'sound' \u2014 not inherently better, but characteristically different.",
+            "bestRevealedBy": [
+              "open-back",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "bright-tuned"
+            ],
+            "headphoneNote": "Warm open-backs preserve timbre; bright-tuned cans skew the natural color."
+          }
+        ],
+        "takeaway": "Vinyl mastering teaches you that every format has a sound, and that mastering engineers make artistic choices within each format's constraints. Understanding what vinyl does differently from digital helps you listen more critically to both, appreciating the engineering behind every release."
+      },
+      "equipment": {
+        "source": "The Steven Wilson remix on 200g vinyl (2010 or later pressing) is the modern reference. Alternatively, the hi-res FLAC of the Wilson remix is excellent. For comparison, seek out a digital transfer of an original 'Porky' pressing.",
+        "whyItMatters": "Vinyl mastering differences are subtle \u2014 they exist in bass balance, dynamic range, and harmonic character. You need lossless reproduction (or actual vinyl) to hear what the mastering engineer intended."
+      },
+      "abx": {
+        "segment": "0:00-0:20",
+        "skill": "dynamics",
+        "defaultBitrate": 192,
+        "rationale": "macro-dynamic transitions are where MP3 compression first loses headroom"
+      }
+    },
+    {
+      "id": "lesson-028",
+      "title": "High-Res vs CD",
+      "difficulty": "advanced",
+      "skills": [
+        "detail",
+        "air",
+        "soundstage"
+      ],
+      "album": {
+        "title": "Harvest",
+        "artist": "Neil Young",
+        "year": 1972,
+        "genre": "rock/folk",
+        "label": "Reprise Records",
+        "format": "Recorded at various locations including Nashville's Quadrafonic Sound Studios. The 2009 remaster from original analog tapes at 192kHz/24-bit by Tim Mulligan and Chris Bellman is the definitive hi-res edition.",
+        "masteredBy": "Chris Bellman (Bernie Grundman Mastering) \u2014 192kHz/24-bit remaster"
+      },
+      "track": {
+        "title": "Heart of Gold",
+        "duration": "3:07",
+        "musicbrainzRecordingId": "e832b734-62e9-4eb7-84f8-0951f39e719e",
+        "versionNote": "Album version on Harvest (1972), 3:07."
+      },
+      "guide": {
+        "intro": "Neil Young is one of audio's most passionate advocates for high-resolution music. His Archives project remastered Harvest at 192kHz/24-bit from the original analog tapes. Whether you can hear the difference between hi-res and CD is one of audio's great debates. This lesson isn't about settling it \u2014 it's about training your ears to listen for the differences, if they exist for you.",
+        "listenFor": [
+          {
+            "time": "0:00-0:25",
+            "skill": "detail",
+            "note": "The harmonica opens the track. In the 192kHz version, listen for the texture of the reed vibrating \u2014 the individual harmonics that make up the harmonica's buzzy tone. On CD (44.1kHz), these same harmonics are captured but with a steeper anti-aliasing filter. The question is: can you hear the filter's effect?",
+            "bestRevealedBy": [
+              "lossless",
+              "planar",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "lossy"
+            ],
+            "headphoneNote": "A neutral chain on lossless surfaces micro-detail; lossy sources smear the finest cues."
+          },
+          {
+            "time": "0:25-0:50",
+            "skill": "air",
+            "note": "Young's acoustic guitar enters. In hi-res, proponents say the 'air' around the guitar \u2014 the space between the instrument and the microphone \u2014 is more present. The extended bandwidth theoretically captures more room information. Listen for the sense of space around the strumming.",
+            "bestRevealedBy": [
+              "open-back",
+              "lossless",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "closed-back",
+              "lossy"
+            ],
+            "headphoneNote": "Open-backs let the high-frequency air breathe; closed-backs and lossy sources bottle it up."
+          },
+          {
+            "time": "1:00-1:45",
+            "skill": "soundstage",
+            "note": "The Nashville session musicians (including Ben Keith on steel guitar) create a warm, wide soundstage. In hi-res, some listeners report a wider, deeper stage. Focus on the steel guitar's position and decay \u2014 does it seem to extend further into space? The answer may depend on your equipment and your ears.",
+            "bestRevealedBy": [
+              "open-back"
+            ],
+            "weakOn": [
+              "closed-back",
+              "iem"
+            ],
+            "headphoneNote": "Open-back cans render this width effortlessly; closed-backs and IEMs collapse it inward."
+          },
+          {
+            "time": "1:45-2:30",
+            "skill": "detail",
+            "note": "Young's vocal is double-tracked in places. In hi-res, the slight timing differences between the two vocal takes may be more perceptible. Listen for the 'doubling' effect \u2014 two slightly different versions of the same vocal line creating a natural chorus effect.",
+            "bestRevealedBy": [
+              "lossless",
+              "planar",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "lossy"
+            ],
+            "headphoneNote": "A neutral chain on lossless surfaces micro-detail; lossy sources smear the finest cues."
+          },
+          {
+            "time": "2:30-3:07",
+            "skill": "air",
+            "note": "The track fades with instruments decaying into the studio space. This fade-out reveals the noise floor and room tone of the original recording. Hi-res theoretically preserves more of this low-level information. Whether that translates to an audible difference is for your ears to decide.",
+            "bestRevealedBy": [
+              "open-back",
+              "lossless",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "closed-back",
+              "lossy"
+            ],
+            "headphoneNote": "Open-backs let the high-frequency air breathe; closed-backs and lossy sources bottle it up."
+          }
+        ],
+        "takeaway": "The hi-res versus CD debate matters less than the quality of the mastering. A well-mastered CD will always sound better than a poorly mastered hi-res file. Train your ears on recordings like this where the mastering is excellent in both formats, and draw your own conclusions about resolution."
+      },
+      "equipment": {
+        "source": "The Neil Young Archives 192kHz/24-bit FLAC is the hi-res reference. For comparison, use the Chris Bellman CD remaster from the same analog source. A/B testing requires both files and level-matching.",
+        "whyItMatters": "This is a lesson about the limits of perception. Whether hi-res makes an audible difference depends on your equipment, your ears, and the recording. The exercise of critical comparison itself makes you a better listener, regardless of the conclusion."
+      },
+      "abx": {
+        "segment": "0:00-0:25",
+        "skill": "detail",
+        "defaultBitrate": 192,
+        "rationale": "micro-details (pick attacks, breaths, room reflections) are first to disappear under lossy compression"
+      }
+    },
+    {
+      "id": "lesson-029",
+      "title": "Spatial Audio Pioneer",
+      "difficulty": "advanced",
+      "skills": [
+        "imaging",
+        "soundstage",
+        "separation"
+      ],
+      "album": {
+        "title": "Wandering",
+        "artist": "Yosi Horikawa",
+        "year": 2012,
+        "genre": "electronic/field recording",
+        "label": "First Word Records",
+        "format": "Created from field recordings processed through electronic production. Horikawa records real-world sounds (water, birds, rubber balls, forest) and transforms them into musical compositions with extraordinary spatial placement.",
+        "masteredBy": "Yosi Horikawa (self-produced and mastered)"
+      },
+      "track": {
+        "title": "Bubbles",
+        "duration": "5:46",
+        "musicbrainzRecordingId": "aa7e6370-1a40-4ed4-8b42-ece4f0af6ddb",
+        "versionNote": "Album version on Wandering (2012), 5:46. This lesson covers the opening 4:38 of the song."
+      },
+      "guide": {
+        "intro": "Yosi Horikawa creates music from everyday sounds \u2014 water dripping, balls bouncing, birds singing \u2014 processed and arranged into hypnotic electronic compositions. 'Bubbles' literally sounds like its name: percussive water drops and bubbling sounds placed with pinpoint accuracy in a three-dimensional space. It's one of the most spatial recordings ever made for headphones.",
+        "listenFor": [
+          {
+            "time": "0:00-0:30",
+            "skill": "imaging",
+            "note": "Individual water drops are placed at specific positions around your head \u2014 some left, some right, some seemingly behind you, some above. Close your eyes and try to point to each drop. The spatial precision is extraordinary, using delay and amplitude to create three-dimensional positions.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar"
+            ],
+            "weakOn": [
+              "closed-back-budget"
+            ],
+            "headphoneNote": "Planars and good open-backs pinpoint placement; budget closed-backs blur the image."
+          },
+          {
+            "time": "0:30-1:15",
+            "skill": "soundstage",
+            "note": "As more elements enter, the soundstage extends in all directions. This isn't conventional stereo \u2014 Horikawa uses psychoacoustic techniques to create the illusion of sounds outside the normal left-right plane. On open-back headphones, some sounds seem to come from behind you.",
+            "bestRevealedBy": [
+              "open-back"
+            ],
+            "weakOn": [
+              "closed-back",
+              "iem"
+            ],
+            "headphoneNote": "Open-back cans render this width effortlessly; closed-backs and IEMs collapse it inward."
+          },
+          {
+            "time": "1:15-2:15",
+            "skill": "separation",
+            "note": "Dozens of individual sound elements play simultaneously, each at its own position. Despite the density, you can track any single element \u2014 a specific water drop, a bouncing ball, a crackling texture. This separation isn't just frequency division; it's spatial division, with each sound in its own position.",
+            "bestRevealedBy": [
+              "planar",
+              "neutral-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "muddy-bass-cans"
+            ],
+            "headphoneNote": "Planars with neutral amps keep lines distinct; muddy-bass cans smear them together."
+          },
+          {
+            "time": "2:30-3:15",
+            "skill": "imaging",
+            "note": "Some sounds move through space \u2014 a bouncing ball that arcs from left to right, water that seems to pour from above to below. These moving images test your headphones' ability to render continuous spatial motion, not just static positioning.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar"
+            ],
+            "weakOn": [
+              "closed-back-budget"
+            ],
+            "headphoneNote": "Planars and good open-backs pinpoint placement; budget closed-backs blur the image."
+          },
+          {
+            "time": "3:30-4:38",
+            "skill": "soundstage",
+            "note": "The full composition at its peak: a complete spatial environment of water, percussion, and processed nature sounds. The soundstage should feel like a 360-degree space around you. This is what modern spatial audio design can achieve with careful processing and high-resolution playback.",
+            "bestRevealedBy": [
+              "open-back"
+            ],
+            "weakOn": [
+              "closed-back",
+              "iem"
+            ],
+            "headphoneNote": "Open-back cans render this width effortlessly; closed-backs and IEMs collapse it inward."
+          }
+        ],
+        "takeaway": "Horikawa's work demonstrates that spatial audio doesn't require special hardware formats \u2014 it's about creative use of psychoacoustics within standard stereo. It also shows that 'imaging' and 'soundstage' aren't just about music: any sound in any position tells you about your headphones' spatial capabilities."
+      },
+      "equipment": {
+        "source": "FLAC from the First Word Records release. Digital download in the highest available resolution. This is natively digital music designed for headphone playback.",
+        "whyItMatters": "The precise spatial placement depends on exact phase and timing relationships between left and right channels. Lossy compression introduces phase distortion that smears the pinpoint imaging into vague blobs of sound."
+      },
+      "abx": {
+        "segment": "0:30-1:15",
+        "skill": "soundstage",
+        "defaultBitrate": 192,
+        "rationale": "spatial cues degrade subtly as bitrate drops \u2014 width and depth narrow"
+      }
+    },
+    {
+      "id": "lesson-030",
+      "title": "The Perfect Recording",
+      "difficulty": "advanced",
+      "skills": [
+        "imaging",
+        "tonal-color",
+        "air",
+        "detail"
+      ],
+      "album": {
+        "title": "Cafe Blue",
+        "artist": "Patricia Barber",
+        "year": 1994,
+        "genre": "jazz",
+        "label": "Premonition Records / Blue Note",
+        "format": "Recorded live-to-two-track at the Green Mill jazz club, Chicago, by Jim Anderson. Minimal processing, extraordinary microphone technique. Considered one of the finest recordings ever made for audiophile purposes.",
+        "masteredBy": "Doug Sax (The Mastering Lab)"
+      },
+      "track": {
+        "title": "Nardis",
+        "duration": "9:02",
+        "musicbrainzRecordingId": "f88b7653-bca7-480d-b0a2-a24b497a6a54",
+        "versionNote": "Album version on Caf\u00e9 Blue (1994), 9:02."
+      },
+      "guide": {
+        "intro": "Cafe Blue is routinely used at hi-fi shows to demonstrate the best equipment in the world. Jim Anderson's recording at the Green Mill captures every nuance of Barber's piano, voice, and band with uncanny realism. Doug Sax's mastering preserves the full dynamic range and tonal beauty. If any recording can be called 'perfect' from an audiophile perspective, this is a primary candidate.",
+        "listenFor": [
+          {
+            "time": "0:00-0:45",
+            "skill": "imaging",
+            "note": "The instruments appear with holographic precision. Barber's piano is placed with exact specificity \u2014 you can sense the width of the instrument, with lower notes slightly to the left and higher notes slightly to the right. This isn't pan-potting; it's the natural stereo image of a piano captured by a skilled engineer.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar"
+            ],
+            "weakOn": [
+              "closed-back-budget"
+            ],
+            "headphoneNote": "Planars and good open-backs pinpoint placement; budget closed-backs blur the image."
+          },
+          {
+            "time": "0:45-2:00",
+            "skill": "tonal-color",
+            "note": "Barber's piano has extraordinary tonal richness. Each note has a full harmonic envelope: the hammer attack, the string vibration, the sympathetic resonances of other strings, the soundboard reinforcing the tone. This is what a real piano sounds like \u2014 and most recordings don't capture it this completely.",
+            "bestRevealedBy": [
+              "open-back",
+              "dynamic-amp",
+              "lossless"
+            ],
+            "weakOn": [
+              "bright-tuned"
+            ],
+            "headphoneNote": "Warm open-backs preserve timbre; bright-tuned cans skew the natural color."
+          },
+          {
+            "time": "2:00-3:30",
+            "skill": "air",
+            "note": "The Green Mill's acoustic is present in every moment. It's a long, narrow room with a low ceiling \u2014 the reflections give a warm intimacy that's entirely different from a concert hall. Between notes, listen to the room breathe. You can hear the audience's presence in the ambient tone even without direct audience sounds.",
+            "bestRevealedBy": [
+              "open-back",
+              "lossless",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "closed-back",
+              "lossy"
+            ],
+            "headphoneNote": "Open-backs let the high-frequency air breathe; closed-backs and lossy sources bottle it up."
+          },
+          {
+            "time": "4:00-6:00",
+            "skill": "detail",
+            "note": "The bass solo section reveals extraordinary recording detail. You can hear the player's fingers on the strings, the resonance of the instrument's body, the way each note interacts with the room. Jim Anderson's microphone placement captures these details without any close-miking harshness \u2014 everything sounds natural and unforced.",
+            "bestRevealedBy": [
+              "lossless",
+              "planar",
+              "neutral-amp"
+            ],
+            "weakOn": [
+              "lossy"
+            ],
+            "headphoneNote": "A neutral chain on lossless surfaces micro-detail; lossy sources smear the finest cues."
+          },
+          {
+            "time": "6:30-8:50",
+            "skill": "imaging",
+            "note": "The full ensemble plays together for the final section. Despite the complexity, every instrument maintains its precise position. The image is stable, three-dimensional, and utterly convincing. Close your eyes: you are in the Green Mill, third row center. That's the achievement of this recording.",
+            "bestRevealedBy": [
+              "open-back",
+              "planar"
+            ],
+            "weakOn": [
+              "closed-back-budget"
+            ],
+            "headphoneNote": "Planars and good open-backs pinpoint placement; budget closed-backs blur the image."
+          }
+        ],
+        "takeaway": "A 'perfect' recording combines every audiophile virtue: precise imaging, natural tonal color, tangible air, resolving detail, full dynamics, clean bass, clear separation, accurate transients, convincing soundstage, and transparent layering. Cafe Blue achieves all of these simultaneously. It's the ultimate benchmark for your entire audio chain."
+      },
+      "equipment": {
+        "source": "The Premonition Records CD mastered by Doug Sax is the reference. Hi-res FLAC from HDtracks if available. The Analogue Productions vinyl reissue is also outstanding. Avoid remastered versions that alter Sax's original work.",
+        "whyItMatters": "When a recording is this good, every link in the chain matters. Lossy compression doesn't just remove inaudible data \u2014 it removes the micro-details and spatial cues that make this recording transcendent. Cafe Blue demands lossless; it rewards it like no other album."
+      },
+      "abx": {
+        "segment": "4:00-6:00",
+        "skill": "detail",
+        "defaultBitrate": 192,
+        "rationale": "micro-details (pick attacks, breaths, room reflections) are first to disappear under lossy compression"
+      }
+    }
+  ],
+  "paths": [
+    {
+      "id": "foundations",
+      "name": "Listening Foundations",
+      "description": "Learn the core audiophile concepts with iconic, easy-to-hear examples",
+      "difficulty": "beginner",
+      "color": "#667eea",
+      "lessonIds": [
+        "lesson-001",
+        "lesson-002",
+        "lesson-003",
+        "lesson-004",
+        "lesson-005",
+        "lesson-013",
+        "lesson-014",
+        "lesson-015"
+      ]
+    },
+    {
+      "id": "deeper-listening",
+      "name": "Deeper Listening",
+      "description": "More nuanced recordings that challenge your developing ears",
+      "difficulty": "intermediate",
+      "color": "#e6a817",
+      "lessonIds": [
+        "lesson-006",
+        "lesson-007",
+        "lesson-008",
+        "lesson-009"
+      ]
+    },
+    {
+      "id": "reference-grade",
+      "name": "Reference Grade",
+      "description": "Demanding recordings that reveal the full capability of your equipment",
+      "difficulty": "advanced",
+      "color": "#e05555",
+      "lessonIds": [
+        "lesson-010",
+        "lesson-011",
+        "lesson-012"
+      ]
+    },
+    {
+      "id": "genre-mastery",
+      "name": "Genre Mastery",
+      "description": "Explore how different genres showcase distinct audiophile qualities, from electronic textures to reggae spatial mixing",
+      "difficulty": "intermediate",
+      "color": "#1abc9c",
+      "lessonIds": [
+        "lesson-016",
+        "lesson-017",
+        "lesson-018",
+        "lesson-019",
+        "lesson-020",
+        "lesson-021",
+        "lesson-022",
+        "lesson-023"
+      ]
+    },
+    {
+      "id": "audiophile-essentials",
+      "name": "Audiophile Essentials",
+      "description": "Advanced explorations of recording techniques, formats, and the pinnacle of audio reproduction",
+      "difficulty": "advanced",
+      "color": "#e74c3c",
+      "lessonIds": [
+        "lesson-024",
+        "lesson-025",
+        "lesson-026",
+        "lesson-027",
+        "lesson-028",
+        "lesson-029",
+        "lesson-030"
+      ]
+    }
+  ]
+}

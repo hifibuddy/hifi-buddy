@@ -1,0 +1,2915 @@
+/* ============================================================
+ * HiFi Buddy — trimmed stylesheet
+ * Trimmed from a larger source stylesheet (~5,640 lines)
+ * down to the rules actually used by the standalone app.
+ * Sections kept: base, audio player, settings/ABX modals, offline
+ * indicator, HiFi Buddy lesson UI, toasts, diagnostics, LG error
+ * card, plus the entire standalone block (header/nav, onboarding,
+ * ABX dashboard, lesson generator, track picker, timing feedback,
+ * a11y/responsive polish). Refbank + visualizer styles are
+ * injected from JS, not here.
+ * ============================================================ */
+
+/* ===== Reset & Base ===== */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --bg-tertiary: #1a1a27;
+    --bg-card: #16161f;
+    --bg-hover: #1e1e2e;
+    --text-primary: #e8e8f0;
+    --text-secondary: #9898b0;
+    --text-muted: #5a5a78;
+    --border-color: #2a2a3a;
+    --border-subtle: #1f1f30;
+    --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --accent-color: #667eea;
+    --accent-secondary: #764ba2;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.5);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light theme */
+[data-theme="light"] {
+    --bg-primary: #f5f5fa;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #eeeef4;
+    --bg-card: #ffffff;
+    --bg-hover: #e8e8f0;
+    --text-primary: #1a1a2e;
+    --text-secondary: #4a4a6a;
+    --text-muted: #8888a0;
+    --border-color: #d0d0e0;
+    --border-subtle: #e0e0ee;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.1);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ===== Animations ===== */
+/* fadeIn: used by .hifi-dashboard / .hifi-lesson-view / .hifi-skills-view
+ * (HiFi Buddy main views). Also referenced by .artist-profile-panel (dead)
+ * and .album-profile-panel (dead) historically. */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Audio Player Bar ===== */
+.audio-player-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    gap: 1rem;
+    z-index: 1000;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
+}
+
+.ap-track-info { display: flex; align-items: center; gap: 10px; min-width: 180px; }
+
+.ap-cover { width: 42px; height: 42px; border-radius: 6px; object-fit: cover; }
+.ap-cover-placeholder {
+    width: 42px; height: 42px; border-radius: 6px;
+    background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; color: var(--text-muted);
+}
+
+.ap-text { min-width: 0; }
+.ap-title { font-weight: 600; font-size: 0.85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
+.ap-artist { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
+
+.ap-controls { display: flex; align-items: center; }
+
+.ap-play-btn {
+    background: var(--accent-color);
+    border: none;
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.ap-play-btn:hover { transform: scale(1.05); }
+
+.ap-progress-container { flex: 1; display: flex; align-items: center; gap: 8px; }
+.ap-progress-bar { flex: 1; height: 4px; background: var(--bg-tertiary); border-radius: 2px; cursor: pointer; }
+.ap-progress-fill { height: 100%; background: var(--accent-gradient); border-radius: 2px; width: 0; transition: width 0.2s linear; }
+.ap-time { font-size: 0.75rem; color: var(--text-muted); min-width: 30px; }
+
+.ap-close-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px;
+    transition: var(--transition);
+}
+
+.ap-close-btn:hover { color: var(--text-primary); }
+
+/* ===== Settings Modal ===== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.modal {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    width: 90%;
+    max-width: 500px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h3 { font-size: 1.1rem; font-weight: 700; }
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.modal-close:hover { color: var(--text-primary); background: var(--bg-hover); }
+
+.modal-body { padding: 1.5rem; }
+
+.settings-section { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-subtle); }
+.settings-section:last-child { border-bottom: none; margin-bottom: 0; }
+
+.settings-section-title { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-primary); }
+
+.settings-field { margin-bottom: 0.75rem; }
+.settings-field label { display: block; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px; font-weight: 500; }
+
+.settings-field input[type="text"],
+.settings-field input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.85rem;
+    outline: none;
+    transition: var(--transition);
+}
+
+.settings-field input:focus { border-color: var(--accent-color); }
+.settings-field input::placeholder { color: var(--text-muted); }
+
+.settings-radio-group { display: flex; gap: 1rem; margin-top: 4px; }
+
+.settings-radio {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.settings-radio input { accent-color: var(--accent-color); }
+
+.settings-test-btn {
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    font-family: inherit;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 0.5rem;
+}
+
+.settings-test-btn:hover { border-color: var(--accent-color); color: var(--text-primary); }
+
+.settings-status { margin-top: 0.5rem; font-size: 0.8rem; }
+.settings-help { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; margin: 0 0 10px; }
+.settings-backup-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.settings-backup-row .settings-test-btn { margin-top: 0; }
+
+/* ABX Modal */
+.abx-overlay { z-index: 10000; }
+.abx-modal { max-width: 580px; width: 100%; }
+.hifi-play-abx:hover { border-color: #9b59b6; color: #9b59b6; background: rgba(155, 89, 182, 0.1); }
+.abx-body { padding: 16px 20px 20px; }
+.abx-loading, .abx-error {
+    padding: 32px 16px; text-align: center; color: var(--text-secondary);
+    font-size: 0.88rem; line-height: 1.6;
+}
+.abx-error { color: #e05555; }
+.abx-meta {
+    font-size: 0.82rem; color: var(--text-secondary); line-height: 1.7;
+    padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--border-color);
+}
+.abx-meta strong { color: var(--text-primary); }
+.abx-skill {
+    display: inline-block; padding: 1px 7px; border-radius: 99px; margin-left: 6px;
+    background: rgba(155, 89, 182, 0.15); color: #9b59b6; font-size: 0.7rem; font-weight: 700;
+}
+.abx-leveling {
+    font-size: 0.72rem; color: var(--text-muted); text-align: center; padding: 6px;
+    margin-bottom: 14px; border-radius: var(--radius-sm); background: var(--bg-tertiary);
+}
+.abx-leveling-warn { color: #e6a817; background: rgba(230, 168, 23, 0.08); }
+.abx-controls {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 14px;
+}
+.abx-source-btn {
+    padding: 18px 10px; border-radius: var(--radius-md);
+    border: 2px solid var(--border-color); background: var(--bg-secondary);
+    color: var(--text-primary); font-size: 1.05rem; font-weight: 700;
+    cursor: pointer; font-family: inherit; line-height: 1.2;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+}
+.abx-source-btn span { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); }
+.abx-source-btn:hover { border-color: #667eea; }
+.abx-source-btn.abx-playing { border-color: #2ecc71; background: rgba(46, 204, 113, 0.08); }
+.abx-x-btn { border-color: #9b59b6; }
+.abx-x-btn:hover { background: rgba(155, 89, 182, 0.1); }
+.abx-instructions {
+    font-size: 0.78rem; color: var(--text-muted); text-align: center;
+    margin-bottom: 12px; line-height: 1.5;
+}
+.abx-guesses { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+.abx-guess-btn {
+    padding: 12px; border-radius: var(--radius-md);
+    border: 1px solid var(--border-color); background: var(--bg-tertiary);
+    color: var(--text-primary); font-size: 0.92rem; font-weight: 700;
+    cursor: pointer; font-family: inherit;
+}
+.abx-guess-btn:hover { border-color: #2ecc71; background: rgba(46, 204, 113, 0.1); color: #2ecc71; }
+.abx-progress { margin-bottom: 12px; }
+.abx-progress-bar {
+    height: 6px; background: var(--bg-tertiary); border-radius: 99px; overflow: hidden;
+    margin-bottom: 6px;
+}
+.abx-progress-fill { height: 100%; background: #667eea; transition: width 0.3s; }
+.abx-progress-stats {
+    display: flex; justify-content: space-between;
+    font-size: 0.74rem; color: var(--text-muted);
+}
+.abx-stat-sig { color: #2ecc71; font-weight: 700; }
+.abx-stat-ns { color: var(--text-muted); }
+.abx-toggles { font-size: 0.74rem; color: var(--text-muted); padding-top: 8px; border-top: 1px dashed var(--border-color); }
+.abx-toggle-label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+
+/* ABX Final result */
+.abx-result-card {
+    padding: 18px 20px; margin-bottom: 16px;
+    background: var(--bg-tertiary); border-left: 4px solid #2ecc71;
+    border-radius: var(--radius-md);
+}
+.abx-result-score { font-size: 2rem; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; }
+.abx-result-verdict { font-size: 0.92rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; line-height: 1.4; }
+.abx-result-detail { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.6; }
+.abx-trial-history {
+    display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px;
+    padding: 10px; background: var(--bg-secondary); border-radius: var(--radius-sm);
+}
+.abx-trial-cell {
+    width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 4px; font-size: 0.7rem; font-weight: 700;
+}
+.abx-trial-correct { background: rgba(46, 204, 113, 0.2); color: #2ecc71; }
+.abx-trial-wrong { background: rgba(224, 85, 85, 0.2); color: #e05555; }
+.abx-result-actions { display: flex; gap: 10px; margin-bottom: 16px; }
+.abx-action-btn {
+    flex: 1; padding: 10px;
+    border: 1px solid var(--border-color); background: var(--bg-tertiary);
+    color: var(--text-primary); font-size: 0.85rem; font-weight: 700;
+    border-radius: var(--radius-md); cursor: pointer; font-family: inherit;
+}
+.abx-action-btn:hover { border-color: var(--accent-color); }
+.abx-prior-results h4 { font-size: 0.78rem; color: var(--text-muted); margin: 0 0 8px; }
+.abx-prior-list { display: flex; flex-direction: column; gap: 4px; }
+.abx-prior-row {
+    display: grid; grid-template-columns: 60px 90px 1fr; gap: 8px;
+    padding: 6px 10px; border-radius: 4px; background: var(--bg-secondary);
+    font-size: 0.74rem; color: var(--text-muted);
+}
+.abx-prior-row.abx-prior-sig { background: rgba(46, 204, 113, 0.08); color: var(--text-primary); }
+
+.status-ok { color: #2ecc71; }
+.status-off { color: var(--text-muted); }
+.status-pending { color: #f39c12; }
+
+.settings-save-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: var(--radius-md);
+    border: none;
+    background: var(--accent-gradient);
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 0.5rem;
+}
+
+.settings-save-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+/* ===== PWA Offline Indicator ===== */
+.offline-indicator {
+    position: fixed; top: 8px; right: 8px; z-index: 9999;
+    padding: 6px 14px; border-radius: var(--radius-sm);
+    background: #e91e63; color: white; font-size: 0.75rem; font-weight: 600;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.offline-indicator.visible { opacity: 1; pointer-events: auto; }
+
+/* ===== HiFi Buddy ===== */
+.hifi-dashboard, .hifi-lesson-view, .hifi-skills-view {
+    max-width: 1000px; margin: 0 auto; padding: 20px;
+    animation: fadeIn 0.3s ease-out;
+}
+.hifi-header { text-align: center; margin-bottom: 28px; }
+.hifi-header-icon { font-size: 2.5rem; margin-bottom: 4px; }
+.hifi-title {
+    font-size: 1.6rem; font-weight: 800;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.hifi-subtitle { font-size: 0.88rem; color: var(--text-secondary); margin-top: 6px; }
+.hifi-equip-note {
+    font-size: 0.75rem; color: var(--text-muted); margin-top: 10px;
+    padding: 8px 16px; background: var(--bg-secondary); border-radius: var(--radius-md);
+    display: inline-block; border: 1px solid var(--border-color);
+}
+.hifi-equip-note strong { color: var(--text-secondary); }
+
+/* Progress Overview */
+.hifi-progress-overview {
+    background: var(--bg-secondary); border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg); padding: 20px; margin-bottom: 24px;
+}
+.hifi-progress-stats {
+    display: flex; justify-content: center; gap: 40px; margin-bottom: 16px;
+}
+.hifi-stat { display: flex; flex-direction: column; align-items: center; }
+.hifi-stat-value { font-size: 1.4rem; font-weight: 800; color: var(--text-primary); }
+.hifi-stat-label { font-size: 0.72rem; color: var(--text-muted); font-weight: 500; }
+.hifi-progress-bar-wrap { display: flex; align-items: center; gap: 12px; }
+.hifi-progress-bar {
+    flex: 1; height: 8px; background: var(--bg-tertiary);
+    border-radius: 4px; overflow: hidden;
+}
+.hifi-progress-fill {
+    height: 100%; border-radius: 4px; transition: width 0.5s ease;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+}
+.hifi-progress-pct { font-size: 0.82rem; font-weight: 700; color: var(--text-secondary); min-width: 35px; }
+
+/* Nav Row */
+.hifi-nav-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; flex-wrap: wrap; gap: 10px;
+}
+.hifi-skill-overview-btn {
+    display: flex; align-items: center; gap: 6px; padding: 8px 14px;
+    background: var(--bg-secondary); border: 1px solid var(--border-color);
+    border-radius: var(--radius-md); color: var(--text-secondary);
+    font-size: 0.8rem; font-weight: 600; cursor: pointer;
+    font-family: inherit; transition: var(--transition);
+}
+.hifi-skill-overview-btn:hover { border-color: #667eea; color: #667eea; }
+.hifi-filter-tabs { display: flex; gap: 4px; }
+.hifi-filter-tab {
+    padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border-color);
+    background: transparent; color: var(--text-muted); font-size: 0.75rem;
+    font-weight: 600; cursor: pointer; font-family: inherit; transition: var(--transition);
+}
+.hifi-filter-tab:hover { border-color: var(--tab-color, var(--text-secondary)); color: var(--tab-color, var(--text-secondary)); }
+.hifi-filter-tab.active {
+    background: var(--tab-color, #667eea)15; border-color: var(--tab-color, #667eea);
+    color: var(--tab-color, #667eea);
+}
+
+/* Path Cards */
+.hifi-path-card {
+    background: var(--bg-secondary); border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px;
+    border-left: 3px solid var(--path-color);
+}
+.hifi-path-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.hifi-path-name { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin: 0; }
+.hifi-path-desc { font-size: 0.78rem; color: var(--text-muted); margin: 4px 0 0; }
+.hifi-path-badge {
+    padding: 4px 12px; border-radius: 12px; font-size: 0.7rem;
+    font-weight: 700; flex-shrink: 0; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.hifi-path-progress { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.hifi-path-bar { flex: 1; height: 6px; background: var(--bg-tertiary); border-radius: 3px; overflow: hidden; }
+.hifi-path-bar-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+.hifi-path-progress-text { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; }
+
+/* Lesson Cards (in path) */
+.hifi-lesson-list { display: flex; flex-direction: column; gap: 6px; }
+.hifi-lesson-card {
+    display: flex; align-items: center; gap: 14px; padding: 12px 14px;
+    background: var(--bg-tertiary); border-radius: var(--radius-md);
+    cursor: pointer; transition: var(--transition); border: 1px solid transparent;
+}
+.hifi-lesson-card:hover { border-color: var(--border-color); background: var(--bg-primary); }
+.hifi-lesson-card.completed { opacity: 0.7; }
+.hifi-lesson-card.completed:hover { opacity: 1; }
+.hifi-lesson-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; font-weight: 800; color: white; flex-shrink: 0;
+}
+.hifi-lesson-info { flex: 1; min-width: 0; }
+.hifi-lesson-title { font-size: 0.88rem; font-weight: 700; color: var(--text-primary); }
+.hifi-lesson-meta { margin-top: 2px; }
+.hifi-lesson-album { font-size: 0.75rem; color: var(--text-muted); }
+.hifi-lesson-skills { display: flex; gap: 4px; margin-top: 6px; flex-wrap: wrap; }
+.hifi-skill-chip {
+    padding: 1px 8px; border-radius: 10px; border: 1px solid;
+    font-size: 0.65rem; font-weight: 600;
+}
+.hifi-lesson-arrow { color: var(--text-muted); font-size: 1.2rem; flex-shrink: 0; }
+
+/* Lesson View */
+.hifi-lesson-nav-top {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+}
+.hifi-back-btn {
+    display: flex; align-items: center; gap: 6px; background: none; border: none;
+    color: var(--text-secondary); font-size: 0.82rem; font-weight: 600;
+    cursor: pointer; font-family: inherit; padding: 6px 0;
+}
+.hifi-back-btn:hover { color: var(--text-primary); }
+.hifi-path-crumb { font-size: 0.78rem; font-weight: 600; }
+
+.hifi-lesson-hero {
+    text-align: center; padding: 28px 20px; margin-bottom: 28px;
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border-radius: var(--radius-lg); border: 1px solid var(--border-color);
+}
+.hifi-lesson-hero-badge {
+    display: inline-block; padding: 4px 14px; border-radius: 14px;
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+.hifi-lesson-hero-title { font-size: 1.5rem; font-weight: 800; color: var(--text-primary); margin: 0 0 12px; }
+.hifi-lesson-hero-skills { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+.hifi-skill-badge-lg {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 5px 14px; border-radius: 16px; border: 1px solid;
+    font-size: 0.78rem; font-weight: 600;
+}
+.hifi-skill-icon { font-size: 1rem; }
+
+/* Lesson Body — Main + Sidebar */
+.hifi-lesson-body { display: grid; grid-template-columns: 1fr 280px; gap: 24px; }
+@media (max-width: 800px) { .hifi-lesson-body { grid-template-columns: 1fr; } }
+.hifi-lesson-main { display: flex; flex-direction: column; gap: 20px; }
+
+/* Album Card */
+.hifi-album-card {
+    display: flex; gap: 20px; align-items: center;
+    padding: 18px; background: var(--bg-secondary);
+    border-radius: var(--radius-lg); border: 1px solid var(--border-color);
+}
+.hifi-album-vinyl { flex-shrink: 0; }
+.hifi-vinyl-disc {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, #222 30%, #111 31%, #111 49%, #1a1a1a 50%, #111 51%, #111 70%, var(--vinyl-color, #667eea)15 100%);
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid #333; animation: spin 8s linear infinite;
+    animation-play-state: paused;
+}
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.hifi-vinyl-label {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--vinyl-color, #667eea); display: flex;
+    align-items: center; justify-content: center;
+    font-size: 0.6rem; font-weight: 800; color: white;
+}
+.hifi-album-details { flex: 1; }
+.hifi-album-title { font-size: 1.1rem; font-weight: 800; color: var(--text-primary); }
+.hifi-album-artist { font-size: 0.88rem; color: var(--text-secondary); margin-top: 2px; }
+.hifi-album-meta { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; display: flex; gap: 6px; }
+.hifi-album-mastered { font-size: 0.7rem; color: var(--text-muted); margin-top: 4px; font-style: italic; }
+
+/* Track Card */
+.hifi-track-card {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    flex-wrap: wrap;
+    padding: 14px 18px; background: var(--bg-secondary);
+    border-radius: var(--radius-md); border: 1px solid var(--border-color);
+}
+.hifi-track-info { display: flex; align-items: center; gap: 10px; }
+.hifi-track-icon { font-size: 1.2rem; color: #667eea; }
+.hifi-track-title { font-size: 0.92rem; font-weight: 700; color: var(--text-primary); }
+.hifi-track-artist { font-size: 0.75rem; color: var(--text-muted); }
+.hifi-track-actions { display: flex; gap: 6px; }
+.hifi-track-version {
+    flex-basis: 100%; order: 5;
+    display: flex; align-items: flex-start; gap: 6px;
+    margin-top: 2px; padding: 8px 10px;
+    font-size: 0.75rem; line-height: 1.4; color: var(--text-secondary);
+    background: rgba(102, 126, 234, 0.08);
+    border-left: 2px solid #667eea;
+    border-radius: 4px;
+}
+.hifi-track-version svg { flex-shrink: 0; margin-top: 2px; color: #667eea; }
+.hifi-duration-warning {
+    flex-basis: 100%; order: 6;
+    display: flex; align-items: flex-start; gap: 6px;
+    margin-top: 2px; padding: 8px 10px;
+    font-size: 0.75rem; line-height: 1.4; color: var(--text-primary);
+    background: rgba(230, 168, 23, 0.12);
+    border-left: 2px solid #e6a817;
+    border-radius: 4px;
+}
+.hifi-duration-warning svg { flex-shrink: 0; margin-top: 2px; color: #e6a817; }
+/* Playback progress line — shown when Plex or Spotify is the active source */
+.hifi-playline {
+    flex-basis: 100%; order: 7;
+    display: flex; align-items: center; gap: 10px;
+    margin-top: 4px; padding: 8px 10px;
+    background: var(--bg-tertiary); border-radius: 6px;
+    font-size: 0.74rem; color: var(--text-secondary);
+}
+.hifi-playline-source {
+    flex-shrink: 0; padding: 2px 8px; border-radius: 99px;
+    font-size: 0.7rem; font-weight: 700;
+    background: rgba(102,126,234,0.15); color: #667eea;
+}
+.hifi-playline-source-plex { background: rgba(229,160,13,0.15); color: #e5a00d; }
+.hifi-playline-source-spotify { background: rgba(29,185,84,0.15); color: #1db954; }
+.hifi-playline-current, .hifi-playline-total {
+    flex-shrink: 0; font-variant-numeric: tabular-nums;
+    color: var(--text-primary); font-weight: 600; min-width: 38px;
+}
+.hifi-playline-total { color: var(--text-muted); text-align: right; }
+.hifi-playline-track {
+    flex: 1; height: 6px; background: var(--bg-secondary);
+    border-radius: 99px; overflow: hidden; cursor: pointer;
+    position: relative;
+}
+.hifi-playline-track:hover { background: rgba(102,126,234,0.12); }
+.hifi-playline-fill {
+    height: 100%; width: 0%; background: linear-gradient(90deg, #667eea, #9b59b6);
+    border-radius: 99px; transition: width 0.4s linear;
+}
+.hifi-play-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 7px 14px; border-radius: var(--radius-md);
+    border: 1px solid var(--border-color); background: var(--bg-tertiary);
+    color: var(--text-secondary); font-size: 0.75rem; font-weight: 600;
+    cursor: pointer; font-family: inherit; transition: var(--transition);
+    text-decoration: none;
+}
+.hifi-play-plex:hover { border-color: #e5a00d; color: #e5a00d; background: rgba(229,160,13,0.1); }
+.hifi-play-spotify:hover { border-color: #1db954; color: #1db954; background: rgba(29,185,84,0.1); }
+.hifi-play-btn:disabled {
+    border-color: #e5a00d; color: #e5a00d; background: rgba(229,160,13,0.12);
+    cursor: progress;
+}
+.hifi-play-spinner {
+    display: inline-block; width: 12px; height: 12px;
+    border: 2px solid currentColor; border-top-color: transparent;
+    border-radius: 50%; animation: hifi-spin 0.65s linear infinite;
+    vertical-align: -2px; margin-right: 4px;
+}
+/* Spotify quality + device picker */
+.hifi-quality-spotify .hifi-quality-header { flex-wrap: wrap; gap: 8px; }
+.hifi-spotify-devices-btn {
+    margin-left: auto;
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 5px 10px; border-radius: var(--radius-md);
+    border: 1px solid var(--border-color); background: var(--bg-tertiary);
+    color: var(--text-secondary); font-size: 0.72rem; font-weight: 600;
+    cursor: pointer; font-family: inherit;
+}
+.hifi-spotify-devices-btn:hover { border-color: #1db954; color: #1db954; }
+.hifi-spotify-device-list {
+    margin-top: 10px; padding-top: 10px;
+    border-top: 1px dashed var(--border-color);
+    display: flex; flex-direction: column; gap: 6px;
+}
+.hifi-spotify-device {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px; border-radius: var(--radius-md);
+    border: 1px solid var(--border-color); background: var(--bg-secondary);
+    color: var(--text-primary); font-size: 0.78rem; font-family: inherit;
+    cursor: pointer; text-align: left;
+}
+.hifi-spotify-device:hover:not(:disabled) {
+    border-color: #1db954; background: rgba(29,185,84,0.08);
+}
+.hifi-spotify-device:disabled { opacity: 0.6; cursor: default; }
+.hifi-device-active { border-color: #1db954; background: rgba(29,185,84,0.12); }
+.hifi-device-icon { font-size: 1.05rem; }
+.hifi-device-name { font-weight: 600; }
+.hifi-device-type { color: var(--text-muted); font-size: 0.7rem; }
+.hifi-device-tag {
+    margin-left: auto; padding: 2px 8px; border-radius: 99px;
+    background: rgba(29,185,84,0.15); color: #1db954; font-size: 0.65rem; font-weight: 700;
+}
+.hifi-spotify-devices-empty,
+.hifi-spotify-devices-loading {
+    padding: 10px; font-size: 0.78rem; color: var(--text-muted);
+    text-align: center; line-height: 1.5;
+}
+.hifi-play-youtube:hover { border-color: #ff0000; color: #ff0000; background: rgba(255,0,0,0.1); }
+
+/* Format Card */
+.hifi-format-card {
+    padding: 14px 18px; background: var(--bg-secondary);
+    border-radius: var(--radius-md); border: 1px solid var(--border-color);
+}
+.hifi-format-header {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.82rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px;
+}
+.hifi-format-text { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; margin: 0; }
+
+/* Venue Card — shows the iconic studio/hall/club where the track was recorded.
+   Sits below the album card; mobile stacks naturally. */
+.hifi-venue-card {
+    display: grid; grid-template-columns: 220px 1fr; gap: 0;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg); border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+.hifi-venue-figure {
+    margin: 0; aspect-ratio: 3 / 2; background: var(--bg-tertiary);
+    overflow: hidden; position: relative;
+}
+.hifi-venue-img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.4s ease;
+}
+.hifi-venue-card:hover .hifi-venue-img { transform: scale(1.03); }
+.hifi-venue-body {
+    padding: 14px 18px;
+    display: flex; flex-direction: column; gap: 4px;
+    min-width: 0;  /* allow text to wrap inside the grid column */
+}
+.hifi-venue-name {
+    font-size: 0.95rem; font-weight: 700; color: var(--text-primary);
+    line-height: 1.3;
+}
+.hifi-venue-loc {
+    font-size: 0.72rem; color: var(--text-muted);
+    text-transform: lowercase; letter-spacing: 0.02em;
+}
+.hifi-venue-caption {
+    margin: 6px 0 0; font-size: 0.78rem; line-height: 1.55;
+    color: var(--text-secondary);
+}
+.hifi-venue-attr {
+    margin: 8px 0 0; font-size: 0.68rem; line-height: 1.4;
+    color: var(--text-muted);
+}
+.hifi-venue-attr a {
+    color: var(--text-secondary); text-decoration: underline;
+    text-decoration-color: var(--border-color);
+    text-underline-offset: 2px;
+}
+.hifi-venue-attr a:hover { color: var(--text-primary); }
+@media (max-width: 720px) {
+    .hifi-venue-card { grid-template-columns: 1fr; }
+    .hifi-venue-figure { aspect-ratio: 16 / 9; }
+}
+
+/* Guide Intro */
+.hifi-guide-intro {
+    padding: 0; font-size: 0.88rem; color: var(--text-secondary);
+    line-height: 1.7;
+}
+.hifi-guide-intro p { margin: 0; }
+
+/* Section Titles */
+.hifi-section-title {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.95rem; font-weight: 700; color: var(--text-primary);
+    margin: 0 0 14px;
+}
+
+/* Listen For - Timestamped Guide */
+.hifi-listen-section { margin-top: 4px; }
+.hifi-listen-list { display: flex; flex-direction: column; gap: 12px; }
+.hifi-listen-item {
+    padding: 14px 16px; background: var(--bg-secondary);
+    border-radius: var(--radius-md); border: 1px solid var(--border-color);
+    border-left: 3px solid var(--item-color);
+    transition: var(--transition);
+}
+.hifi-listen-item:hover { border-color: var(--item-color); background: color-mix(in srgb, var(--item-color) 5%, var(--bg-secondary)); }
+.hifi-listen-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+}
+.hifi-timestamp {
+    font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
+    font-size: 0.75rem; font-weight: 700; color: white;
+    background: var(--item-color); padding: 3px 10px;
+    border-radius: 10px; cursor: pointer;
+}
+.hifi-timestamp::before {
+    content: ''; display: inline-block; width: 10px; height: 10px; margin-right: 4px;
+    background: currentColor; vertical-align: -1px;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='currentColor' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='5,3 19,12 5,21'/%3E%3C/svg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='currentColor' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='5,3 19,12 5,21'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.hifi-listen-skill {
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.hifi-listen-note {
+    font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; margin: 0;
+}
+
+/* Equipment-fit badges (shown next to skill label inside each listenFor item) */
+.hifi-equip-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    margin-left: auto; padding: 2px 8px; border-radius: 10px;
+    font-size: 0.68rem; font-weight: 600; line-height: 1.4;
+    border: 1px solid var(--border-color); background: var(--bg-tertiary);
+    color: var(--text-secondary); white-space: nowrap; max-width: 60%;
+    overflow: hidden; text-overflow: ellipsis;
+}
+.hifi-equip-badge-good {
+    color: #2ecc71; border-color: #2ecc7140;
+    background: color-mix(in srgb, #2ecc71 10%, var(--bg-secondary));
+}
+.hifi-equip-badge-warn {
+    color: #e6a817; border-color: #e6a81740;
+    background: color-mix(in srgb, #e6a817 10%, var(--bg-secondary));
+}
+.hifi-equip-badge-info {
+    color: var(--text-muted); font-style: italic; font-weight: 500;
+}
+
+/* Takeaway */
+.hifi-takeaway {
+    padding: 18px; background: linear-gradient(135deg, var(--bg-secondary), #667eea08);
+    border-radius: var(--radius-lg); border: 1px solid #667eea30;
+}
+.hifi-takeaway-text {
+    font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;
+    margin: 0; font-style: italic;
+}
+
+/* Equipment Card */
+.hifi-equipment-card {
+    padding: 18px; background: var(--bg-secondary);
+    border-radius: var(--radius-lg); border: 1px solid var(--border-color);
+}
+.hifi-equip-source, .hifi-equip-why {
+    font-size: 0.8rem; color: var(--text-secondary); line-height: 1.6;
+    margin-bottom: 8px;
+}
+.hifi-equip-why { margin-bottom: 0; }
+.hifi-equipment-card strong { color: var(--text-primary); }
+
+/* Lesson Footer */
+.hifi-lesson-footer { text-align: center; padding-top: 10px; }
+.hifi-complete-btn {
+    padding: 12px 32px; border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border: none; color: white; font-size: 0.88rem; font-weight: 700;
+    cursor: pointer; font-family: inherit; transition: var(--transition);
+}
+.hifi-complete-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(102,126,234,0.4); }
+.hifi-complete-btn.is-complete {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+.hifi-lesson-nav-bottom {
+    display: flex; justify-content: space-between; margin-top: 16px;
+}
+.hifi-nav-btn {
+    padding: 8px 16px; border-radius: var(--radius-md);
+    background: var(--bg-secondary); border: 1px solid var(--border-color);
+    color: var(--text-secondary); font-size: 0.8rem; font-weight: 600;
+    cursor: pointer; font-family: inherit; transition: var(--transition);
+}
+.hifi-nav-btn:hover { border-color: #667eea; color: #667eea; }
+
+/* Sidebar */
+.hifi-lesson-sidebar { position: sticky; top: 20px; align-self: start; }
+.hifi-sidebar-card {
+    padding: 18px; background: var(--bg-secondary);
+    border-radius: var(--radius-lg); border: 1px solid var(--border-color);
+}
+.hifi-sidebar-title {
+    font-size: 0.85rem; font-weight: 700; color: var(--text-primary);
+    margin: 0 0 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color);
+}
+.hifi-sidebar-skill { margin-bottom: 16px; }
+.hifi-sidebar-skill:last-child { margin-bottom: 0; }
+.hifi-sidebar-skill-header { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+.hifi-sidebar-skill-icon { font-size: 1.1rem; }
+.hifi-sidebar-skill-name { font-size: 0.82rem; font-weight: 700; }
+.hifi-sidebar-skill-desc { font-size: 0.72rem; color: var(--text-muted); line-height: 1.5; margin: 0 0 6px; }
+.hifi-sidebar-skill-tip { font-size: 0.72rem; color: var(--text-secondary); line-height: 1.5; margin: 0; font-style: italic; }
+
+/* Skills Overview Grid */
+.hifi-skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.hifi-skill-card {
+    padding: 18px; background: var(--bg-secondary);
+    border-radius: var(--radius-lg); border: 1px solid var(--border-color);
+    border-top: 3px solid var(--skill-color);
+}
+.hifi-skill-card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.hifi-skill-card-icon { font-size: 1.3rem; }
+.hifi-skill-card-name { font-size: 0.92rem; font-weight: 700; color: var(--text-primary); flex: 1; }
+.hifi-skill-card-count { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; }
+.hifi-skill-card-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.5; margin: 0 0 10px; }
+.hifi-skill-bar-wrap { margin-bottom: 10px; }
+.hifi-skill-bar { height: 6px; background: var(--bg-tertiary); border-radius: 3px; overflow: hidden; }
+.hifi-skill-bar-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+.hifi-skill-card-tip { font-size: 0.72rem; color: var(--text-secondary); line-height: 1.5; margin: 0 0 10px; font-style: italic; }
+.hifi-skill-lessons { display: flex; flex-direction: column; gap: 4px; }
+.hifi-skill-lesson-link {
+    display: block; padding: 6px 10px; border-radius: var(--radius-sm);
+    background: var(--bg-tertiary); border: none; color: var(--text-secondary);
+    font-size: 0.75rem; font-weight: 500; cursor: pointer; text-align: left;
+    font-family: inherit; transition: var(--transition);
+}
+.hifi-skill-lesson-link:hover { color: var(--skill-color); background: var(--bg-primary); }
+.hifi-skill-lesson-link.done { color: #2ecc71; }
+
+.hifi-error {
+    text-align: center; padding: 40px; color: var(--text-muted);
+    font-size: 0.88rem;
+}
+
+/* HiFi Interactive Playback */
+.hifi-playback-time {
+    font-family: 'SF Mono', 'Consolas', monospace; font-size: 0.82rem;
+    font-weight: 700; color: var(--accent-color); padding: 4px 10px;
+    background: var(--accent-color)15; border-radius: 10px;
+    opacity: 0; transition: opacity 0.3s ease; margin-left: auto;
+}
+.hifi-playback-time.visible { opacity: 1; }
+.hifi-listen-item.hifi-active {
+    border-color: var(--item-color); background: color-mix(in srgb, var(--item-color) 8%, var(--bg-secondary));
+    box-shadow: 0 0 20px color-mix(in srgb, var(--item-color) 15%, transparent);
+    transform: scale(1.01);
+}
+.hifi-listen-item { transition: all 0.4s ease; }
+
+/* HiFi Plex Cache */
+.hifi-plex-cache-row {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 16px; background: var(--bg-secondary);
+    border-radius: var(--radius-md); border: 1px solid var(--border-color);
+    font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 16px;
+}
+.hifi-plex-cache-status {
+    margin-left: auto; display: flex; align-items: center; gap: 6px;
+    font-weight: 600; font-size: 0.78rem;
+}
+.hifi-cache-done { color: #2ecc71; }
+.hifi-cache-loading { color: var(--accent-color); display: flex; align-items: center; gap: 8px; }
+.hifi-cache-progress-bar {
+    width: 60px; height: 4px; background: var(--border-color);
+    border-radius: 2px; overflow: hidden;
+}
+.hifi-cache-progress-fill {
+    height: 100%; background: var(--accent-color);
+    border-radius: 2px; transition: width 0.3s ease;
+}
+.hifi-play-plex.hifi-plex-ready {
+    border-color: rgba(229,160,13,0.4); background: rgba(229,160,13,0.1);
+}
+
+/* HiFi Album Art */
+.hifi-album-art-wrap { flex-shrink: 0; position: relative; width: 100px; height: 100px; }
+.hifi-album-art {
+    width: 100px; height: 100px; border-radius: var(--radius-md);
+    object-fit: cover; box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    border: 2px solid var(--border-color);
+}
+.hifi-album-art-wrap .hifi-album-vinyl { display: flex; align-items: center; justify-content: center; height: 100%; }
+
+/* HiFi Quality Card */
+.hifi-quality-card {
+    padding: 14px 18px; background: var(--bg-secondary);
+    border-radius: var(--radius-md); border: 1px solid var(--border-color);
+    margin-top: 2px;
+}
+.hifi-quality-header {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+}
+.hifi-quality-label { font-size: 13px; font-weight: 600; color: var(--text-secondary); }
+.hifi-quality-score {
+    margin-left: auto; padding: 3px 10px; border-radius: 12px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
+}
+.hifi-quality-details {
+    font-size: 12px; color: var(--text-muted); margin-bottom: 8px;
+    font-family: 'Courier New', monospace; letter-spacing: 0.5px;
+}
+.hifi-quality-meter {
+    height: 4px; background: var(--bg-tertiary, #1a1a2e); border-radius: 2px;
+    overflow: hidden; margin-bottom: 8px;
+}
+.hifi-quality-meter-fill {
+    height: 100%; border-radius: 2px; transition: width 0.6s ease;
+}
+.hifi-quality-best {
+    font-size: 11px; color: #2ecc71; font-weight: 600;
+}
+.hifi-quality-warn {
+    font-size: 11px; color: #e6a817; font-weight: 500;
+}
+
+/* HiFi spin keyframes (used by other spinners in the app) */
+@keyframes hifi-spin { to { transform: rotate(360deg); } }
+
+/* HiFi A/B Comparison */
+.hifi-play-ab {
+    background: rgba(102,126,234,0.1) !important; border-color: rgba(102,126,234,0.3) !important;
+    color: #667eea !important;
+}
+.hifi-play-ab:hover { background: rgba(102,126,234,0.2) !important; }
+.hifi-ab-panel {
+    background: var(--bg-secondary); border-radius: var(--radius-md);
+    border: 1px solid rgba(102,126,234,0.3); padding: 16px; margin-bottom: 16px;
+    transition: background 0.3s ease;
+}
+.hifi-ab-panel.hifi-ab-flash { background: rgba(102,126,234,0.1); }
+.hifi-ab-header {
+    display: flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 700;
+    color: #667eea; margin-bottom: 8px;
+}
+.hifi-ab-close { margin-left: auto; background: none; border: none; color: var(--text-secondary); cursor: pointer; padding: 4px; }
+.hifi-ab-desc { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px; }
+.hifi-ab-toggle-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.hifi-ab-btn {
+    padding: 12px; border-radius: var(--radius-md); border: 2px solid var(--border-color);
+    background: var(--bg-primary); color: var(--text-primary); cursor: pointer;
+    font-size: 0.85rem; font-weight: 600; display: flex; flex-direction: column;
+    align-items: center; gap: 6px; transition: all 0.2s;
+}
+.hifi-ab-btn:hover { border-color: #667eea; }
+.hifi-ab-btn.hifi-ab-active {
+    border-color: #667eea; background: rgba(102,126,234,0.1);
+    box-shadow: 0 0 12px rgba(102,126,234,0.2);
+}
+.hifi-ab-format { font-size: 0.7rem; color: var(--text-secondary); font-weight: 400; }
+.hifi-ab-hint {
+    display: flex; align-items: flex-start; gap: 6px;
+    font-size: 0.75rem; color: var(--text-secondary); font-style: italic;
+    padding: 8px 10px; background: var(--bg-primary); border-radius: var(--radius-sm);
+}
+
+/* HiFi Listening Coach */
+.hifi-coach-card {
+    background: var(--bg-secondary); border-radius: var(--radius-md);
+    border: 1px solid var(--border-color); overflow: hidden;
+}
+.hifi-coach-toggle {
+    width: 100%; display: flex; align-items: center; gap: 8px;
+    padding: 12px 16px; background: none; border: none;
+    color: var(--text-primary); font-size: 0.85rem; font-weight: 700;
+    cursor: pointer; transition: background 0.2s;
+}
+.hifi-coach-toggle:hover { background: rgba(255,255,255,0.03); }
+.hifi-coach-chevron { margin-left: auto; transition: transform 0.3s; }
+.hifi-coach-chevron.hifi-coach-open { transform: rotate(180deg); }
+.hifi-coach-panel {
+    display: flex; flex-direction: column; border-top: 1px solid var(--border-color);
+    max-height: 400px;
+}
+.hifi-coach-messages {
+    flex: 1; overflow-y: auto; padding: 12px;
+    display: flex; flex-direction: column; gap: 8px;
+    max-height: 280px; min-height: 100px;
+}
+.hifi-coach-msg {
+    padding: 8px 12px; border-radius: 12px; font-size: 0.82rem; line-height: 1.5;
+    max-width: 90%; word-wrap: break-word;
+}
+.hifi-coach-system {
+    align-self: center; background: rgba(102,126,234,0.1); color: var(--text-secondary);
+    text-align: center; font-size: 0.78rem; border-radius: 8px; max-width: 100%;
+}
+.hifi-coach-user {
+    align-self: flex-end; background: var(--accent-color); color: #fff;
+    border-bottom-right-radius: 4px;
+}
+.hifi-coach-assistant {
+    align-self: flex-start; background: var(--bg-primary); color: var(--text-primary);
+    border: 1px solid var(--border-color); border-bottom-left-radius: 4px;
+}
+.hifi-coach-error {
+    align-self: center; background: rgba(224,85,85,0.1); color: #e05555;
+    font-size: 0.78rem;
+}
+.hifi-coach-typing {
+    display: flex; gap: 4px; padding: 12px 16px;
+}
+.hifi-coach-typing span {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--text-secondary);
+    animation: hifi-typing 1.2s infinite ease-in-out;
+}
+.hifi-coach-typing span:nth-child(2) { animation-delay: 0.15s; }
+.hifi-coach-typing span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes hifi-typing { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
+.hifi-coach-input-wrap {
+    display: flex; gap: 6px; padding: 8px 12px; border-top: 1px solid var(--border-color);
+}
+.hifi-coach-input {
+    flex: 1; padding: 8px 12px; border-radius: 20px; border: 1px solid var(--border-color);
+    background: var(--bg-primary); color: var(--text-primary); font-size: 0.82rem;
+}
+.hifi-coach-input:focus { border-color: var(--accent-color); outline: none; }
+.hifi-coach-send {
+    width: 34px; height: 34px; border-radius: 50%; border: none;
+    background: var(--accent-color); color: #fff; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity 0.2s;
+}
+.hifi-coach-send:hover { opacity: 0.85; }
+.hifi-coach-quick {
+    display: flex; flex-wrap: wrap; gap: 6px; padding: 6px 12px 10px;
+}
+.hifi-coach-chip {
+    padding: 4px 10px; border-radius: 12px; font-size: 0.72rem; cursor: pointer;
+    background: var(--bg-primary); color: var(--text-secondary);
+    border: 1px solid var(--border-color); transition: all 0.2s;
+}
+.hifi-coach-chip:hover { border-color: var(--accent-color); color: var(--text-primary); }
+
+/* ===== Toast Notifications ===== */
+.toast-container {
+    position: fixed; bottom: 20px; right: 20px; z-index: 10000;
+    display: flex; flex-direction: column-reverse; gap: 8px;
+    pointer-events: none; max-width: 380px;
+}
+.toast {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 18px; border-radius: 10px;
+    background: var(--bg-secondary); border: 1px solid var(--border-color);
+    color: var(--text-primary); font-size: 0.85rem; font-weight: 500;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    transform: translateX(120%); opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    pointer-events: auto; cursor: pointer;
+}
+.toast-visible { transform: translateX(0); opacity: 1; }
+.toast-success { border-color: rgba(46,204,113,0.4); }
+.toast-success svg { color: #2ecc71; }
+.toast-error { border-color: rgba(224,85,85,0.4); }
+.toast-error svg { color: #e05555; }
+.toast-warning { border-color: rgba(230,168,23,0.4); }
+.toast-warning svg { color: #e6a817; }
+.toast-info { border-color: rgba(102,126,234,0.4); }
+.toast-info svg { color: #667eea; }
+.toast-text { flex: 1; line-height: 1.4; }
+
+/* Rich toast variants: action button + collapsible details */
+.toast-rich { flex-direction: column; align-items: stretch; }
+.toast .toast-row { display: flex; align-items: center; gap: 10px; width: 100%; }
+.toast-action-btn {
+    flex: 0 0 auto;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color, rgba(255,255,255,0.15));
+    background: rgba(255,255,255,0.05);
+    color: var(--text-primary, #fff);
+    font-size: 0.78rem; font-weight: 600;
+    cursor: pointer; font-family: inherit;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+.toast-action-btn:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: var(--accent-color, #667eea);
+}
+.toast-error .toast-action-btn { color: #ffb4b4; border-color: rgba(224,85,85,0.4); }
+.toast-warning .toast-action-btn { color: #ffd591; border-color: rgba(230,168,23,0.4); }
+.toast-info .toast-action-btn { color: #b4c5ff; border-color: rgba(102,126,234,0.4); }
+
+.toast-details {
+    margin-top: 6px;
+    font-size: 0.74rem;
+    color: var(--text-secondary, rgba(255,255,255,0.7));
+}
+.toast-details summary {
+    cursor: pointer; user-select: none;
+    padding: 2px 0; opacity: 0.8;
+}
+.toast-details summary:hover { opacity: 1; }
+.toast-details-pre {
+    margin: 4px 0 0; padding: 6px 8px;
+    background: rgba(0,0,0,0.25);
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.72rem; line-height: 1.4;
+    max-height: 160px; overflow: auto;
+    white-space: pre-wrap; word-break: break-word;
+}
+
+/* ===== Diagnostics Panel ===== */
+.diagnostics-panel {
+    background: var(--bg-tertiary, rgba(0,0,0,0.2));
+    border: 1px solid var(--border-color, rgba(255,255,255,0.08));
+    border-radius: var(--radius-sm, 6px);
+    padding: 10px 12px;
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+}
+.diagnostics-loading { color: var(--text-muted, rgba(255,255,255,0.5)); font-style: italic; padding: 8px 0; }
+.diagnostics-table { width: 100%; border-collapse: collapse; }
+.diagnostics-table th, .diagnostics-table td {
+    text-align: left; padding: 4px 8px 4px 0; vertical-align: top;
+    line-height: 1.5;
+    border-bottom: 1px dashed var(--border-subtle, rgba(255,255,255,0.06));
+}
+.diagnostics-table tr:last-child th,
+.diagnostics-table tr:last-child td { border-bottom: 0; }
+.diagnostics-table th {
+    width: 130px; font-weight: 600;
+    color: var(--text-secondary, rgba(255,255,255,0.7));
+}
+.diag-ok    { color: #2ecc71; font-weight: 600; }
+.diag-warn  { color: #e6a817; font-weight: 600; }
+.diag-off   { color: #e05555; font-weight: 600; }
+.diag-detail { color: var(--text-muted, rgba(255,255,255,0.55)); font-weight: 400; margin-left: 4px; }
+
+/* ===== Lesson generator: rich error card ===== */
+.lg-status-card { padding: 0; margin-top: 12px; }
+.lg-error-card {
+    background: rgba(224,85,85,0.08);
+    border: 1px solid rgba(224,85,85,0.35);
+    border-radius: var(--radius-sm, 6px);
+    padding: 12px 14px;
+    color: var(--text-primary, #fff);
+}
+.lg-error-card .lg-error-head { font-size: 0.92rem; margin-bottom: 4px; color: #ff8585; }
+.lg-error-card .lg-error-why { font-size: 0.82rem; line-height: 1.5; color: var(--text-secondary, rgba(255,255,255,0.78)); margin-bottom: 8px; word-break: break-word; }
+.lg-error-card .lg-error-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.lg-error-raw {
+    margin-top: 10px;
+    font-size: 0.78rem;
+    color: var(--text-secondary, rgba(255,255,255,0.7));
+}
+.lg-error-raw summary { cursor: pointer; opacity: 0.8; }
+.lg-error-raw summary:hover { opacity: 1; }
+.lg-error-raw pre {
+    margin-top: 6px; padding: 8px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.72rem; line-height: 1.4;
+    max-height: 220px; overflow: auto;
+    white-space: pre-wrap; word-break: break-word;
+}
+
+/* ============================================================
+ * HiFi Buddy standalone — header, nav, layout shell
+ * (Appended to the larger source stylesheet. Many rules
+ *  above are unused in the standalone but harmless.)
+ * ============================================================ */
+
+body { background: var(--bg-primary); }
+
+.hb-header {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.hb-header-inner {
+    max-width: 1280px; margin: 0 auto;
+    padding: 14px 24px;
+    display: flex; align-items: center; gap: 24px;
+}
+
+.hb-logo {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--text-primary); text-decoration: none;
+    font-weight: 800; letter-spacing: -0.01em;
+}
+.hb-logo svg { color: #9b59b6; }
+.hb-logo-text { font-size: 1.15rem; }
+.hb-logo-accent { color: #9b59b6; }
+
+.hb-nav {
+    display: flex; gap: 4px; margin-left: auto; margin-right: auto;
+}
+.hb-nav-btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 16px; border-radius: var(--radius-md);
+    border: 1px solid transparent; background: transparent;
+    color: var(--text-secondary); font-family: inherit;
+    font-size: 0.85rem; font-weight: 600; cursor: pointer;
+    transition: var(--transition);
+}
+.hb-nav-btn:hover { background: var(--bg-tertiary); color: var(--text-primary); }
+.hb-nav-btn.active {
+    background: rgba(155, 89, 182, 0.12);
+    color: #9b59b6;
+    border-color: rgba(155, 89, 182, 0.3);
+}
+
+.hb-header-actions { display: flex; gap: 8px; align-items: center; }
+.hb-icon-btn {
+    width: 36px; height: 36px; padding: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 1px solid var(--border-color); border-radius: var(--radius-md);
+    background: var(--bg-secondary); color: var(--text-secondary);
+    cursor: pointer; font-family: inherit; font-size: 1rem;
+    transition: var(--transition);
+}
+.hb-icon-btn:hover { border-color: var(--accent-color); color: var(--text-primary); }
+
+.hb-main {
+    max-width: 1280px; margin: 0 auto;
+    padding: 24px;
+    padding-bottom: 24px;
+    min-height: calc(100vh - 70px);
+    transition: padding-bottom 0.18s ease;
+}
+
+/* When visualizer is open, pad the main column out from under it so the
+ * "Mark as completed" button (and any other end-of-page UI) stays reachable.
+ * Visualizer is ~140px tall (110 on narrow viewports) and sits above the
+ * audio player bar (~64px), so 220px is comfortable on desktop. */
+body.vis-active .hb-main { padding-bottom: 220px; }
+
+@media (max-width: 640px) {
+    body.vis-active .hb-main { padding-bottom: 190px; }
+}
+
+.hifi-container,
+.reference-bank-container,
+.abx-stats-container { width: 100%; }
+
+@media (max-width: 720px) {
+    .hb-header-inner { gap: 12px; padding: 12px 14px; }
+    .hb-nav-btn { padding: 6px 10px; font-size: 0.78rem; }
+    .hb-nav-btn svg { display: none; }
+    .hb-main { padding: 16px; }
+}
+
+/* ============================================================
+ * Onboarding Wizard
+ * ============================================================ */
+.onboarding-overlay {
+    position: fixed; inset: 0; z-index: 1000;
+    background: rgba(8, 8, 16, 0.78);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    animation: ob-overlay-in 180ms ease-out;
+}
+@keyframes ob-overlay-in { from { opacity: 0; } to { opacity: 1; } }
+
+body.ob-locked { overflow: hidden; }
+
+.onboarding-card {
+    width: 100%; max-width: 480px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg), 0 0 0 1px rgba(155, 89, 182, 0.18);
+    padding: 24px;
+    color: var(--text-primary);
+    transition: opacity 180ms ease, transform 220ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ob-fade-in { animation: ob-step-in 220ms cubic-bezier(0.4, 0, 0.2, 1); }
+@keyframes ob-step-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.ob-progress {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 18px;
+}
+.ob-progress-track {
+    flex: 1; height: 4px;
+    background: var(--bg-tertiary);
+    border-radius: 2px; overflow: hidden;
+}
+.ob-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #9b59b6 100%);
+    border-radius: 2px;
+    transition: width 240ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.ob-progress-text {
+    font-size: 0.72rem; color: var(--text-muted);
+    font-weight: 600; letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+.ob-body { margin-bottom: 18px; }
+.ob-title {
+    font-size: 1.4rem; font-weight: 700;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+}
+.ob-lead {
+    color: var(--text-primary);
+    font-size: 0.98rem;
+    margin: 0 0 10px;
+}
+.ob-copy {
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    margin: 0 0 12px;
+}
+.ob-hint {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    margin: 6px 0 0;
+}
+.ob-hint a, .ob-field a {
+    color: #9b59b6; text-decoration: none;
+    border-bottom: 1px dotted rgba(155, 89, 182, 0.5);
+}
+.ob-hint a:hover, .ob-field a:hover { color: var(--accent-color); }
+
+.ob-code {
+    display: block;
+    font-family: 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.82rem;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    padding: 8px 10px;
+    margin: 8px 0 14px;
+    color: var(--text-primary);
+    user-select: all;
+}
+
+.ob-radio-group { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+.ob-radio {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 12px 14px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition);
+}
+.ob-radio:hover { border-color: rgba(155, 89, 182, 0.5); background: var(--bg-hover); }
+.ob-radio input { margin-top: 3px; accent-color: #9b59b6; cursor: pointer; }
+.ob-radio:has(input:checked) {
+    border-color: #9b59b6;
+    background: rgba(155, 89, 182, 0.08);
+}
+.ob-radio-body { flex: 1; }
+.ob-radio-title { font-weight: 600; font-size: 0.92rem; margin-bottom: 2px; }
+.ob-radio-sub { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4; }
+
+.ob-field {
+    display: flex; flex-direction: column; gap: 6px;
+    margin-bottom: 12px;
+}
+.ob-field > span {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+.ob-field input,
+.ob-field select {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.88rem;
+    transition: var(--transition);
+}
+.ob-field input:focus,
+.ob-field select:focus {
+    outline: none;
+    border-color: #9b59b6;
+    box-shadow: 0 0 0 2px rgba(155, 89, 182, 0.18);
+}
+
+.ob-test-row {
+    display: flex; align-items: center; gap: 12px;
+    margin-top: 4px;
+}
+.ob-test-status {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+.ob-test-status.ob-test-pending { color: var(--text-secondary); }
+.ob-test-status.ob-test-ok { color: #4ca56b; }
+.ob-test-status.ob-test-fail { color: #d65a5a; }
+
+.ob-actions {
+    display: flex; justify-content: flex-end; gap: 8px;
+    padding-top: 6px;
+    border-top: 1px solid var(--border-subtle);
+    margin-top: 10px;
+    padding-top: 14px;
+}
+.ob-btn {
+    padding: 9px 16px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    font-family: inherit;
+    font-size: 0.86rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    background: transparent;
+    color: var(--text-primary);
+}
+.ob-btn:hover { background: var(--bg-hover); }
+.ob-btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #9b59b6 100%);
+    border-color: transparent;
+    color: #fff;
+}
+.ob-btn-primary:hover {
+    background: linear-gradient(135deg, #768eff 0%, #a86bc4 100%);
+    transform: translateY(-1px);
+}
+.ob-btn-secondary {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+.ob-btn-ghost {
+    background: transparent;
+    color: var(--text-secondary);
+    border-color: transparent;
+}
+.ob-btn-ghost:hover { color: var(--text-primary); background: var(--bg-hover); }
+
+@media (max-width: 540px) {
+    .onboarding-card { padding: 18px; max-width: 100%; }
+    .ob-title { font-size: 1.2rem; }
+    .ob-actions { flex-direction: column-reverse; }
+    .ob-btn { width: 100%; }
+}
+
+/* ============================================================
+ * ABX Progress Dashboard
+ * ============================================================ */
+.abxs-wrap {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 22px;
+}
+.abxs-pageheader { padding: 6px 0 4px; }
+.abxs-pageheader h2 {
+    font-size: 1.6rem; font-weight: 800;
+    letter-spacing: -0.015em;
+    margin: 0 0 4px;
+}
+.abxs-pageheader p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.abxs-header {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+}
+.abxs-stat {
+    padding: 10px 6px;
+    border-right: 1px solid var(--border-subtle);
+}
+.abxs-stat:last-child { border-right: none; }
+.abxs-stat-num {
+    font-size: 1.9rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--text-primary);
+}
+.abxs-stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.abxs-section {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+}
+.abxs-section-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 4px;
+    letter-spacing: -0.005em;
+}
+.abxs-section-sub {
+    color: var(--text-secondary);
+    font-size: 0.84rem;
+    margin: 0 0 14px;
+}
+
+/* Bitrate bars */
+.abxs-bar-row { margin-bottom: 14px; }
+.abxs-bar-row:last-child { margin-bottom: 0; }
+.abxs-bar-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 6px;
+}
+.abxs-bar-bitrate { font-weight: 700; font-size: 0.92rem; }
+.abxs-bar-meta { font-size: 0.78rem; color: var(--text-muted); }
+.abxs-bar-track {
+    height: 10px;
+    background: var(--bg-tertiary);
+    border-radius: 5px;
+    overflow: hidden;
+}
+.abxs-bar-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.abxs-bar-caption {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    margin-top: 6px;
+}
+
+/* Per-lesson grid */
+.abxs-lesson-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+}
+.abxs-lesson-card {
+    text-align: left;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--text-primary);
+    font-family: inherit;
+}
+.abxs-lesson-card:hover {
+    border-color: rgba(155, 89, 182, 0.5);
+    background: var(--bg-hover);
+    transform: translateY(-1px);
+}
+.abxs-lesson-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 8px; margin-bottom: 8px;
+}
+.abxs-lesson-title {
+    font-weight: 700; font-size: 0.94rem;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+}
+.abxs-lesson-id {
+    font-size: 0.7rem; color: var(--text-muted);
+    font-family: 'SF Mono', Menlo, Consolas, monospace;
+    flex-shrink: 0;
+}
+.abxs-lesson-score {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 6px;
+}
+.abxs-score-num { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em; }
+.abxs-tick {
+    font-size: 0.66rem;
+    background: rgba(76, 165, 107, 0.15);
+    color: #4ca56b;
+    border: 1px solid rgba(76, 165, 107, 0.4);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+.abxs-lesson-meta {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    font-size: 0.74rem;
+    color: var(--text-muted);
+}
+.abxs-green { color: #4ca56b; }
+.abxs-amber { color: #e0a44e; }
+.abxs-red { color: #d65a5a; }
+
+/* Trend chart */
+.abxs-trend {
+    width: 100%;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-subtle);
+    padding: 6px;
+}
+
+/* Empty state */
+.abxs-empty {
+    text-align: center;
+    padding: 56px 20px;
+    background: var(--bg-card);
+    border: 1px dashed var(--border-color);
+    border-radius: var(--radius-lg);
+}
+.abxs-empty-icon { color: var(--text-muted); margin-bottom: 12px; }
+.abxs-empty h3 {
+    font-size: 1.1rem;
+    margin: 0 0 6px;
+    color: var(--text-primary);
+    font-weight: 700;
+}
+.abxs-empty p {
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    margin: 0 0 16px;
+}
+.abxs-empty-cta {
+    padding: 9px 18px;
+    border-radius: var(--radius-sm);
+    border: none;
+    background: linear-gradient(135deg, #667eea 0%, #9b59b6 100%);
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.86rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.abxs-empty-cta:hover { transform: translateY(-1px); }
+
+@media (max-width: 720px) {
+    .abxs-stat { border-right: none; border-bottom: 1px solid var(--border-subtle); }
+    .abxs-stat:last-child { border-bottom: none; }
+    .abxs-section { padding: 14px; }
+}
+
+/* ============================================================
+   Audio player context badge (Feature C)
+   ============================================================ */
+.ap-context {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-bottom: 3px;
+    color: var(--ap-ctx-color, var(--accent-color));
+    background: color-mix(in srgb, var(--ap-ctx-color, var(--accent-color)) 18%, transparent);
+    border: 1px solid color-mix(in srgb, var(--ap-ctx-color, var(--accent-color)) 40%, transparent);
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ============================================================
+   Lesson Generator (Feature A)
+   ============================================================ */
+.hifi-generate-row {
+    margin: 1rem 0 1.25rem;
+}
+.hifi-generate-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    border-radius: var(--radius-lg);
+    border: 1px dashed color-mix(in srgb, #9b59b6 50%, transparent);
+    background: linear-gradient(135deg, rgba(155,89,182,0.10), rgba(102,126,234,0.10));
+    color: var(--text-primary);
+    font-family: inherit;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: left;
+}
+.hifi-generate-btn:hover {
+    border-color: #9b59b6;
+    background: linear-gradient(135deg, rgba(155,89,182,0.18), rgba(102,126,234,0.18));
+    transform: translateY(-1px);
+}
+.hifi-generate-btn .hifi-generate-sparkle {
+    color: #9b59b6;
+    flex-shrink: 0;
+}
+.hifi-generate-btn span:nth-of-type(1) {
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+.hifi-generate-sub {
+    margin-left: auto;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.hifi-user-lessons {
+    margin: 0 0 1.5rem;
+    padding: 1rem 1.1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+}
+.hifi-user-lessons-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0.75rem;
+}
+.hifi-user-lessons-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #9b59b6;
+}
+.hifi-user-lessons-count {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    background: var(--bg-tertiary);
+    padding: 2px 8px;
+    border-radius: 999px;
+}
+.hifi-user-lesson-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.hifi-lesson-card-user {
+    border-color: color-mix(in srgb, #9b59b6 25%, var(--border-color));
+}
+.hifi-lesson-card-user:hover {
+    border-color: #9b59b6;
+}
+.hifi-generated-badge {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: rgba(155,89,182,0.18);
+    color: #9b59b6;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    vertical-align: middle;
+}
+.hifi-lesson-delete {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 6px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    margin-right: 4px;
+}
+.hifi-lesson-delete:hover {
+    color: #e05555;
+    background: rgba(224,85,85,0.1);
+}
+
+.lesson-gen-modal { max-width: 720px; width: 100%; }
+.lg-help {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+}
+.lg-input {
+    width: 100%;
+    padding: 12px 14px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.9rem;
+    resize: vertical;
+    outline: none;
+    transition: var(--transition);
+}
+.lg-input:focus { border-color: #9b59b6; }
+.lg-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.75rem;
+}
+.lg-generate-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    border-radius: var(--radius-sm);
+    border: none;
+    background: linear-gradient(135deg, #9b59b6, #667eea);
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.86rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.lg-generate-btn:hover { transform: translateY(-1px); }
+.lg-generate-btn:disabled { opacity: 0.6; cursor: wait; }
+.lg-status {
+    margin-top: 0.85rem;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.82rem;
+    line-height: 1.5;
+    min-height: 1px;
+}
+.lg-status:empty { display: none; }
+.lg-status-busy {
+    background: rgba(102,126,234,0.10);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.lg-status-ok {
+    background: rgba(46,204,113,0.10);
+    color: #2ecc71;
+}
+.lg-status-error {
+    background: rgba(224,85,85,0.12);
+    color: #e05555;
+}
+.lg-spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(102,126,234,0.3);
+    border-top-color: #667eea;
+    border-radius: 50%;
+    animation: lg-spin 0.8s linear infinite;
+    display: inline-block;
+}
+@keyframes lg-spin { to { transform: rotate(360deg); } }
+
+/* ---- Unified Lesson Generator: 4-tab strip ---- */
+.lg-tabs {
+    display: flex;
+    gap: 2px;
+    margin: -4px -4px 14px -4px;
+    padding: 4px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+}
+.lg-tab {
+    flex: 1;
+    padding: 8px 10px;
+    background: transparent;
+    border: none;
+    border-radius: calc(var(--radius-sm) - 2px);
+    color: var(--text-secondary);
+    font-family: inherit;
+    font-size: 0.84rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+.lg-tab:hover { color: var(--text-primary); }
+.lg-tab.active {
+    background: linear-gradient(135deg, #9b59b6, #667eea);
+    color: #fff;
+    box-shadow: 0 1px 6px rgba(102,126,234,0.25);
+}
+.lg-tab-body { min-height: 220px; }
+
+/* ---- Quick guide form ---- */
+.lg-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 14px;
+    margin-bottom: 8px;
+}
+.lg-field { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.lg-field-wide { grid-column: 1 / -1; }
+.lg-field > span {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+.lg-optional { font-weight: 400; opacity: 0.55; font-size: 0.72rem; }
+
+/* ---- Browse Plex tab ---- */
+.lg-plex-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+}
+.lg-plex-status { font-weight: 600; }
+.lg-plex-list {
+    max-height: 360px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-right: 4px;
+}
+.lg-plex-loading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 24px 12px;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+.lg-plex-error {
+    padding: 14px;
+    background: rgba(224,85,85,0.10);
+    border: 1px solid rgba(224,85,85,0.25);
+    border-radius: var(--radius-sm);
+    color: #e05555;
+    font-size: 0.85rem;
+}
+.lg-plex-card {
+    display: flex;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    align-items: flex-start;
+    transition: border-color 0.15s;
+}
+.lg-plex-card:hover { border-color: rgba(155,89,182,0.4); }
+.lg-plex-card-main { flex: 1; min-width: 0; }
+.lg-plex-title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+.lg-plex-meta {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+.lg-plex-sep { opacity: 0.4; margin: 0 4px; }
+.lg-plex-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 6px;
+}
+.lg-plex-skill {
+    font-size: 0.66rem;
+    padding: 2px 8px;
+    border-radius: 9px;
+    background: rgba(102,126,234,0.12);
+    color: #8aa2ff;
+    border: 1px solid rgba(102,126,234,0.25);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+.lg-plex-note {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+    margin: 0;
+}
+.lg-plex-go {
+    flex-shrink: 0;
+    align-self: center;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(155,89,182,0.4);
+    background: rgba(155,89,182,0.10);
+    color: #c39bd3;
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.lg-plex-go:hover {
+    background: linear-gradient(135deg, #9b59b6, #667eea);
+    color: #fff;
+    border-color: transparent;
+}
+.lg-plex-go:disabled { opacity: 0.6; cursor: wait; }
+
+/* ---- Import pack tab ---- */
+.lg-import-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+.lg-file-btn {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-tertiary);
+    border: 1px dashed var(--border-color);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.lg-file-btn:hover { border-color: rgba(155,89,182,0.6); color: #c39bd3; }
+.lg-import-filename {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+}
+.lg-import-list {
+    max-height: 360px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-right: 4px;
+}
+.lg-import-row {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background: var(--bg-tertiary);
+    padding: 10px 12px;
+    transition: border-color 0.15s;
+}
+.lg-import-row:hover { border-color: rgba(102,126,234,0.4); }
+.lg-import-checkrow {
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+    align-items: flex-start;
+}
+.lg-import-checkrow input[type=checkbox] {
+    flex-shrink: 0;
+    margin-top: 4px;
+    accent-color: #9b59b6;
+}
+.lg-import-row-main { flex: 1; min-width: 0; }
+.lg-import-row-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 3px;
+}
+.lg-import-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+.lg-import-badge {
+    font-size: 0.66rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.lg-import-badge-ok {
+    background: rgba(46,204,113,0.15);
+    color: #2ecc71;
+    border: 1px solid rgba(46,204,113,0.30);
+}
+.lg-import-badge-review {
+    background: rgba(241,196,15,0.15);
+    color: #f1c40f;
+    border: 1px solid rgba(241,196,15,0.30);
+}
+.lg-import-badge-failed {
+    background: rgba(224,85,85,0.15);
+    color: #e05555;
+    border: 1px solid rgba(224,85,85,0.30);
+}
+.lg-import-score {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    font-family: var(--font-mono, ui-monospace, monospace);
+}
+.lg-import-row-meta {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+.lg-import-album { opacity: 0.75; }
+.lg-import-meta-empty { font-style: italic; opacity: 0.7; }
+.lg-import-errors {
+    margin-top: 4px;
+    font-size: 0.76rem;
+}
+.lg-import-errors summary {
+    cursor: pointer;
+    color: #e05555;
+    font-weight: 600;
+    user-select: none;
+}
+.lg-import-errors ul {
+    margin: 6px 0 0 18px;
+    padding: 0;
+    color: #c0a0a0;
+}
+.lg-import-errors li { margin-bottom: 2px; }
+.lg-import-preview {
+    margin-top: 5px;
+    padding: 8px 10px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+}
+.lg-import-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+/* ---- Empty/info panes ---- */
+.lg-empty {
+    padding: 32px 16px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    background: var(--bg-tertiary);
+    border: 1px dashed var(--border-color);
+    border-radius: var(--radius-sm);
+}
+.lg-empty p { margin: 0 0 12px 0; }
+
+/* ---- Secondary button (Discard / Open Settings / Rescan / Select OK) ---- */
+.lg-secondary-btn {
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.lg-secondary-btn:hover {
+    border-color: rgba(155,89,182,0.5);
+    color: #c39bd3;
+}
+
+/* ---- Preview / review card (shared by all four tabs) ---- */
+.lg-preview-host { margin-top: 14px; }
+.lg-preview {
+    padding: 16px 18px;
+    background: var(--bg-tertiary);
+    border: 1px solid rgba(155,89,182,0.30);
+    border-radius: var(--radius-sm);
+}
+.lg-preview-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+.lg-preview-head h4 {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+}
+.lg-preview-diff {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 9px;
+    border-radius: 9px;
+    background: rgba(102,126,234,0.15);
+    color: #8aa2ff;
+    border: 1px solid rgba(102,126,234,0.3);
+}
+.lg-preview-meta {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+.lg-preview-album { opacity: 0.75; }
+.lg-preview-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 10px;
+}
+.lg-preview-skill {
+    font-size: 0.68rem;
+    padding: 2px 9px;
+    border-radius: 9px;
+    background: rgba(102,126,234,0.12);
+    color: #8aa2ff;
+    border: 1px solid rgba(102,126,234,0.25);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+.lg-preview-skill-mini {
+    font-size: 0.66rem;
+    color: #8aa2ff;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-right: 4px;
+}
+.lg-preview-intro {
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    line-height: 1.55;
+    margin: 0 0 10px 0;
+}
+.lg-preview-cues {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.lg-preview-cues li {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    padding: 6px 8px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    line-height: 1.4;
+}
+.lg-preview-time {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    color: #c39bd3;
+    margin-right: 6px;
+    font-size: 0.78rem;
+}
+.lg-preview-more {
+    font-style: italic;
+    opacity: 0.7;
+    background: transparent !important;
+    padding: 4px 8px !important;
+}
+.lg-preview-takeaway {
+    font-size: 0.82rem;
+    color: var(--text-primary);
+    line-height: 1.5;
+    padding: 8px 10px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    margin: 0 0 12px 0;
+}
+.lg-preview-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+/* ============================================================
+   Track Variant Picker (Feature B)
+   ============================================================ */
+.hifi-loaded-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+}
+.hifi-loaded-text {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.hifi-choose-track-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 10px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.74rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+.hifi-choose-track-btn:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.track-picker-modal { max-width: 560px; width: 100%; }
+.tp-target {
+    padding: 10px 12px;
+    margin-bottom: 0.85rem;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+}
+.tp-target-title {
+    font-weight: 700;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+.tp-target-meta {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+.tp-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+.tp-loading, .tp-empty {
+    padding: 1.25rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.tp-spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(102,126,234,0.3);
+    border-top-color: var(--accent-color);
+    border-radius: 50%;
+    animation: lg-spin 0.8s linear infinite;
+    display: inline-block;
+}
+.tp-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.tp-row:hover {
+    border-color: var(--accent-color);
+    background: var(--bg-hover);
+}
+.tp-row-current {
+    border-color: var(--accent-color);
+    background: rgba(102,126,234,0.08);
+}
+.tp-row-source {
+    flex-shrink: 0;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 3px 8px;
+    border-radius: 999px;
+}
+.tp-src-plex {
+    background: rgba(229,160,13,0.18);
+    color: #e5a00d;
+}
+.tp-src-local {
+    background: rgba(26,188,156,0.18);
+    color: #1abc9c;
+}
+.tp-row-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.tp-row-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.tp-row-meta {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.tp-row-pick {
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+.tp-row:hover .tp-row-pick { color: var(--accent-color); }
+.tp-row-badge {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    vertical-align: middle;
+}
+.tp-badge-mbid {
+    background: rgba(46,204,113,0.18);
+    color: #2ecc71;
+}
+.tp-badge-current {
+    background: rgba(102,126,234,0.18);
+    color: var(--accent-color);
+}
+.tp-actions {
+    margin-top: 0.85rem;
+    display: flex;
+    justify-content: flex-end;
+}
+.tp-clear-btn {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 6px 12px;
+    font-family: inherit;
+    font-size: 0.78rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition);
+}
+.tp-clear-btn:hover {
+    color: #e05555;
+    border-color: #e05555;
+}
+
+/* ==================== Timing Feedback (lesson-time corrections) ==================== */
+
+.hifi-listen-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 4px 0 14px;
+}
+
+.hifi-edit-timing-btn,
+.hifi-export-corrections-btn,
+.hifi-import-corrections-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm, 8px);
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.hifi-edit-timing-btn:hover,
+.hifi-export-corrections-btn:hover,
+.hifi-import-corrections-btn:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.hifi-edit-timing-btn.is-active {
+    background: color-mix(in srgb, var(--accent-color) 18%, var(--bg-tertiary));
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.hifi-edit-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent-color) 22%, transparent);
+    color: var(--accent-color);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+/* "corrected" badge on listen items that the user has overridden */
+.hifi-listen-override-badge {
+    margin-left: auto;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent-color) 18%, transparent);
+    color: var(--accent-color);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+/* Per-segment edit row — hidden unless edit mode is active on the container */
+.hifi-listen-edit-row {
+    display: none;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.hifi-edit-timing-active .hifi-listen-edit-row {
+    display: flex;
+}
+
+/* Subtle accent on listen items while editing */
+.hifi-edit-timing-active .hifi-listen-item {
+    border-left-color: var(--accent-color);
+}
+
+.hifi-listen-overridden {
+    box-shadow: inset 3px 0 0 var(--accent-color);
+}
+
+.hifi-listen-time-input {
+    flex: 0 0 auto;
+    width: 130px;
+    padding: 5px 8px;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm, 8px);
+    font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
+    font-size: 0.78rem;
+    transition: var(--transition);
+}
+
+.hifi-listen-time-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-color) 25%, transparent);
+}
+
+.hifi-listen-time-input.is-invalid {
+    border-color: #e05555;
+    box-shadow: 0 0 0 2px color-mix(in srgb, #e05555 25%, transparent);
+}
+
+.hifi-listen-mark,
+.hifi-listen-reset {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 8px;
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm, 8px);
+    font-family: inherit;
+    font-size: 0.72rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.hifi-listen-mark:hover,
+.hifi-listen-reset:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.hifi-listen-original {
+    margin-left: auto;
+    color: var(--text-muted);
+    font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
+    font-size: 0.7rem;
+}
+
+/* ============================================================
+ * Accessibility, mobile responsive & Wave-2 polish
+ * (Appended last so these rules win specificity ties.)
+ * ============================================================ */
+
+/* --- Universal focus-visible ring ------------------------------------- */
+/* Keyboard users see a visible 2px ring on every interactive element.
+ * Mouse clicks (which fire :focus but not :focus-visible in modern
+ * browsers) stay visually clean. */
+*:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+button:focus-visible,
+[role="button"]:focus-visible,
+.hifi-lesson-card:focus-visible,
+.refbank-card:focus-visible,
+.hifi-listen-item:focus-visible {
+    outline-offset: 3px;
+}
+/* Inputs benefit from a tighter offset so the ring doesn't clash with
+ * the existing border-color :focus state. */
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline-offset: 1px;
+}
+
+/* --- @supports fallbacks for color-mix() and :has() ------------------- */
+/* Both features ship in current Chrome/Safari/Firefox but a small
+ * minority of browsers still miss them. Provide explicit non-tinted
+ * fallbacks so layouts don't break. */
+@supports not (background: color-mix(in srgb, red, blue)) {
+    .ap-context { background: rgba(102,126,234,0.18); border-color: rgba(102,126,234,0.4); }
+    .hifi-edit-timing-btn.is-active { background: var(--bg-tertiary); }
+    .hifi-edit-pill { background: rgba(102,126,234,0.22); }
+    .hifi-listen-override-badge { background: rgba(102,126,234,0.18); }
+    .hifi-listen-time-input:focus { box-shadow: 0 0 0 2px rgba(102,126,234,0.25); }
+    .hifi-listen-time-input.is-invalid { box-shadow: 0 0 0 2px rgba(224,85,85,0.25); }
+    .hifi-listen-item:hover { background: var(--bg-secondary); }
+    .hifi-listen-item.hifi-active { background: var(--bg-secondary); box-shadow: none; }
+    .hifi-equip-badge-good { background: var(--bg-secondary); }
+    .hifi-equip-badge-warn { background: var(--bg-secondary); }
+    .hifi-generate-btn { border-style: dashed; }
+    .hifi-lesson-card-user { border-color: var(--border-color); }
+}
+@supports not selector(:has(*)) {
+    /* Without :has(), checked-state styling on .ob-radio is lost.
+     * Approximate it with a class; onboarding.js sets `data-checked`
+     * via the radio's change handler in modern browsers, but for
+     * unsupported browsers users still see the native radio dot. */
+    .ob-radio input:checked ~ .ob-radio-body { color: #9b59b6; }
+}
+
+/* --- Reduced-motion: cut animations down ------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    .hifi-vinyl-disc { animation-play-state: paused !important; }
+    .logo-music-icon { animation: none !important; }
+    .hifi-coach-typing span { animation: none !important; }
+    .hifi-lesson-card:hover,
+    .refbank-card:hover,
+    .hifi-complete-btn:hover,
+    .ob-btn-primary:hover,
+    .lg-generate-btn:hover,
+    .abxs-empty-cta:hover,
+    .hifi-generate-btn:hover {
+        transform: none !important;
+    }
+}
+
+/* --- Touch-target size on mobile (WCAG 2.5.5: ≥ 44 × 44 CSS px) -------- */
+@media (max-width: 720px) and (pointer: coarse), (max-width: 720px) {
+    /* Visualizer buttons: 22 → 44 */
+    .vis-btn {
+        width: 44px !important;
+        height: 44px !important;
+        font-size: 18px !important;
+    }
+    .vis-cog { right: 54px !important; }
+    .vis-popover { top: 54px !important; }
+    /* Modal close (was ~28×28 with padding) */
+    .modal-close,
+    .hifi-ab-close,
+    .ap-close-btn {
+        min-width: 44px;
+        min-height: 44px;
+    }
+    /* Timing-feedback edit-row mark/reset buttons */
+    .hifi-listen-mark,
+    .hifi-listen-reset {
+        min-height: 40px;
+        padding: 8px 10px;
+    }
+    /* Audio player play button */
+    .ap-play-btn { width: 44px; height: 44px; }
+    /* Header action buttons */
+    .hb-icon-btn { width: 40px; height: 40px; }
+    /* Refbank fav star button */
+    .refbank-fav-btn {
+        width: 44px;
+        height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    /* Spotify devices button */
+    .hifi-spotify-devices-btn { min-height: 36px; padding: 8px 12px; }
+}
+
+/* --- A11y / contrast notes (verify with WebAIM contrast checker) ------ */
+/* a11y: contrast check pending — measured ~4.2:1 for text-muted on
+ * bg-secondary in dark theme (#5a5a78 on #12121a). Bumped slightly here
+ * to nudge above 4.5:1 without breaking visual hierarchy. */
+:root { --text-muted: #6e6e8e; }
+[data-theme="light"] { --text-muted: #6f6f88; }
+
+/* a11y: skill chip foreground over color@15% alpha background can hit
+ * ~3.8:1 on dark — bump background opacity for pill text. */
+.hifi-skill-chip { background: rgba(255,255,255,0.04); }
+
+/* a11y: corrected/edit pills — bump to bolder weight + slightly warmer
+ * accent so the text reads cleanly over the tinted background. */
+.hifi-listen-override-badge,
+.hifi-edit-pill { font-weight: 800; }
+
+/* --- Mobile breakpoints: lesson detail, modals, dashboards ------------ */
+@media (max-width: 720px) {
+    /* Lesson dashboard: stack filter-row controls */
+    .hifi-nav-row { flex-direction: column; align-items: stretch; gap: 12px; }
+    .hifi-filter-tabs { flex-wrap: wrap; }
+
+    /* Track card: actions wrap; buttons full-width-ish for thumbs */
+    .hifi-track-card { flex-direction: column; align-items: stretch; }
+    .hifi-track-actions {
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: flex-start;
+    }
+    .hifi-track-actions .hifi-play-btn {
+        flex: 1 1 calc(50% - 4px);
+        justify-content: center;
+        min-height: 40px;
+    }
+
+    /* Album card: vinyl above text */
+    .hifi-album-card { flex-direction: column; align-items: flex-start; gap: 14px; }
+
+    /* Hero lesson title smaller */
+    .hifi-lesson-hero { padding: 22px 14px; }
+    .hifi-lesson-hero-title { font-size: 1.2rem; }
+    .hifi-lesson-hero-skills { gap: 6px; }
+
+    /* Skill chip wrap fix on dashboard cards */
+    .hifi-lesson-skills { gap: 4px; }
+
+    /* Listen-for items: header wraps so equip-badge doesn't push */
+    .hifi-listen-header { flex-wrap: wrap; }
+    .hifi-equip-badge { max-width: none; margin-left: 0; }
+
+    /* Quality + AB toggle + ABX modal row */
+    .hifi-quality-spotify .hifi-quality-header { gap: 6px; }
+    .hifi-spotify-devices-btn { margin-left: 0; }
+
+    /* Stats dashboard: stack lesson grid */
+    .abxs-lesson-grid { grid-template-columns: 1fr !important; }
+
+    /* Reference Library cards single column on smaller phones */
+    .refbank-grid { grid-template-columns: 1fr; }
+
+    /* ABX modal: tighter padding + small gap */
+    .abx-modal { max-width: calc(100vw - 24px); margin: 12px; }
+    .abx-controls { gap: 6px; }
+    .abx-source-btn { padding: 14px 6px; font-size: 0.95rem; }
+
+    /* Settings modal: stack labels above inputs */
+    .modal { width: calc(100vw - 24px); max-width: 100%; }
+    .settings-backup-row { flex-direction: column; align-items: stretch; }
+    .settings-backup-row .settings-test-btn { width: 100%; min-height: 40px; }
+
+    /* Track-picker rows: tighter, allow wrap */
+    .tp-row { gap: 8px; padding: 10px; }
+    .tp-row-meta { white-space: normal; }
+
+    /* Lesson generator modal */
+    .lesson-gen-modal { max-width: calc(100vw - 24px); }
+
+    /* Audio player bar: shorter title cap */
+    .audio-player-bar { padding: 0 0.75rem; gap: 0.5rem; }
+    .ap-title, .ap-artist { max-width: 140px; }
+    .ap-track-info { min-width: 0; flex: 1; }
+    .ap-progress-container { display: none; }
+
+    /* Refbank filters: wrap pills neatly */
+    .refbank-filters { padding: 12px; }
+}
+
+@media (max-width: 480px) {
+    /* Onboarding wizard already drops to 100% at 540px; ensure full-screen feel */
+    .onboarding-card { padding: 16px; border-radius: var(--radius-md); }
+
+    /* Hide track artist on the player bar at very small widths */
+    .ap-artist { display: none; }
+    .ap-title { max-width: 110px; }
+
+    /* Lesson dashboard hifi-progress-stats: tighter gap so 3 stats fit */
+    .hifi-progress-stats { gap: 18px; flex-wrap: wrap; }
+
+    /* AB toggle: stack vertically */
+    .hifi-ab-toggle-wrap { grid-template-columns: 1fr; }
+
+    /* ABX guess buttons full-width-ish */
+    .abx-guesses { grid-template-columns: 1fr; }
+
+    /* Stats summary numbers smaller */
+    .abxs-stat-num { font-size: 1.5rem; }
+
+    /* Lesson generator tabs scrollable */
+    .lg-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+

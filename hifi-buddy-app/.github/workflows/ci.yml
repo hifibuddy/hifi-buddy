@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    name: JS + Python syntax
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - name: JS syntax check
+        run: |
+          for f in hifi-buddy-app/js/*.js; do
+            node -c "$f"
+          done
+      - name: Python syntax check
+        run: |
+          for f in hifi-buddy-app/*.py hifi-buddy-app/tools/*.py; do
+            [ -f "$f" ] && python3 -m py_compile "$f"
+          done
+
+  data:
+    runs-on: ubuntu-latest
+    name: Data validation
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 hifi-buddy-app/tools/validate_data.py
+      - run: python3 hifi-buddy-app/tools/lint_lessons.py
+
+  json-format:
+    runs-on: ubuntu-latest
+    name: JSON parses
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          for f in hifi-buddy-app/data/*.json hifi-buddy-app/manifest.json; do
+            python3 -c "import json; json.load(open('$f'))"
+          done

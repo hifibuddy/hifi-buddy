@@ -1,0 +1,965 @@
+[
+  {
+    "id": "clip-001",
+    "title": "Money for Nothing - Synth Atmosphere Opening",
+    "track": "Money for Nothing",
+    "artist": "Dire Straits",
+    "album": "Brothers in Arms",
+    "year": 1985,
+    "segment": "0:00-0:15",
+    "skills": [
+      "soundstage",
+      "air"
+    ],
+    "characteristic": "wide stereo opening with synth pad",
+    "description": "Sting's processed 'I want my MTV' floats wide across the stereo field, demonstrating soundstage width before any rhythm enters. The synth tail decays into perceptible 'air' that reveals your headphones' high-frequency extension.",
+    "difficulty": "beginner",
+    "audiophilePressing": false,
+    "genre": "rock"
+  },
+  {
+    "id": "clip-002",
+    "title": "Money for Nothing - Knopfler Guitar Imaging",
+    "track": "Money for Nothing",
+    "artist": "Dire Straits",
+    "album": "Brothers in Arms",
+    "year": 1985,
+    "segment": "0:15-0:55",
+    "skills": [
+      "imaging",
+      "detail"
+    ],
+    "characteristic": "precise stereo placement of two guitars",
+    "description": "Knopfler's iconic riff sits slightly left of center while a second guitar layer hangs right. With no rhythm section to mask, you can pinpoint each guitar's exact stereo position - a textbook imaging demo.",
+    "difficulty": "beginner",
+    "audiophilePressing": false,
+    "genre": "rock"
+  },
+  {
+    "id": "clip-003",
+    "title": "Money for Nothing - Macro-Dynamic Band Entry",
+    "track": "Money for Nothing",
+    "artist": "Dire Straits",
+    "album": "Brothers in Arms",
+    "year": 1985,
+    "segment": "0:55-1:15",
+    "skills": [
+      "dynamics"
+    ],
+    "characteristic": "explosive band entry after sparse intro",
+    "description": "After 55 seconds of two guitars, the full band crashes in - drums, bass, everything at once. The macro-dynamic contrast between sparse intro and wall-of-sound chorus is reference material.",
+    "difficulty": "beginner",
+    "audiophilePressing": false,
+    "genre": "rock"
+  },
+  {
+    "id": "clip-004",
+    "title": "Aja - Fender Rhodes Tonal Color",
+    "track": "Aja",
+    "artist": "Steely Dan",
+    "album": "Aja",
+    "year": 1977,
+    "segment": "0:00-0:30",
+    "skills": [
+      "tonal-color"
+    ],
+    "characteristic": "glassy bell-like Rhodes piano timbre",
+    "description": "The Fender Rhodes electric piano shimmers with a glassy, bell-like quality. On revealing headphones you can hear the tine mechanism that gives the Rhodes its unique voice - a perfect timbre reference.",
+    "difficulty": "beginner",
+    "audiophilePressing": false,
+    "genre": "rock"
+  },
+  {
+    "id": "clip-005",
+    "title": "Aja - Steve Gadd Snare Detail",
+    "track": "Aja",
+    "artist": "Steely Dan",
+    "album": "Aja",
+    "year": 1977,
+    "segment": "3:15-4:00",
+    "skills": [
+      "detail",
+      "transients"
+    ],
+    "characteristic": "snare drum micro-detail and ghost notes",
+    "description": "Steve Gadd's legendary drum solo. Listen for the stick hitting different parts of the snare - center vs rim, the ghost notes between main hits. Each strike has unique texture and attack.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "rock"
+  },
+  {
+    "id": "clip-006",
+    "title": "Aja - Multi-Instrument Separation",
+    "track": "Aja",
+    "artist": "Steely Dan",
+    "album": "Aja",
+    "year": 1977,
+    "segment": "6:00-7:00",
+    "skills": [
+      "separation"
+    ],
+    "characteristic": "follow individual instruments in dense mix",
+    "description": "Piano, guitar, bass, drums and sax play simultaneously. Try following just the bass line, then re-listen following the piano. Great separation lets you isolate any instrument at will.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "rock"
+  },
+  {
+    "id": "clip-007",
+    "title": "The Chain - Whisper-Quiet Opening",
+    "track": "The Chain",
+    "artist": "Fleetwood Mac",
+    "album": "Rumours",
+    "year": 1977,
+    "segment": "0:00-0:30",
+    "skills": [
+      "dynamics"
+    ],
+    "characteristic": "deliberately low-volume intimate intro",
+    "description": "The song opens delicately with soft finger-picked guitar and gentle vocals at unusually low volume. This deliberate restraint sets up the dynamic range to come - resist turning it up.",
+    "difficulty": "beginner",
+    "audiophilePressing": false,
+    "genre": "rock"
+  },
+  {
+    "id": "clip-008",
+    "title": "The Chain - John McVie Bass Riff",
+    "track": "The Chain",
+    "artist": "Fleetwood Mac",
+    "album": "Rumours",
+    "year": 1977,
+    "segment": "3:10-3:30",
+    "skills": [
+      "bass"
+    ],
+    "characteristic": "iconic electric bass with body and texture",
+    "description": "McVie's iconic bass riff after the breakdown. You can feel the roundness of each note, the slight fret buzz, the way the string vibrates - definition not just rumble.",
+    "difficulty": "beginner",
+    "audiophilePressing": false,
+    "genre": "rock"
+  },
+  {
+    "id": "clip-009",
+    "title": "Don't Know Why - Piano Air & Decay",
+    "track": "Don't Know Why",
+    "artist": "Norah Jones",
+    "album": "Come Away with Me",
+    "year": 2002,
+    "segment": "0:00-0:15",
+    "skills": [
+      "air"
+    ],
+    "characteristic": "natural decay between piano chords",
+    "description": "The piano opens alone. Listen to the space AROUND the notes - between the decay of one chord and the attack of the next. That ambient tail is 'air' in the recording.",
+    "difficulty": "beginner",
+    "audiophilePressing": false,
+    "genre": "jazz"
+  },
+  {
+    "id": "clip-010",
+    "title": "Don't Know Why - Vocal & Brush Imaging",
+    "track": "Don't Know Why",
+    "artist": "Norah Jones",
+    "album": "Come Away with Me",
+    "year": 2002,
+    "segment": "0:15-0:30",
+    "skills": [
+      "imaging"
+    ],
+    "characteristic": "centered vocal with brushed snare placement",
+    "description": "Norah's voice enters dead center, slightly forward in the mix. The piano sits behind and slightly right; brushes on snare have a precise position. A textbook intimate-jazz image.",
+    "difficulty": "beginner",
+    "audiophilePressing": false,
+    "genre": "jazz"
+  },
+  {
+    "id": "clip-011",
+    "title": "Giorgio by Moroder - Snare Transient Snap",
+    "track": "Giorgio by Moroder",
+    "artist": "Daft Punk",
+    "album": "Random Access Memories",
+    "year": 2013,
+    "segment": "1:30-2:30",
+    "skills": [
+      "transients"
+    ],
+    "characteristic": "sharp programmed snare attack",
+    "description": "The drums kick in with a SNAP that defines transient response. The hi-hat has metallic sizzle. A modern reference for drum attack speed.",
+    "difficulty": "beginner",
+    "audiophilePressing": false,
+    "genre": "electronic"
+  },
+  {
+    "id": "clip-012",
+    "title": "Giorgio by Moroder - Bass Guitar Pitch Definition",
+    "track": "Giorgio by Moroder",
+    "artist": "Daft Punk",
+    "album": "Random Access Memories",
+    "year": 2013,
+    "segment": "3:00-4:00",
+    "skills": [
+      "bass"
+    ],
+    "characteristic": "tight bass guitar with melodic definition",
+    "description": "Bass guitar locks with kick drum. Each bass note has distinct pitch - you can hear the melody being played, not just rhythm. Tests low-end articulation.",
+    "difficulty": "beginner",
+    "audiophilePressing": false,
+    "genre": "electronic"
+  },
+  {
+    "id": "clip-013",
+    "title": "Let Down - Three-Guitar Layering",
+    "track": "Let Down",
+    "artist": "Radiohead",
+    "album": "OK Computer",
+    "year": 1997,
+    "segment": "0:00-0:30",
+    "skills": [
+      "layering",
+      "separation"
+    ],
+    "characteristic": "interlocking guitars at different tempos",
+    "description": "Three guitars play interlocking patterns at different tempos - one left, one right, one center-ish. Each occupies its own depth slot. Tests the front-to-back resolution of your gear.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "rock"
+  },
+  {
+    "id": "clip-014",
+    "title": "Let Down - Reverb-Soaked Outro Air",
+    "track": "Let Down",
+    "artist": "Radiohead",
+    "album": "OK Computer",
+    "year": 1997,
+    "segment": "4:00-4:59",
+    "skills": [
+      "air"
+    ],
+    "characteristic": "manor house reverb decay",
+    "description": "The song decays into reverb and fading guitars. The room sound enveloping the ending is the actual Manor recording space - a synthetic-feeling room captured naturally.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "rock"
+  },
+  {
+    "id": "clip-015",
+    "title": "Hallelujah - Buckley Vocal Detail",
+    "track": "Hallelujah",
+    "artist": "Jeff Buckley",
+    "album": "Grace",
+    "year": 1994,
+    "segment": "0:30-1:30",
+    "skills": [
+      "detail",
+      "tonal-color"
+    ],
+    "characteristic": "intimate vocal with breath and mouth detail",
+    "description": "Buckley's voice enters softly. Listen for breathiness at phrase starts, voice cracks of emotion, mouth-shape changes. Reveals the intimacy a great vocal mic can capture.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "rock"
+  },
+  {
+    "id": "clip-016",
+    "title": "Hallelujah - Whisper-to-Cry Dynamic Build",
+    "track": "Hallelujah",
+    "artist": "Jeff Buckley",
+    "album": "Grace",
+    "year": 1994,
+    "segment": "4:00-5:00",
+    "skills": [
+      "dynamics"
+    ],
+    "characteristic": "huge vocal dynamic swing",
+    "description": "Buckley builds from a whisper to a soaring cry. Don't adjust your volume - let the dynamic range work. The contrast tests headroom and your gear's quiet-to-loud linearity.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "rock"
+  },
+  {
+    "id": "clip-017",
+    "title": "Teardrop - Sub-Bass Extension",
+    "track": "Teardrop",
+    "artist": "Massive Attack",
+    "album": "Mezzanine",
+    "year": 1998,
+    "segment": "0:00-0:20",
+    "skills": [
+      "bass"
+    ],
+    "characteristic": "felt-not-heard sub-bass below 60Hz",
+    "description": "A sub-bass pulse enters almost subliminally. You may feel it more than hear it. This is bass extension - sound below 60Hz that small drivers cannot reproduce.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "electronic"
+  },
+  {
+    "id": "clip-018",
+    "title": "Teardrop - Reverb-Floating Vocal",
+    "track": "Teardrop",
+    "artist": "Massive Attack",
+    "album": "Mezzanine",
+    "year": 1998,
+    "segment": "0:50-1:30",
+    "skills": [
+      "air",
+      "tonal-color"
+    ],
+    "characteristic": "vocal floating above instruments in reverb",
+    "description": "Elizabeth Fraser's vocal floats ABOVE the instruments, swimming in reverb - not dry and present like Buckley but ethereal. A reference for synthetic reverb 'air'.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "electronic"
+  },
+  {
+    "id": "clip-019",
+    "title": "Teardrop - Five-Layer Vertical Stack",
+    "track": "Teardrop",
+    "artist": "Massive Attack",
+    "album": "Mezzanine",
+    "year": 1998,
+    "segment": "2:00-3:00",
+    "skills": [
+      "layering"
+    ],
+    "characteristic": "depth-stacked sub, kick, harpsichord, percussion, vocal",
+    "description": "Count the layers: sub-bass (deepest), kick drum, harpsichord (mid-depth), percussion (slightly forward), vocal (floating above). A vertical depth-test.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "electronic"
+  },
+  {
+    "id": "clip-020",
+    "title": "So What - Trumpet Brass-Buzz Transients",
+    "track": "So What",
+    "artist": "Miles Davis",
+    "album": "Kind of Blue",
+    "year": 1959,
+    "segment": "0:33-1:30",
+    "skills": [
+      "transients",
+      "tonal-color"
+    ],
+    "characteristic": "trumpet attack: burst of air then brass tone",
+    "description": "When Miles enters, notice the initial attack of each note - the burst of air, the brass buzz. Then the note settles. Tests transient leading-edge resolution.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "jazz"
+  },
+  {
+    "id": "clip-021",
+    "title": "So What - 30th Street Studio Air",
+    "track": "So What",
+    "artist": "Miles Davis",
+    "album": "Kind of Blue",
+    "year": 1959,
+    "segment": "6:00-8:00",
+    "skills": [
+      "air"
+    ],
+    "characteristic": "natural reverb of converted-church studio",
+    "description": "The 30th Street Studio was a converted church with a high ceiling. You can HEAR that room in the natural reverb around each instrument - a benchmark for acoustic space.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "jazz"
+  },
+  {
+    "id": "clip-022",
+    "title": "So What - Quintet Stereo Imaging Map",
+    "track": "So What",
+    "artist": "Miles Davis",
+    "album": "Kind of Blue",
+    "year": 1959,
+    "segment": "1:30-3:00",
+    "skills": [
+      "imaging",
+      "separation"
+    ],
+    "characteristic": "fixed positions for each horn",
+    "description": "Miles is center-left, Coltrane center-right, Cannonball further right. The horns never wander - their placement is fixed and pinpointable. Classic 1959 stereo imaging.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "jazz"
+  },
+  {
+    "id": "clip-023",
+    "title": "Beethoven 7 Allegretto - Orchestral Soundstage",
+    "track": "Symphony No. 7 - II. Allegretto",
+    "artist": "Carlos Kleiber / Vienna Philharmonic",
+    "album": "Beethoven: Symphonies 5 & 7",
+    "year": 1976,
+    "segment": "0:00-1:00",
+    "skills": [
+      "soundstage"
+    ],
+    "characteristic": "Musikverein hall feel, low strings spread wide",
+    "description": "The movement opens with low strings playing the famous theme. The soundstage feels ENORMOUS compared to pop recordings - the Musikverein's geometry captured in stereo.",
+    "difficulty": "advanced",
+    "audiophilePressing": false,
+    "genre": "classical"
+  },
+  {
+    "id": "clip-024",
+    "title": "Beethoven 7 Allegretto - Pianissimo to Forte Build",
+    "track": "Symphony No. 7 - II. Allegretto",
+    "artist": "Carlos Kleiber / Vienna Philharmonic",
+    "album": "Beethoven: Symphonies 5 & 7",
+    "year": 1976,
+    "segment": "2:30-3:30",
+    "skills": [
+      "dynamics"
+    ],
+    "characteristic": "orchestral dynamic range from pp to f",
+    "description": "The theme builds from pianissimo to forte with utter control. An orchestra can go from near-silence to overwhelming power - this passage tests dynamic linearity end-to-end.",
+    "difficulty": "advanced",
+    "audiophilePressing": false,
+    "genre": "classical"
+  },
+  {
+    "id": "clip-025",
+    "title": "Beethoven 7 Allegretto - String Section Timbre",
+    "track": "Symphony No. 7 - II. Allegretto",
+    "artist": "Carlos Kleiber / Vienna Philharmonic",
+    "album": "Beethoven: Symphonies 5 & 7",
+    "year": 1976,
+    "segment": "4:00-5:30",
+    "skills": [
+      "tonal-color",
+      "layering"
+    ],
+    "characteristic": "violins silvery, violas dark, cellos resonant",
+    "description": "Listen to the difference between string sections: violins are bright and silvery, violas darker and throatier, cellos warm and resonant. A masterclass in instrument timbre.",
+    "difficulty": "advanced",
+    "audiophilePressing": false,
+    "genre": "classical"
+  },
+  {
+    "id": "clip-026",
+    "title": "Roygbiv - Hip-Hop Break Transients",
+    "track": "Roygbiv",
+    "artist": "Boards of Canada",
+    "album": "Music Has the Right to Children",
+    "year": 1998,
+    "segment": "0:15-0:45",
+    "skills": [
+      "transients"
+    ],
+    "characteristic": "processed but crisp hi-hat sizzle",
+    "description": "The beat enters with a hip-hop drum break. The hi-hat is processed but retains its sharp attack - shows transients can survive heavy effects chains.",
+    "difficulty": "advanced",
+    "audiophilePressing": false,
+    "genre": "electronic"
+  },
+  {
+    "id": "clip-027",
+    "title": "Roygbiv - Detuned Bass Beating",
+    "track": "Roygbiv",
+    "artist": "Boards of Canada",
+    "album": "Music Has the Right to Children",
+    "year": 1998,
+    "segment": "0:45-1:15",
+    "skills": [
+      "bass"
+    ],
+    "characteristic": "warm analog bass with audible detune beating",
+    "description": "A warm bass synth enters, detuned slightly. On good headphones you can hear the detuning as a gentle beating between two oscillators - tests low-frequency texture resolution.",
+    "difficulty": "advanced",
+    "audiophilePressing": false,
+    "genre": "electronic"
+  },
+  {
+    "id": "clip-028",
+    "title": "Diana Krall - Olympia Theatre Air",
+    "track": "I Love Being Here With You",
+    "artist": "Diana Krall",
+    "album": "Live in Paris",
+    "year": 2002,
+    "segment": "0:00-0:30",
+    "skills": [
+      "air",
+      "soundstage"
+    ],
+    "characteristic": "audience and theatre-room reverberation",
+    "description": "Before the first note, listen to the room itself - the Olympia Theatre breathing through the recording. You'll hear audience and the natural room signature.",
+    "difficulty": "advanced",
+    "audiophilePressing": false,
+    "genre": "jazz"
+  },
+  {
+    "id": "clip-029",
+    "title": "Diana Krall - Live Jazz Micro-Dynamics",
+    "track": "I Love Being Here With You",
+    "artist": "Diana Krall",
+    "album": "Live in Paris",
+    "year": 2002,
+    "segment": "2:45-4:00",
+    "skills": [
+      "dynamics",
+      "imaging"
+    ],
+    "characteristic": "small accents typically compressed away",
+    "description": "Live jazz lives in micro-dynamics - the small accents and decays that get compressed out of studio polish. Krall's piano touch reveals what your gear preserves.",
+    "difficulty": "advanced",
+    "audiophilePressing": false,
+    "genre": "jazz"
+  },
+  {
+    "id": "clip-030",
+    "title": "N.Y. State of Mind - DJ Premier Snare Crack",
+    "track": "N.Y. State of Mind",
+    "artist": "Nas",
+    "album": "Illmatic",
+    "year": 1994,
+    "segment": "0:20-0:45",
+    "skills": [
+      "transients",
+      "bass"
+    ],
+    "characteristic": "boom-bap razor-sharp drum programming",
+    "description": "DJ Premier's drums drop in with razor-sharp transients - the snare cracks with authority over a deep kick. Reference golden-age hip-hop drum attack.",
+    "difficulty": "beginner",
+    "audiophilePressing": false,
+    "genre": "hip-hop"
+  },
+  {
+    "id": "clip-031",
+    "title": "N.Y. State of Mind - Layered Sample Mix",
+    "track": "N.Y. State of Mind",
+    "artist": "Nas",
+    "album": "Illmatic",
+    "year": 1994,
+    "segment": "2:00-2:45",
+    "skills": [
+      "layering"
+    ],
+    "characteristic": "vocal, piano loop, trumpet stab, drums in distinct planes",
+    "description": "Count the layers under Nas's voice: looped piano sample, jazz trumpet stab, drum break, bass. Each occupies its own depth slot - a sampling-era layering benchmark.",
+    "difficulty": "beginner",
+    "audiophilePressing": false,
+    "genre": "hip-hop"
+  },
+  {
+    "id": "clip-032",
+    "title": "Pink Moon - Intimate Studio Air",
+    "track": "Pink Moon",
+    "artist": "Nick Drake",
+    "album": "Pink Moon",
+    "year": 1972,
+    "segment": "0:00-0:15",
+    "skills": [
+      "air",
+      "tonal-color"
+    ],
+    "characteristic": "small warm room around a single guitar",
+    "description": "The guitar enters alone. You immediately hear the small, warm studio space around the instrument - the air between notes is part of the recording.",
+    "difficulty": "beginner",
+    "audiophilePressing": false,
+    "genre": "folk"
+  },
+  {
+    "id": "clip-033",
+    "title": "Pink Moon - Voice Proximity Detail",
+    "track": "Pink Moon",
+    "artist": "Nick Drake",
+    "album": "Pink Moon",
+    "year": 1972,
+    "segment": "0:35-1:00",
+    "skills": [
+      "detail"
+    ],
+    "characteristic": "close-miked vocal with breath and proximity",
+    "description": "Drake's voice enters intimately. Listen for the slight intake of breath before phrases and the proximity-effect bass on a close-miked vocal.",
+    "difficulty": "beginner",
+    "audiophilePressing": false,
+    "genre": "folk"
+  },
+  {
+    "id": "clip-034",
+    "title": "Fields of Gold - Voice Whisper-to-Swell",
+    "track": "Fields of Gold",
+    "artist": "Eva Cassidy",
+    "album": "Live at Blues Alley",
+    "year": 1996,
+    "segment": "1:15-2:15",
+    "skills": [
+      "dynamics",
+      "tonal-color"
+    ],
+    "characteristic": "vocal range from breathy to full-voiced inside one phrase",
+    "description": "Cassidy drops to a near-whisper then swells to full power within a single phrase. Tests both dynamic range and timbral shifts as her voice changes character.",
+    "difficulty": "beginner",
+    "audiophilePressing": false,
+    "genre": "jazz/blues"
+  },
+  {
+    "id": "clip-035",
+    "title": "Xtal - Reverb-Wash Synthetic Air",
+    "track": "Xtal",
+    "artist": "Aphex Twin",
+    "album": "Selected Ambient Works 85-92",
+    "year": 1992,
+    "segment": "0:00-0:30",
+    "skills": [
+      "air"
+    ],
+    "characteristic": "enormous synthetic reverb space",
+    "description": "A wash of reverb-drenched pads opens the track, creating an enormous sense of space. This is synthetic air - reverb and delay used to manufacture room feel.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "electronic/ambient"
+  },
+  {
+    "id": "clip-036",
+    "title": "Xtal - Ambient Layer Counting",
+    "track": "Xtal",
+    "artist": "Aphex Twin",
+    "album": "Selected Ambient Works 85-92",
+    "year": 1992,
+    "segment": "1:00-2:00",
+    "skills": [
+      "layering",
+      "bass"
+    ],
+    "characteristic": "pad, bass pulse, arpeggio, found-sound textures",
+    "description": "Count the layers: ambient pad furthest back, bass pulse low and wide, mid-frequency synth arpeggio, scattered percussion. Each at its own depth.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "electronic/ambient"
+  },
+  {
+    "id": "clip-037",
+    "title": "Waltz for Debby - Village Vanguard Air",
+    "track": "Waltz for Debby",
+    "artist": "Bill Evans Trio",
+    "album": "Sunday at the Village Vanguard",
+    "year": 1961,
+    "segment": "1:15-2:30",
+    "skills": [
+      "air",
+      "imaging"
+    ],
+    "characteristic": "audience murmurs and clinking glasses in club ambience",
+    "description": "Between phrases, listen for the club - audience murmurs, clinking glasses, the room's tonal signature. Not noise but ambient evidence of the live space.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "jazz"
+  },
+  {
+    "id": "clip-038",
+    "title": "Waltz for Debby - LaFaro Bass Detail",
+    "track": "Waltz for Debby",
+    "artist": "Bill Evans Trio",
+    "album": "Sunday at the Village Vanguard",
+    "year": 1961,
+    "segment": "5:00-6:30",
+    "skills": [
+      "detail",
+      "bass"
+    ],
+    "characteristic": "fingers on thick upright strings",
+    "description": "Focus on LaFaro's bass technique - you can hear his fingers plucking the thick strings, the wood resonance of the instrument body. Acoustic bass detail benchmark.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "jazz"
+  },
+  {
+    "id": "clip-039",
+    "title": "Lateralus - Danny Carey Drum Attack",
+    "track": "Lateralus",
+    "artist": "Tool",
+    "album": "Lateralus",
+    "year": 2001,
+    "segment": "2:00-3:30",
+    "skills": [
+      "transients",
+      "separation"
+    ],
+    "characteristic": "tom and ride articulation in dense rock mix",
+    "description": "Carey's drumming reveals each hit's attack - the crack of the snare, sharp ping of the ride. Even in a dense rock mix every drum strike is articulate.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "progressive metal"
+  },
+  {
+    "id": "clip-040",
+    "title": "Lateralus - Distorted Bass with Pitch",
+    "track": "Lateralus",
+    "artist": "Tool",
+    "album": "Lateralus",
+    "year": 2001,
+    "segment": "0:40-1:30",
+    "skills": [
+      "bass"
+    ],
+    "characteristic": "growling distorted bass with note definition",
+    "description": "Chancellor's bass has a distinctive growling, distorted tone yet the notes remain clearly defined. Tests whether your gear preserves pitch under low-frequency distortion.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "progressive metal"
+  },
+  {
+    "id": "clip-041",
+    "title": "A Case of You - Dulcimer Tonal Character",
+    "track": "A Case of You",
+    "artist": "Joni Mitchell",
+    "album": "Blue",
+    "year": 1971,
+    "segment": "0:00-0:25",
+    "skills": [
+      "tonal-color"
+    ],
+    "characteristic": "Appalachian dulcimer nasal drone",
+    "description": "Mitchell plays the Appalachian dulcimer - a rare instrument with a distinctive nasal, droning quality. A timbre that is unlike any guitar - tests your ear for unfamiliar instruments.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "folk/singer-songwriter"
+  },
+  {
+    "id": "clip-042",
+    "title": "Untitled (How Does It Feel) - Pino Bass Tone",
+    "track": "Untitled (How Does It Feel)",
+    "artist": "D'Angelo",
+    "album": "Voodoo",
+    "year": 2000,
+    "segment": "0:00-0:25",
+    "skills": [
+      "bass",
+      "tonal-color"
+    ],
+    "characteristic": "warm round bass with full harmonic envelope",
+    "description": "Palladino's bass guitar enters with extraordinary warmth and roundness. Each note has a full harmonic envelope - body, sustain, and decay all present.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "neo-soul/R&B"
+  },
+  {
+    "id": "clip-043",
+    "title": "Untitled (How Does It Feel) - Voice Stacks",
+    "track": "Untitled (How Does It Feel)",
+    "artist": "D'Angelo",
+    "album": "Voodoo",
+    "year": 2000,
+    "segment": "1:00-1:50",
+    "skills": [
+      "layering",
+      "tonal-color"
+    ],
+    "characteristic": "multi-tracked vocals each with different timbre",
+    "description": "D'Angelo's multi-tracked vocals form a choir of himself. Each layer has slightly different timbre - some breathy, some full, some falsetto. A study in vocal stacking.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "neo-soul/R&B"
+  },
+  {
+    "id": "clip-044",
+    "title": "Samskeyti - Glacial Layer Build",
+    "track": "Untitled #3 (Samskeyti)",
+    "artist": "Sigur Ros",
+    "album": "( )",
+    "year": 2002,
+    "segment": "0:00-0:45",
+    "skills": [
+      "layering",
+      "soundstage"
+    ],
+    "characteristic": "single keyboard tone joined gradually by others",
+    "description": "A single keyboard tone sustains, joined gradually by a second voice, then a third. Each enters at a different pitch and depth - a slow-motion layering reveal.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "post-rock"
+  },
+  {
+    "id": "clip-045",
+    "title": "Samskeyti - Slow-Motion Crescendo",
+    "track": "Untitled #3 (Samskeyti)",
+    "artist": "Sigur Ros",
+    "album": "( )",
+    "year": 2002,
+    "segment": "5:00-6:33",
+    "skills": [
+      "dynamics"
+    ],
+    "characteristic": "massive sustained orchestral swell",
+    "description": "The climax arrives - a massive swell of orchestral and electronic forces. The dynamic distance from the opening sustained tone to this is enormous.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "post-rock"
+  },
+  {
+    "id": "clip-046",
+    "title": "Jamming - Reggae Mix Separation",
+    "track": "Jamming",
+    "artist": "Bob Marley & The Wailers",
+    "album": "Exodus",
+    "year": 1977,
+    "segment": "0:50-1:30",
+    "skills": [
+      "separation",
+      "imaging"
+    ],
+    "characteristic": "reggae instruments in distinct stereo pockets",
+    "description": "Reggae mixing puts each element in its own pocket: bass center-low, drums center, skank guitar hard left or right, organ on the opposite side. Reference instrument separation.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "reggae"
+  },
+  {
+    "id": "clip-047",
+    "title": "Hurt - Cash Voice Tremor Detail",
+    "track": "Hurt",
+    "artist": "Johnny Cash",
+    "album": "American IV: The Man Comes Around",
+    "year": 2002,
+    "segment": "0:30-1:00",
+    "skills": [
+      "detail",
+      "tonal-color"
+    ],
+    "characteristic": "age, tremor and waver in close-miked vocal",
+    "description": "Cash's voice enters and the detail is extraordinary - the tremor of age, the slight waver, the edge of breath behind every word. A devastating proximity recording.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "country/americana"
+  },
+  {
+    "id": "clip-048",
+    "title": "Hurt - Quiet-to-Climactic Build",
+    "track": "Hurt",
+    "artist": "Johnny Cash",
+    "album": "American IV: The Man Comes Around",
+    "year": 2002,
+    "segment": "2:30-3:38",
+    "skills": [
+      "dynamics"
+    ],
+    "characteristic": "near-spoken to strained climax then collapse",
+    "description": "The song builds to its most intense moment - Cash's voice strains on 'empire of dirt.' Then everything falls away. A masterclass in dynamic-arc storytelling.",
+    "difficulty": "intermediate",
+    "audiophilePressing": false,
+    "genre": "country/americana"
+  },
+  {
+    "id": "clip-049",
+    "title": "Poinciana - Tube-Chain Piano Warmth",
+    "track": "Poinciana",
+    "artist": "Ahmad Jamal Trio",
+    "album": "At the Pershing: But Not for Me",
+    "year": 1958,
+    "segment": "0:00-0:45",
+    "skills": [
+      "tonal-color",
+      "detail"
+    ],
+    "characteristic": "1958 tube-recorded piano warmth and round attack",
+    "description": "Jamal's piano has a warmth and roundness distinctly different from modern digital. The tube signal chain leaves a euphonic harmonic signature on every note.",
+    "difficulty": "advanced",
+    "audiophilePressing": false,
+    "genre": "jazz"
+  },
+  {
+    "id": "clip-050",
+    "title": "21st Century Schizoid Man - Vinyl Tonal Color",
+    "track": "21st Century Schizoid Man",
+    "artist": "King Crimson",
+    "album": "In the Court of the Crimson King",
+    "year": 1969,
+    "segment": "0:20-1:30",
+    "skills": [
+      "tonal-color",
+      "dynamics"
+    ],
+    "characteristic": "warm vinyl-mastered overdriven ensemble",
+    "description": "The distorted, overdriven ensemble has a specific character through vinyl mastering - slightly warmer and rounder than the digital remaster. A vinyl-vs-digital tonal showcase.",
+    "difficulty": "advanced",
+    "audiophilePressing": false,
+    "genre": "progressive rock"
+  },
+  {
+    "id": "clip-051",
+    "title": "Bubbles - Object-Audio Imaging",
+    "track": "Bubbles",
+    "artist": "Yosi Horikawa",
+    "album": "Vapor",
+    "year": 2012,
+    "segment": "0:00-0:30",
+    "skills": [
+      "imaging",
+      "soundstage"
+    ],
+    "characteristic": "individual water drops at discrete head positions",
+    "description": "Individual water drops are placed at specific positions around your head - some left, some right, some seemingly behind. A psychoacoustic imaging test.",
+    "difficulty": "advanced",
+    "audiophilePressing": false,
+    "genre": "electronic"
+  },
+  {
+    "id": "clip-052",
+    "title": "Bubbles - Dense Element Separation",
+    "track": "Bubbles",
+    "artist": "Yosi Horikawa",
+    "album": "Vapor",
+    "year": 2012,
+    "segment": "1:15-2:15",
+    "skills": [
+      "separation"
+    ],
+    "characteristic": "dozens of placed sound elements simultaneously",
+    "description": "Dozens of individual sound elements play simultaneously, each at its own position. Despite the density you can track any one - extreme separation reference.",
+    "difficulty": "advanced",
+    "audiophilePressing": false,
+    "genre": "electronic"
+  },
+  {
+    "id": "clip-053",
+    "title": "Nardis - Green Mill Air",
+    "track": "Nardis",
+    "artist": "Patricia Barber",
+    "album": "Cafe Blue",
+    "year": 1994,
+    "segment": "2:00-3:30",
+    "skills": [
+      "air"
+    ],
+    "characteristic": "long narrow low-ceiling club acoustic",
+    "description": "The Green Mill's acoustic is present in every moment. Long, narrow, low-ceiling - reflections give the recording its specific spatial signature.",
+    "difficulty": "advanced",
+    "audiophilePressing": false,
+    "genre": "jazz"
+  },
+  {
+    "id": "clip-054",
+    "title": "Nardis - Holographic Imaging",
+    "track": "Nardis",
+    "artist": "Patricia Barber",
+    "album": "Cafe Blue",
+    "year": 1994,
+    "segment": "0:00-0:45",
+    "skills": [
+      "imaging",
+      "tonal-color"
+    ],
+    "characteristic": "instruments placed with surgical precision",
+    "description": "Instruments appear with holographic precision. Barber's piano is placed with exact specificity - you can almost sense the wood-and-strings dimensions.",
+    "difficulty": "advanced",
+    "audiophilePressing": false,
+    "genre": "jazz"
+  },
+  {
+    "id": "clip-055",
+    "title": "Heart of Gold - Hi-Res Soundstage Width",
+    "track": "Heart of Gold",
+    "artist": "Neil Young",
+    "album": "Harvest",
+    "year": 1972,
+    "segment": "1:00-1:45",
+    "skills": [
+      "soundstage",
+      "detail"
+    ],
+    "characteristic": "Nashville session band wide warm stage",
+    "description": "The Nashville musicians (Ben Keith on steel guitar) create a warm, wide soundstage. Listen for steel guitar that extends well beyond the speakers.",
+    "difficulty": "advanced",
+    "audiophilePressing": false,
+    "genre": "rock/folk"
+  }
+]

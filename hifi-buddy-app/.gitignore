@@ -1,0 +1,9 @@
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+.idea/
+.vscode/
+node_modules/
+*.log
+local-library-index.json
