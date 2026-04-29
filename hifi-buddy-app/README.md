@@ -4,6 +4,16 @@
 
 > Stop guessing. Start hearing.
 
+## Screenshots
+
+![Lesson view with player, source quality, and skills sidebar](./screenshots/full_lesson.png)
+
+![Timestamped listening segments](./screenshots/segments.png)
+
+![ABX blind test](./screenshots/abx.png)
+
+![Source quality detection](./screenshots/quality.png)
+
 ## What it does
 
 HiFi Buddy teaches the things audiophiles actually talk about — **soundstage, imaging, dynamics, transients, micro-detail, tonal color, bass quality, separation, air, layering** — using timestamped passages of real reference tracks (Dire Straits, Steely Dan, Diana Krall, Aphex Twin, Bill Evans, Massive Attack, and 20+ more).

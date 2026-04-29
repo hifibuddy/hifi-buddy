@@ -4,6 +4,20 @@ Critical-listening tutor for audiophiles. Train your ears on real reference reco
 
 > Stop guessing. Start hearing.
 
+## Screenshots
+
+![A lesson in progress with player, source-quality detection, and skills sidebar](./hifi-buddy-app/screenshots/full_lesson.png)
+*One screen, the whole lesson — album context, source-aware playback, inline quality detection, and a live skills sidebar.*
+
+![Timestamped listening segments, color-coded by skill](./hifi-buddy-app/screenshots/segments.png)
+*Each lesson breaks the track into timestamped passages tagged by skill — soundstage, imaging, dynamics, detail. Click any range to seek there.*
+
+![ABX blind test with binomial statistics](./hifi-buddy-app/screenshots/abx.png)
+*Proper double-blind ABX testing — level-matched FLAC vs MP3, 16 trials, binomial p-value verdict.*
+
+![Source quality detection — real bit-depth and sample-rate](./hifi-buddy-app/screenshots/quality.png)
+*Reads the actual stream — FLAC, bit depth, sample rate, bitrate, channels — not just "lossless ✓".*
+
 ## Repository layout
 
 - **[hifi-buddy-app/](./hifi-buddy-app/)** — the runtime app. Standalone,

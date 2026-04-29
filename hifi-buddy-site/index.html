@@ -56,6 +56,7 @@
       </a>
       <nav class="nav-links" aria-label="Primary">
         <a href="#why">Why</a>
+        <a href="#tour">Tour</a>
         <a href="#features">Features</a>
         <a href="#how">How it works</a>
         <a href="#science">The science</a>
@@ -105,7 +106,7 @@
         <div class="visual-card">
           <div class="visual-header">
             <span class="vh-track">Dire Straits — Why Worry</span>
-            <span class="vh-source">FLAC · 44.1kHz / 16-bit</span>
+            <span class="vh-source">FLAC · 96kHz / 24-bit</span>
           </div>
           <div class="waveform">
             <!-- 60 bars, animated heights via CSS variables -->
@@ -198,6 +199,49 @@
             rules.
           </p>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product tour -->
+  <section id="tour" class="section section-tour">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">Product tour</span>
+        <h2>What it actually looks like.</h2>
+        <p class="section-sub">
+          Real screenshots from the app. Dark mode shown — light mode is also built in.
+        </p>
+      </div>
+      <div class="tour-grid">
+        <figure class="tour-shot tour-shot-wide reveal">
+          <img src="assets/screenshots/full_lesson.png" alt="HiFi Buddy lesson view with player, source quality, and skills sidebar" loading="lazy" />
+          <figcaption>
+            <strong>One screen, the whole lesson.</strong>
+            Album art and recording context, source-aware playback (Plex / Spotify / Local FLAC / YouTube), inline source-quality detection, and a live skills sidebar that explains what each cue actually means.
+          </figcaption>
+        </figure>
+        <figure class="tour-shot reveal">
+          <img src="assets/screenshots/segments.png" alt="Timestamped listening segments, color-coded by skill" loading="lazy" />
+          <figcaption>
+            <strong>Timestamped listening segments.</strong>
+            Each lesson breaks the track into passages tagged by skill — soundstage, imaging, dynamics, detail. Click any range to seek there. Edit timing in-place if you hear something different.
+          </figcaption>
+        </figure>
+        <figure class="tour-shot reveal">
+          <img src="assets/screenshots/abx.png" alt="ABX blind test screen with binomial statistics" loading="lazy" />
+          <figcaption>
+            <strong>Proper ABX blind testing.</strong>
+            Level-matched FLAC vs MP3, sixteen trials, binomial p-value verdict. Find out whether you can actually distinguish the formats — or whether you can't, which is also a finding.
+          </figcaption>
+        </figure>
+        <figure class="tour-shot reveal">
+          <img src="assets/screenshots/quality.png" alt="Source quality detection showing FLAC, bit depth, sample rate, and bitrate" loading="lazy" />
+          <figcaption>
+            <strong>Source quality, surfaced.</strong>
+            HiFi Buddy reads the actual stream — FLAC, bit depth, sample rate, bitrate, channels. No more wondering whether "lossless" is hi-res or just CD-quality.
+          </figcaption>
+        </figure>
       </div>
     </div>
   </section>

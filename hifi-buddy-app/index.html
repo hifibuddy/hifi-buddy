@@ -19,8 +19,20 @@
     <div id="app">
         <header class="hb-header">
             <div class="hb-header-inner">
-                <a href="/" class="hb-logo" data-view="lessons">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3v5zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3v5z"/></svg>
+                <a href="/" class="hb-logo" data-view="lessons" aria-label="HiFi Buddy home">
+                    <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true">
+                        <defs>
+                            <linearGradient id="hbLogoGrad" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#9b59b6"/>
+                                <stop offset="100%" stop-color="#667eea"/>
+                            </linearGradient>
+                        </defs>
+                        <rect x="3" y="13" width="2.5" height="6" rx="1.25" fill="url(#hbLogoGrad)"/>
+                        <rect x="8" y="9" width="2.5" height="14" rx="1.25" fill="url(#hbLogoGrad)"/>
+                        <rect x="13" y="5" width="2.5" height="22" rx="1.25" fill="url(#hbLogoGrad)"/>
+                        <rect x="18" y="9" width="2.5" height="14" rx="1.25" fill="url(#hbLogoGrad)"/>
+                        <rect x="23" y="13" width="2.5" height="6" rx="1.25" fill="url(#hbLogoGrad)"/>
+                    </svg>
                     <span class="hb-logo-text">HiFi <span class="hb-logo-accent">Buddy</span></span>
                 </a>
                 <nav class="hb-nav" aria-label="Primary">

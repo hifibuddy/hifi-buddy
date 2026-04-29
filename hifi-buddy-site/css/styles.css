@@ -1218,3 +1218,48 @@ body > *:not(.ambient) {
   .reveal { opacity: 1; transform: none; }
   html { scroll-behavior: auto; }
 }
+
+/* Product tour */
+.section-tour { padding-top: 40px; }
+.tour-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.tour-shot {
+  margin: 0;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: border-color 200ms ease, transform 200ms ease;
+}
+.tour-shot:hover {
+  border-color: rgba(155, 89, 182, 0.35);
+  transform: translateY(-2px);
+}
+.tour-shot-wide { grid-column: 1 / -1; }
+.tour-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #0b0a14;
+}
+.tour-shot figcaption {
+  padding: 20px 24px 24px;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--muted, #a8a4b8);
+}
+.tour-shot figcaption strong {
+  display: block;
+  color: var(--text, #f3f1f8);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+@media (max-width: 768px) {
+  .tour-grid { grid-template-columns: 1fr; gap: 20px; }
+  .tour-shot figcaption { padding: 16px 18px 20px; font-size: 0.9rem; }
+}
