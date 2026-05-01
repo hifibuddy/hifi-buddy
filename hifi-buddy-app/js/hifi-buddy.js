@@ -1486,6 +1486,13 @@ window.HiFiBuddyApp = (() => {
 
         bindLessonEvents(lessonId, lesson);
         fetchAlbumArt(lesson);
+        // If the user navigated away and came back while Spotify was still
+        // playing this lesson's track, restore the visible "Playing" state
+        // (button label, source-quality card, playline tracker). Otherwise
+        // the controls would look as if nothing was playing — but the audio
+        // would keep coming out of Spotify with no way to pause it from
+        // inside the app.
+        rehydrateLessonPlayback(lesson);
         containerEl.scrollTop = 0;
         window.scrollTo(0, 0);
     }
@@ -1539,7 +1546,9 @@ window.HiFiBuddyApp = (() => {
         // Background: probe variants so we can show "Loaded: ..." + the picker button
         probeTrackVariants(lesson);
 
-        // Spotify play (Premium / Web Playback SDK)
+        // Top "Spotify" button = source selector. Clicking it always (re)plays
+        // from Spotify. Pause/resume lives on the playline transport button
+        // next to the progress bar — that's the canonical transport surface.
         containerEl.querySelector('#hifiPlaySpotify')?.addEventListener('click', () => {
             playFromSpotify(lesson);
         });
@@ -1568,7 +1577,7 @@ window.HiFiBuddyApp = (() => {
                 // device list) work fine on mobile, and the user may want to
                 // transfer playback later from desktop.
             }
-            try { localStorage.setItem('hifibuddy_spotify_auth_method', 'pkce'); } catch { /* ignore */ }
+            try { HiFiBuddySettings.setSpotifyAuthMethod?.('pkce'); } catch { /* ignore */ }
             HiFiBuddySettings.clearSpotifyTokens?.();
             HiFiBuddySpotify.startPKCEAuth();
         });
@@ -2408,6 +2417,106 @@ window.HiFiBuddyApp = (() => {
         </button>`;
     }
 
+    // Update the visible Spotify source button to its "active source" look
+    // when this lesson's track is loaded in the SDK player. Transport
+    // controls (pause/resume) live on the playline button next to the
+    // progress bar — this button is just a source selector.
+    function updateSpotifyButtonForState(state) {
+        const btn = containerEl?.querySelector('#hifiPlaySpotify');
+        if (!btn) return;
+        const SPOT_SVG = HiFiBuddyIcons.spotify({ size: 16, brand: false });
+        btn.disabled = false;
+        btn.style.background = 'rgba(29,185,84,0.18)';
+        btn.style.color = '#1db954';
+        btn.title = 'Spotify is the active source — use the playline button to pause';
+        btn.innerHTML = `${SPOT_SVG} Playing on Spotify`;
+        // Mirror state on the playline transport button
+        updatePlaylineTransport(state);
+    }
+
+    // The playline transport button: ▶ when paused/stopped, ⏸ when playing.
+    // Click toggles pause/resume on whichever source is active. The playline
+    // is the canonical transport — the top buttons are only source selectors.
+    function updatePlaylineTransport(spotifyStateMaybe) {
+        const el = containerEl?.querySelector('#hifiPlaylineSource');
+        if (!el) return;
+        let label = '';
+        let paused = false;
+        if (activeSource === 'spotify') {
+            label = 'Spotify';
+            paused = spotifyStateMaybe ? !!spotifyStateMaybe.paused : !!spotifyState?.paused;
+        } else if (activeSource === 'plex' || activeSource === 'local') {
+            label = activeSource === 'plex' ? 'Plex' : 'Local';
+            const audioEl = document.querySelector('audio');
+            paused = audioEl ? audioEl.paused : true;
+        }
+        const ICON = paused
+            ? HiFiBuddyIcons.play({ size: 11 })
+            : HiFiBuddyIcons.pause({ size: 11 });
+        el.innerHTML = label ? `${ICON} ${label}` : '';
+        el.title = label
+            ? (paused ? `Resume ${label} playback` : `Pause ${label} playback`)
+            : '';
+        el.style.cursor = label ? 'pointer' : '';
+    }
+
+    async function togglePlaylineTransport() {
+        if (activeSource === 'spotify') {
+            if (typeof HiFiBuddySpotify === 'undefined') return;
+            try {
+                let state = spotifyState;
+                if (!state) state = await HiFiBuddySpotify.getCurrentState();
+                if (!state) return;
+                if (state.paused) await HiFiBuddySpotify.resume?.();
+                else              await HiFiBuddySpotify.pause?.();
+                // Pull fresh state and refresh both UIs immediately.
+                const fresh = await HiFiBuddySpotify.getCurrentState();
+                if (fresh) { spotifyState = fresh; updateSpotifyButtonForState(fresh); }
+            } catch { /* ignore */ }
+            return;
+        }
+        if (activeSource === 'plex' || activeSource === 'local') {
+            const audioEl = document.querySelector('audio');
+            if (!audioEl) return;
+            if (audioEl.paused) audioEl.play().catch(() => {});
+            else                audioEl.pause();
+            updatePlaylineTransport();
+        }
+    }
+
+    // After a re-render, re-attach the visible playback state if Spotify is
+    // still playing this lesson's track. Without this, the button shows the
+    // default "Spotify" play state and there's no in-app way to pause —
+    // even though audio is still coming out of the SDK player.
+    async function rehydrateLessonPlayback(lesson) {
+        if (typeof HiFiBuddySpotify === 'undefined') return;
+        if (!HiFiBuddySpotify.isPlayerReady?.()) return;
+        let state;
+        try { state = await HiFiBuddySpotify.getCurrentState(); }
+        catch { return; }
+        if (!state) return;
+        const playingUri = state.track_window?.current_track?.uri;
+        if (!playingUri) return;
+        const cached = getSpotifyLessonUri(lesson.id);
+        if (cached?.uri !== playingUri) return;
+
+        // This lesson's track is loaded in the player. Re-bind everything
+        // playFromSpotify would have set up on a fresh play.
+        activeSource = 'spotify';
+        window.HiFiBuddyActiveSource = 'spotify';
+        spotifyState = state;
+        if (!playFromSpotify._subscribed) {
+            HiFiBuddySpotify.addPlayerListener(s => {
+                spotifyState = s;
+                updateSpotifyButtonForState(s);
+            });
+            playFromSpotify._subscribed = true;
+        }
+        updateSpotifyButtonForState(state);
+        showSpotifyQualityInfo();
+        startPlaybackTracking(lesson);
+    }
+
     async function playFromSpotify(lesson) {
         const btn = containerEl.querySelector('#hifiPlaySpotify');
         if (!btn) return;
@@ -2480,9 +2589,15 @@ window.HiFiBuddyApp = (() => {
             // 4) Mark active source + start tracking + duration check
             activeSource = 'spotify';
             window.HiFiBuddyActiveSource = 'spotify';
-            // Subscribe once to keep spotifyState fresh
+            // Subscribe once to keep spotifyState fresh AND push the latest
+            // state to the visible button. Without the UI update here, an
+            // external pause (e.g., from a phone via Spotify Connect) would
+            // leave the in-app button stuck on "Pause".
             if (!playFromSpotify._subscribed) {
-                HiFiBuddySpotify.addPlayerListener(state => { spotifyState = state; });
+                HiFiBuddySpotify.addPlayerListener(state => {
+                    spotifyState = state;
+                    updateSpotifyButtonForState(state);
+                });
                 playFromSpotify._subscribed = true;
             }
             // Duration mismatch check using metadata from search
@@ -2551,10 +2666,15 @@ window.HiFiBuddyApp = (() => {
         if (!line) return;
         const sourceEl = line.querySelector('#hifiPlaylineSource');
         if (sourceEl) {
-            const label = activeSource === 'spotify' ? 'Spotify' : activeSource === 'plex' ? 'Plex' : activeSource === 'local' ? 'Local' : '';
-            const PLAY_SVG = HiFiBuddyIcons.play({ size: 11 });
-            sourceEl.innerHTML = label ? `${PLAY_SVG} ${label}` : '';
             sourceEl.className = `hifi-playline-source hifi-playline-source-${activeSource || 'none'}`;
+            // Render icon + label; updatePlaylineTransport handles the
+            // play/pause distinction based on current state.
+            updatePlaylineTransport();
+            // Bind the click-to-toggle handler once per element.
+            if (!sourceEl._toggleBound) {
+                sourceEl.addEventListener('click', () => { togglePlaylineTransport(); });
+                sourceEl._toggleBound = true;
+            }
         }
         const total = getActiveDurationSecs(lesson);
         const totalEl = line.querySelector('#hifiPlaylineTotal');
@@ -2593,6 +2713,10 @@ window.HiFiBuddyApp = (() => {
         if (fill && total > 0) {
             fill.style.width = `${Math.min(100, (currentTimeSecs / total) * 100)}%`;
         }
+        // Keep the play/pause icon synced with the current source state.
+        // For Spotify the player_state_changed listener also pushes here, but
+        // for Plex/Local this is the cheapest sync path.
+        updatePlaylineTransport();
     }
 
     function checkDurationMismatch(audioEl, lesson) {
@@ -3120,9 +3244,10 @@ Guidelines:
     // the model to skip prose. The Listening Coach wants chat prose, NOT JSON,
     // so it must NOT pass jsonMode.
     async function callAI(systemPrompt, messagesOrText, opts = {}) {
-        const ollamaUrl = localStorage.getItem('hifibuddy_ollama_url') || '';
-        const ollamaModel = localStorage.getItem('hifibuddy_ollama_model') || 'gemma2:9b';
-        const claudeKey = typeof HiFiBuddySettings !== 'undefined' ? HiFiBuddySettings.getClaudeApiKey?.() : '';
+        const S = (typeof HiFiBuddySettings !== 'undefined') ? HiFiBuddySettings : null;
+        const ollamaUrl = S?.getOllamaUrl?.() || '';
+        const ollamaModel = S?.getOllamaModel?.() || 'gemma2:9b';
+        const claudeKey = S?.getClaudeApiKey?.() || '';
 
         const messages = typeof messagesOrText === 'string'
             ? [{ role: 'user', content: messagesOrText }]

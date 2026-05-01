@@ -43,11 +43,20 @@ window.HiFiBuddyTimingFeedback = (() => {
     }
 
     function persistOverrides() {
+        // Local mirror — keeps reads fast and survives offline use.
         try {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(overrides));
         } catch (e) {
             console.warn('[TimingFeedback] Failed to persist overrides:', e);
         }
+        // Durable copy on the server. Whole-replace POST since the dataset
+        // is small (one entry per edited lesson) and merging diffs is more
+        // error-prone than just sending the full state we have in memory.
+        fetch('/api/timing/feedback', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(overrides),
+        }).catch(() => { /* offline — localStorage has it; init() will sync on next boot */ });
     }
 
     function loadEditMode() {
@@ -132,10 +141,53 @@ window.HiFiBuddyTimingFeedback = (() => {
 
     // ---------- public API ----------
 
-    function init() {
+    async function init() {
         if (initialized) return;
-        overrides = loadOverrides();
+        overrides = loadOverrides();   // start from localStorage (fast)
         editMode = loadEditMode();
+
+        // Reconcile with the server's view at ~/.hifi-buddy/timing_feedback.json:
+        // server is durable, so anything it has trumps local on a per-key basis.
+        // Anything localStorage has that the server doesn't gets pushed up.
+        let serverOverrides = null;
+        try {
+            const res = await fetch('/api/timing/feedback', { cache: 'no-store' });
+            if (res.ok) serverOverrides = await res.json();
+        } catch { /* server unreachable — keep localStorage */ }
+
+        if (serverOverrides && typeof serverOverrides === 'object') {
+            let needPush = false;
+            const merged = { ...serverOverrides };
+            for (const lid of Object.keys(overrides || {})) {
+                const localMap = overrides[lid] || {};
+                if (!merged[lid]) {
+                    merged[lid] = { ...localMap };
+                    needPush = true;
+                    continue;
+                }
+                for (const orig of Object.keys(localMap)) {
+                    if (!(orig in merged[lid])) {
+                        merged[lid][orig] = localMap[orig];
+                        needPush = true;
+                    }
+                }
+            }
+            overrides = merged;
+            // Mirror back to localStorage so synchronous readers see the
+            // merged set immediately.
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(overrides)); }
+            catch { /* quota — leave it */ }
+            if (needPush) {
+                try {
+                    await fetch('/api/timing/feedback', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(overrides),
+                    });
+                } catch { /* offline — try again next boot */ }
+            }
+        }
+
         initialized = true;
     }
 

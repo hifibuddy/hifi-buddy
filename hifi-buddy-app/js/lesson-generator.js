@@ -163,10 +163,10 @@ If you do not know the track or are uncertain about facts (year, label, masterin
     // ===== AI call =====
 
     async function callAI(systemPrompt, userPrompt) {
-        const ollamaUrl = localStorage.getItem('hifibuddy_ollama_url') || '';
-        const ollamaModel = localStorage.getItem('hifibuddy_ollama_model') || 'gemma2:9b';
-        const claudeKey = typeof HiFiBuddySettings !== 'undefined'
-            ? HiFiBuddySettings.getClaudeApiKey?.() : '';
+        const S = (typeof HiFiBuddySettings !== 'undefined') ? HiFiBuddySettings : null;
+        const ollamaUrl = S?.getOllamaUrl?.() || '';
+        const ollamaModel = S?.getOllamaModel?.() || 'gemma2:9b';
+        const claudeKey = S?.getClaudeApiKey?.() || '';
 
         const messages = [{ role: 'user', content: userPrompt }];
 

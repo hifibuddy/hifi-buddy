@@ -62,14 +62,28 @@
         // This hook is kept for future use (e.g., navigating away to refbank).
     }
 
-    function initializeModules() {
-        if (typeof HiFiBuddySettings !== 'undefined') HiFiBuddySettings.init();
+    async function initializeModules() {
+        // Settings MUST initialize first and to completion: it loads durable
+        // config from ~/.hifi-buddy/config.json into the in-memory cache and
+        // migrates any legacy localStorage values. Other modules will read
+        // settings synchronously during their own init, so the cache must be
+        // populated before they run.
+        if (typeof HiFiBuddySettings !== 'undefined') await HiFiBuddySettings.init();
         if (typeof HiFiBuddyAudio !== 'undefined') HiFiBuddyAudio.init?.();
         if (typeof HiFiBuddySpotify !== 'undefined') HiFiBuddySpotify.init();
         if (typeof HiFiBuddyPlex !== 'undefined') HiFiBuddyPlex.init?.();
         if (typeof HiFiBuddyMB !== 'undefined') HiFiBuddyMB.init();
         if (typeof HiFiBuddyRefBank !== 'undefined') HiFiBuddyRefBank.init?.();
         if (typeof HiFiBuddyAbxStats !== 'undefined') HiFiBuddyAbxStats.init?.();
+        // ABX + timing-feedback both reconcile localStorage with their
+        // server-side durable stores at boot. Awaiting them keeps stats
+        // and overrides correct on first render.
+        if (typeof HiFiBuddyABX !== 'undefined') {
+            try { await HiFiBuddyABX.init?.(); } catch (e) { console.warn('[ABX] bootstrap:', e); }
+        }
+        if (typeof HiFiBuddyTimingFeedback !== 'undefined') {
+            try { await HiFiBuddyTimingFeedback.init?.(); } catch (e) { console.warn('[TimingFeedback] bootstrap:', e); }
+        }
         if (typeof HiFiBuddyVisualizer !== 'undefined') HiFiBuddyVisualizer.init();
         // HiFi Buddy's init takes a genres parameter; standalone app has no genre data.
         if (typeof HiFiBuddyApp !== 'undefined') HiFiBuddyApp.init(null);
@@ -86,7 +100,7 @@
         });
     }
 
-    function init() {
+    async function init() {
         lessonsContainer = document.getElementById('lessonsContainer');
         refbankContainer = document.getElementById('refbankContainer');
         statsContainer = document.getElementById('statsContainer');
@@ -94,7 +108,7 @@
             console.error('[HiFi Buddy] Required containers missing');
             return;
         }
-        initializeModules();
+        await initializeModules();
         bindNav();
         showView('lessons');
 

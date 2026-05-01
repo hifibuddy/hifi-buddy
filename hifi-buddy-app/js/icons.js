@@ -119,6 +119,8 @@ window.HiFiBuddyIcons = (() => {
         phone:        (o) => svg('<rect x="6" y="2" width="12" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/>', o),
         // Solid play triangle — preferred form. Uses currentColor fill.
         play:         (o) => solid('<polygon points="5 3 19 12 5 21 5 3"/>', o),
+        // Solid pause — two vertical bars. Pairs with `play` in transports.
+        pause:        (o) => solid('<rect x="6" y="4" width="4" height="16" rx="0.5"/><rect x="14" y="4" width="4" height="16" rx="0.5"/>', o),
         // Search magnifier (lucide-style with trailing line).
         search:       (o) => svg('<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>', o),
         // Search magnifier alt (with diagonal m21 21-4.35-4.35 path) — used in reference-bank.

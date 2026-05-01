@@ -3,6 +3,9 @@
 HiFi Buddy — minimal dev server.
 
 Serves static files and proxies the few API calls the front-end needs:
+  - GET  /api/config          → Read durable user config (creds, equipment, etc.)
+  - POST /api/config          → Partial-update merge of config (whitelist-filtered)
+  - GET  /api/probe-quality   → ffprobe a stream URL → {codec,bitDepth,sampleRate,...}
   - GET  /api/plex/*          → Plex Web API (token in query string)
   - GET  /api/plex-stream/*   → Plex audio stream (FLAC + MP3 transcode for ABX)
   - POST /api/claude          → Anthropic API proxy for the in-app AI guide
@@ -11,6 +14,10 @@ Serves static files and proxies the few API calls the front-end needs:
   - GET  /api/local/stream/N  → Stream a local file (with Range support)
   - GET  /api/local/transcode/N?bitrate=K → ffmpeg-transcoded MP3 (cached on disk)
   - GET  /api/local/probe     → Reports ffmpeg/mutagen availability
+
+Durable state (config, ABX results, timing feedback) lives under
+~/.hifi-buddy/ (override with HIFIBUDDY_HOME env var). localStorage in the
+browser holds only ephemeral UI prefs.
 
 No external Python deps required (stdlib only). `mutagen` is used if installed
 for accurate tag-based indexing; otherwise filename parsing is used.
@@ -26,6 +33,7 @@ Defaults to port 8091. Override with PORT=NNNN env var. Open at:
 (IMPORTANT — use 127.0.0.1, NOT localhost. Spotify's OAuth requires the
 loopback IP form for HTTP redirect URIs.)
 """
+import hashlib
 import http.server
 import json
 import os
@@ -33,15 +41,35 @@ import re
 import shutil
 import ssl
 import subprocess
+import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
 
-PORT = int(os.environ.get('PORT', 8091))
+PORT = int(os.environ.get('PORT', 8090))
 DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 
 CLAUDE_API_URL = 'https://api.anthropic.com/v1/messages'
 CLAUDE_API_VERSION = '2023-06-01'
+
+# -------- HiFi Buddy persistent state --------
+# All durable state (creds, equipment, ABX results, timing feedback) lives here.
+# localStorage holds only ephemeral UI preferences. Override the location with
+# HIFIBUDDY_HOME=/some/path for testing or sandboxing.
+HIFIBUDDY_HOME = os.environ.get('HIFIBUDDY_HOME', os.path.expanduser('~/.hifi-buddy'))
+CONFIG_PATH = os.path.join(HIFIBUDDY_HOME, 'config.json')
+
+# Whitelist of config keys the server will store. Anything outside this set is
+# silently dropped — defends against the client trying to dump arbitrary
+# localStorage payloads (UI prefs, caches, etc.) into the config file.
+CONFIG_ALLOWED_KEYS = frozenset({
+    'plex_url', 'plex_token',
+    'spotify_client_id', 'spotify_client_secret', 'spotify_auth_method',
+    'claude_api_key',
+    'ollama_url', 'ollama_model',
+    'local_folder',
+})
 
 # -------- Local Library state --------
 LOCAL_INDEX_PATH = os.path.join(DIRECTORY, 'local-library-index.json')
@@ -74,6 +102,279 @@ def ffmpeg_path():
             return cand
     return None
 
+
+def ffprobe_path():
+    """Locate ffprobe — bundled alongside ffmpeg in every distribution we
+    care about. Same lookup strategy as ffmpeg_path()."""
+    p = shutil.which('ffprobe')
+    if p:
+        return p
+    for cand in ('/opt/homebrew/bin/ffprobe', '/usr/local/bin/ffprobe', '/usr/bin/ffprobe'):
+        if os.path.isfile(cand) and os.access(cand, os.X_OK):
+            return cand
+    return None
+
+
+# -------- Config persistence helpers --------
+
+def load_config():
+    """Read config.json. Returns {} if the file is missing or malformed —
+    we don't want a corrupt config to brick the app."""
+    if not os.path.isfile(CONFIG_PATH):
+        return {}
+    try:
+        with open(CONFIG_PATH, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        return data if isinstance(data, dict) else {}
+    except (json.JSONDecodeError, OSError) as e:
+        # Surface in server log but don't crash the request
+        print(f'[config] Failed to read {CONFIG_PATH}: {e}')
+        return {}
+
+
+def save_config_atomic(data):
+    """Atomic write to ~/.hifi-buddy/config.json. Creates the directory with
+    chmod 700 and the file with chmod 600 so only the user can read it
+    (these contain auth tokens). Uses .tmp + os.replace so a crash mid-write
+    can't corrupt the existing config."""
+    os.makedirs(HIFIBUDDY_HOME, exist_ok=True)
+    try:
+        os.chmod(HIFIBUDDY_HOME, 0o700)
+    except OSError:
+        # Non-POSIX (Windows) — fall back to default ACLs
+        pass
+    tmp = CONFIG_PATH + '.tmp'
+    with open(tmp, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=2, sort_keys=True)
+        f.flush()
+        os.fsync(f.fileno())
+    try:
+        os.chmod(tmp, 0o600)
+    except OSError:
+        pass
+    os.replace(tmp, CONFIG_PATH)
+
+
+# -------- ABX results & timing feedback (durable user state) --------
+
+ABX_LOG_PATH = os.path.join(HIFIBUDDY_HOME, 'abx_results.jsonl')
+TIMING_PATH = os.path.join(HIFIBUDDY_HOME, 'timing_feedback.json')
+
+# Whitelist of fields a single ABX result entry is allowed to contain. Keeps
+# the JSONL file from growing into a kitchen-sink as the schema evolves.
+ABX_RESULT_FIELDS = frozenset({
+    'lessonId', 'bitrate', 'trials', 'correct', 'pValue',
+    'segment', 'completedAt',
+})
+
+
+def append_abx_log(entry):
+    """Append one result as a single JSON line. JSONL not full-rewrite so
+    a crash mid-write at most loses the current line (and never corrupts
+    earlier ones)."""
+    os.makedirs(HIFIBUDDY_HOME, exist_ok=True)
+    try:
+        os.chmod(HIFIBUDDY_HOME, 0o700)
+    except OSError:
+        pass
+    line = json.dumps(entry, separators=(',', ':')) + '\n'
+    with open(ABX_LOG_PATH, 'a', encoding='utf-8') as f:
+        f.write(line)
+        f.flush()
+        os.fsync(f.fileno())
+    try:
+        os.chmod(ABX_LOG_PATH, 0o600)
+    except OSError:
+        pass
+
+
+def read_abx_log():
+    """Read all results, grouped by lessonId. Skips malformed lines (so one
+    bad write can never wedge the whole history)."""
+    out = {}
+    if not os.path.isfile(ABX_LOG_PATH):
+        return out
+    try:
+        with open(ABX_LOG_PATH, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    entry = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                lid = entry.get('lessonId')
+                if not lid:
+                    continue
+                clean = {k: v for k, v in entry.items()
+                         if k in ABX_RESULT_FIELDS and k != 'lessonId'}
+                out.setdefault(lid, []).append(clean)
+    except OSError as e:
+        print(f'[abx] Read failed: {e}')
+    return out
+
+
+def load_timing_feedback():
+    if not os.path.isfile(TIMING_PATH):
+        return {}
+    try:
+        with open(TIMING_PATH, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        return data if isinstance(data, dict) else {}
+    except (json.JSONDecodeError, OSError) as e:
+        print(f'[timing] Read failed: {e}')
+        return {}
+
+
+def save_timing_feedback_atomic(data):
+    """Whole-file replace (the data is small — one entry per lesson — and
+    full-replace is simpler than diff-merge for this case)."""
+    os.makedirs(HIFIBUDDY_HOME, exist_ok=True)
+    try:
+        os.chmod(HIFIBUDDY_HOME, 0o700)
+    except OSError:
+        pass
+    tmp = TIMING_PATH + '.tmp'
+    with open(tmp, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=2, sort_keys=True)
+        f.flush()
+        os.fsync(f.fileno())
+    try:
+        os.chmod(tmp, 0o600)
+    except OSError:
+        pass
+    os.replace(tmp, TIMING_PATH)
+
+
+# -------- Source-quality probe (ffprobe) --------
+
+# Disk cache for ffprobe results. URL → JSON file, hashed so the cache key
+# doesn't leak Plex tokens / paths into a directory listing. 24h TTL because
+# Plex stream URLs rotate but the underlying file's quality doesn't.
+PROBE_CACHE_DIR = os.path.join(HIFIBUDDY_HOME, 'cache', 'probe')
+PROBE_CACHE_TTL = 24 * 60 * 60  # 24 hours
+
+def _probe_cache_key(url):
+    """Hash the full URL so two URLs that differ only by token still share a
+    cache entry under their canonical (token-stripped) form. We strip any
+    `X-Plex-Token=` query param before hashing so a token rotation doesn't
+    invalidate the cache."""
+    try:
+        parsed = urllib.parse.urlparse(url)
+        qs = [(k, v) for (k, v) in urllib.parse.parse_qsl(parsed.query, keep_blank_values=True)
+              if k.lower() not in ('x-plex-token', 'plextoken')]
+        canonical = urllib.parse.urlunparse((
+            parsed.scheme, parsed.netloc, parsed.path, parsed.params,
+            urllib.parse.urlencode(qs), '',
+        ))
+    except Exception:
+        canonical = url
+    return hashlib.sha256(canonical.encode('utf-8')).hexdigest()
+
+
+def _probe_cache_read(url):
+    key = _probe_cache_key(url)
+    path = os.path.join(PROBE_CACHE_DIR, f'{key}.json')
+    if not os.path.isfile(path):
+        return None
+    try:
+        if time.time() - os.path.getmtime(path) > PROBE_CACHE_TTL:
+            return None
+        with open(path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except (json.JSONDecodeError, OSError):
+        return None
+
+
+def _probe_cache_write(url, data):
+    os.makedirs(PROBE_CACHE_DIR, exist_ok=True)
+    key = _probe_cache_key(url)
+    path = os.path.join(PROBE_CACHE_DIR, f'{key}.json')
+    tmp = path + '.tmp'
+    try:
+        with open(tmp, 'w', encoding='utf-8') as f:
+            json.dump(data, f)
+        os.replace(tmp, path)
+    except OSError as e:
+        print(f'[probe] Cache write failed: {e}')
+
+
+def _probe_url_quality(url, timeout_secs=10):
+    """Run ffprobe on a URL. Returns a dict of audio properties or raises.
+
+    Why ffprobe instead of trusting Plex/library/metadata: Plex's metadata
+    index can be stale or incomplete (Stream array sometimes missing on
+    library/sections/.../search results). ffprobe reads the actual file
+    bytes, so it's the source of truth for source-quality detection."""
+    fp = ffprobe_path()
+    if not fp:
+        raise RuntimeError('ffprobe not installed')
+    cmd = [
+        fp,
+        '-v', 'error',
+        '-print_format', 'json',
+        '-show_streams',
+        '-show_format',
+        # ffprobe takes the URL via -i. The microsecond timeout protects us
+        # from hanging on a Plex server that's slow to respond.
+        '-timeout', str(int(timeout_secs * 1_000_000)),
+        '-i', url,
+    ]
+    try:
+        result = subprocess.run(
+            cmd, capture_output=True, text=True,
+            timeout=timeout_secs + 2,
+        )
+    except subprocess.TimeoutExpired:
+        raise RuntimeError(f'ffprobe timed out after {timeout_secs}s')
+    if result.returncode != 0:
+        # ffprobe writes diagnostic text to stderr; surface the first line.
+        msg = (result.stderr or '').strip().split('\n', 1)[0] or 'ffprobe failed'
+        raise RuntimeError(msg[:200])
+    try:
+        data = json.loads(result.stdout)
+    except json.JSONDecodeError as e:
+        raise RuntimeError(f'ffprobe returned non-JSON: {e}')
+    streams = data.get('streams') or []
+    audio = next((s for s in streams if s.get('codec_type') == 'audio'), None)
+    if not audio:
+        raise RuntimeError('no audio stream')
+    fmt = data.get('format') or {}
+
+    def _i(v):
+        try: return int(v) if v is not None else 0
+        except (ValueError, TypeError): return 0
+
+    def _f(v):
+        try: return float(v) if v is not None else 0.0
+        except (ValueError, TypeError): return 0.0
+
+    # bits_per_raw_sample is the meaningful one for FLAC (24-bit FLAC reports
+    # 24 here, while bits_per_sample may be 0 because the codec is variable-
+    # length). Fall back to bits_per_sample for codecs that always set it.
+    bit_depth = _i(audio.get('bits_per_raw_sample')) or _i(audio.get('bits_per_sample'))
+
+    # bit_rate from the audio stream is most precise; format-level bit_rate
+    # includes container overhead. Prefer the stream value.
+    bit_rate = _i(audio.get('bit_rate')) or _i(fmt.get('bit_rate'))
+
+    # Container: ffprobe's format_name is comma-separated for ambiguous files
+    # (e.g., "mov,mp4,m4a,..."). Take the first token.
+    container = (fmt.get('format_name') or '').split(',')[0].upper()
+
+    return {
+        'codec':      (audio.get('codec_name') or '').upper(),
+        'sampleRate': _i(audio.get('sample_rate')),
+        'bitDepth':   bit_depth,
+        'channels':   _i(audio.get('channels')),
+        'bitrate':    bit_rate,
+        'container':  container,
+        'duration':   _f(fmt.get('duration')) or _f(audio.get('duration')),
+        'probedAt':   int(time.time()),
+    }
+
+
 # Plex client identification — required by Plex's universal transcoder
 PLEX_CLIENT_HEADERS = {
     'X-Plex-Client-Identifier': 'hifi-buddy',
@@ -91,6 +392,16 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     # -------- Routing --------
 
     def do_POST(self):
+        if self.path == '/api/config':
+            return self.post_config()
+        if self.path == '/api/config/reveal':
+            return self.reveal_config_folder()
+        if self.path == '/api/abx/log':
+            return self.post_abx_log()
+        if self.path == '/api/abx/import':
+            return self.post_abx_import()
+        if self.path == '/api/timing/feedback':
+            return self.post_timing_feedback()
         if self.path == '/api/claude':
             return self.proxy_claude()
         if self.path == '/api/ollama':
@@ -100,6 +411,14 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.send_error(404, 'Not Found')
 
     def do_GET(self):
+        if self.path == '/api/config':
+            return self.get_config()
+        if self.path.startswith('/api/probe-quality'):
+            return self.probe_quality()
+        if self.path.startswith('/api/abx/results'):
+            return self.get_abx_results()
+        if self.path == '/api/timing/feedback':
+            return self.get_timing_feedback()
         if self.path.startswith('/api/plex-stream/'):
             return self.proxy_plex_stream()
         if self.path.startswith('/api/plex/'):
@@ -226,6 +545,241 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         except Exception as e:
             self.send_json(500, {'error': str(e), 'models': []})
 
+    # -------- Config (durable user state) --------
+
+    def get_config(self):
+        """GET /api/config — read the full config object. Returns only keys in
+        CONFIG_ALLOWED_KEYS (defensive against a manually-edited file with
+        stray keys). Empty object if the config file doesn't exist yet."""
+        try:
+            data = load_config()
+            filtered = {k: v for k, v in data.items() if k in CONFIG_ALLOWED_KEYS}
+            self.send_json(200, filtered)
+        except Exception as e:
+            self.send_json(500, {'error': str(e)})
+
+    def post_config(self):
+        """POST /api/config — partial-update merge. Body is a JSON object;
+        keys outside CONFIG_ALLOWED_KEYS are silently dropped. To remove a
+        key, send empty string or null. Returns the new full config."""
+        try:
+            length = int(self.headers.get('Content-Length', 0))
+            body = self.rfile.read(length) if length else b'{}'
+            try:
+                incoming = json.loads(body or b'{}')
+            except json.JSONDecodeError as e:
+                return self.send_json(400, {'error': f'Invalid JSON: {e}'})
+            if not isinstance(incoming, dict):
+                return self.send_json(400, {'error': 'Body must be a JSON object'})
+            merged = load_config()
+            for k, v in incoming.items():
+                if k not in CONFIG_ALLOWED_KEYS:
+                    continue
+                if v is None or v == '':
+                    merged.pop(k, None)
+                else:
+                    merged[k] = v
+            save_config_atomic(merged)
+            # Return the new state so callers don't need a follow-up GET
+            self.send_json(200, {k: v for k, v in merged.items() if k in CONFIG_ALLOWED_KEYS})
+        except Exception as e:
+            self.send_json(500, {'error': str(e)})
+
+    def reveal_config_folder(self):
+        """POST /api/config/reveal — open ~/.hifi-buddy/ in Finder/Explorer.
+        Best-effort: returns the path even if the open command failed so the
+        UI can still show it."""
+        try:
+            os.makedirs(HIFIBUDDY_HOME, exist_ok=True)
+        except Exception:
+            pass
+        opened = False
+        try:
+            if sys.platform == 'darwin':
+                subprocess.Popen(['open', HIFIBUDDY_HOME])
+                opened = True
+            elif sys.platform.startswith('win'):
+                subprocess.Popen(['explorer', HIFIBUDDY_HOME])
+                opened = True
+            else:
+                subprocess.Popen(['xdg-open', HIFIBUDDY_HOME])
+                opened = True
+        except Exception as e:
+            print(f'[config/reveal] {e}')
+        self.send_json(200, {'opened': opened, 'path': HIFIBUDDY_HOME})
+
+    # -------- Source-quality probe --------
+
+    def probe_quality(self):
+        """GET /api/probe-quality?url=<encoded-stream-url>
+
+        Runs ffprobe on the URL to extract codec/bitDepth/sampleRate/etc.
+        Used as a more reliable source than Plex's /library/metadata/ which
+        sometimes ships incomplete Stream arrays. Caches the result for 24h
+        keyed by a token-stripped hash of the URL, so subsequent renders
+        are instant and Plex token rotation doesn't blow away the cache.
+
+        Response shape:
+          {codec, sampleRate, bitDepth, channels, bitrate, container, duration, cached}
+        """
+        try:
+            parsed = urllib.parse.urlparse(self.path)
+            params = urllib.parse.parse_qs(parsed.query)
+            url = (params.get('url', [''])[0] or '').strip()
+            if not url:
+                return self.send_json(400, {'error': 'Missing url parameter'})
+            # Defensive: only allow http/https. ffprobe will technically open
+            # file:// and a few protocol drivers — we don't want this endpoint
+            # to be a path-disclosure channel.
+            scheme = (urllib.parse.urlparse(url).scheme or '').lower()
+            if scheme not in ('http', 'https'):
+                return self.send_json(400, {'error': f'Unsupported URL scheme: {scheme!r}'})
+
+            # Cache check
+            cached = _probe_cache_read(url)
+            if cached:
+                cached = dict(cached)
+                cached['cached'] = True
+                return self.send_json(200, cached)
+
+            if not ffprobe_path():
+                return self.send_json(503, {
+                    'error': 'ffprobe not installed',
+                    'hint': 'Install ffmpeg (which bundles ffprobe). macOS: `brew install ffmpeg`',
+                })
+
+            try:
+                quality = _probe_url_quality(url)
+            except RuntimeError as e:
+                return self.send_json(502, {'error': str(e)})
+
+            _probe_cache_write(url, quality)
+            quality['cached'] = False
+            self.send_json(200, quality)
+        except Exception as e:
+            self.send_json(500, {'error': str(e)})
+
+    # -------- ABX log + timing-feedback --------
+
+    def get_abx_results(self):
+        """GET /api/abx/results[?lesson=X]
+        Returns either {lessonId: [results...]} or just the array for one
+        lesson if a query param is set."""
+        try:
+            parsed = urllib.parse.urlparse(self.path)
+            params = urllib.parse.parse_qs(parsed.query)
+            lesson = (params.get('lesson', [''])[0] or '').strip()
+            all_results = read_abx_log()
+            if lesson:
+                return self.send_json(200, all_results.get(lesson, []))
+            self.send_json(200, all_results)
+        except Exception as e:
+            self.send_json(500, {'error': str(e)})
+
+    def post_abx_log(self):
+        """POST /api/abx/log — append a single ABX result. Body must include
+        lessonId and the test fields (bitrate, trials, correct, pValue,
+        completedAt). Returns {ok: true}."""
+        try:
+            length = int(self.headers.get('Content-Length', 0))
+            body = self.rfile.read(length) if length else b'{}'
+            try:
+                entry = json.loads(body or b'{}')
+            except json.JSONDecodeError as e:
+                return self.send_json(400, {'error': f'Invalid JSON: {e}'})
+            if not isinstance(entry, dict):
+                return self.send_json(400, {'error': 'Body must be a JSON object'})
+            lid = entry.get('lessonId')
+            if not lid or not isinstance(lid, str):
+                return self.send_json(400, {'error': 'lessonId required'})
+            # Drop unknown keys defensively
+            clean = {k: v for k, v in entry.items() if k in ABX_RESULT_FIELDS}
+            clean['lessonId'] = lid
+            append_abx_log(clean)
+            self.send_json(200, {'ok': True})
+        except Exception as e:
+            self.send_json(500, {'error': str(e)})
+
+    def post_abx_import(self):
+        """POST /api/abx/import — bulk import. Body: {lessonId: [results...]}.
+        Used once on first M1.2 boot to migrate localStorage history into
+        the JSONL file. Skips entries already present (deduped on
+        lessonId+completedAt). Returns {imported: N, skipped: M}."""
+        try:
+            length = int(self.headers.get('Content-Length', 0))
+            body = self.rfile.read(length) if length else b'{}'
+            try:
+                payload = json.loads(body or b'{}')
+            except json.JSONDecodeError as e:
+                return self.send_json(400, {'error': f'Invalid JSON: {e}'})
+            if not isinstance(payload, dict):
+                return self.send_json(400, {'error': 'Body must be a JSON object'})
+
+            existing = read_abx_log()
+            # Build a set of (lessonId, completedAt) we already know about so
+            # re-running migration doesn't double-count anything.
+            seen = set()
+            for lid, arr in existing.items():
+                for r in arr:
+                    seen.add((lid, r.get('completedAt')))
+
+            imported = 0
+            skipped = 0
+            for lid, arr in payload.items():
+                if not isinstance(lid, str) or not isinstance(arr, list):
+                    continue
+                for r in arr:
+                    if not isinstance(r, dict):
+                        continue
+                    completed = r.get('completedAt')
+                    if (lid, completed) in seen:
+                        skipped += 1
+                        continue
+                    clean = {k: v for k, v in r.items() if k in ABX_RESULT_FIELDS}
+                    clean['lessonId'] = lid
+                    try:
+                        append_abx_log(clean)
+                        imported += 1
+                        seen.add((lid, completed))
+                    except OSError as e:
+                        print(f'[abx-import] write failed: {e}')
+            self.send_json(200, {'imported': imported, 'skipped': skipped})
+        except Exception as e:
+            self.send_json(500, {'error': str(e)})
+
+    def get_timing_feedback(self):
+        """GET /api/timing/feedback — full {lessonId: {originalTime: corrected}}."""
+        try:
+            self.send_json(200, load_timing_feedback())
+        except Exception as e:
+            self.send_json(500, {'error': str(e)})
+
+    def post_timing_feedback(self):
+        """POST /api/timing/feedback — full-replace. Body is the entire
+        overrides object. Caller is responsible for sending the merged
+        result; we don't do partial-update merging here because the
+        per-lesson edit UI already has the full dict in memory."""
+        try:
+            length = int(self.headers.get('Content-Length', 0))
+            body = self.rfile.read(length) if length else b'{}'
+            try:
+                data = json.loads(body or b'{}')
+            except json.JSONDecodeError as e:
+                return self.send_json(400, {'error': f'Invalid JSON: {e}'})
+            if not isinstance(data, dict):
+                return self.send_json(400, {'error': 'Body must be a JSON object'})
+            # Shape check: every value should be a dict of str→str.
+            clean = {}
+            for lid, mapping in data.items():
+                if not isinstance(lid, str) or not isinstance(mapping, dict):
+                    continue
+                clean[lid] = {str(k): str(v) for k, v in mapping.items()
+                              if isinstance(k, str) and isinstance(v, str)}
+            save_timing_feedback_atomic(clean)
+            self.send_json(200, {'ok': True, 'lessons': len(clean)})
+        except Exception as e:
+            self.send_json(500, {'error': str(e)})
+
     # -------- Plex JSON API --------
 
     def proxy_plex(self):
@@ -330,6 +884,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         """Tiny capability probe used by the client to decide ABX paths."""
         return self.send_json(200, {
             'ffmpeg': bool(ffmpeg_path()),
+            'ffprobe': bool(ffprobe_path()),
             'mutagen': HAS_MUTAGEN,
         })
 
@@ -743,6 +1298,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 def main():
     server = http.server.ThreadingHTTPServer(('', PORT), Handler)
     print(f'HiFi Buddy server running at http://127.0.0.1:{PORT}/')
+    print(f'Config:  {CONFIG_PATH}')
     print('Press Ctrl+C to stop.')
     try:
         server.serve_forever()

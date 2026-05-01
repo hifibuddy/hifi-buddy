@@ -348,6 +348,14 @@ window.HiFiBuddyPlex = (() => {
 
     // Fetch /library/metadata/<ratingKey> and merge bitDepth + samplingRate
     // (and any other Stream-only details) into the partial quality object.
+    //
+    // Two-stage strategy:
+    //   1. Plex metadata API — fast, but Plex's index sometimes ships
+    //      Stream arrays without bitDepth/samplingRate (especially for
+    //      reimported files).
+    //   2. ffprobe via /api/probe-quality on the actual part URL — slower
+    //      (~1-2s) but reads file bytes directly. Source of truth.
+    // We only run stage 2 when stage 1 left a key field empty.
     async function enrichQuality(ratingKey, partialQuality) {
         if (!ratingKey) return partialQuality;
         if (_enrichCache.has(ratingKey)) {
@@ -356,27 +364,52 @@ window.HiFiBuddyPlex = (() => {
         const url = HiFiBuddySettings.getPlexUrl();
         const token = HiFiBuddySettings.getPlexToken();
         if (!url || !token) return partialQuality;
+        let enriched = partialQuality || {};
+        let partKey = null;
         try {
             const res = await fetch(`/api/plex/library/metadata/${ratingKey}?plexUrl=${enc(url)}&plexToken=${enc(token)}`);
-            if (!res.ok) return partialQuality;
-            const data = await res.json();
-            const t = data?.MediaContainer?.Metadata?.[0];
-            const media = t?.Media?.[0];
-            const stream = media?.Part?.[0]?.Stream?.find(s => s.streamType === 2) || media?.Part?.[0]?.Stream?.[0];
-            if (!media) return partialQuality;
-            const enriched = {
-                codec: (media.audioCodec || media.codec || partialQuality?.codec || '').toUpperCase(),
-                bitrate: media.bitrate || partialQuality?.bitrate || 0,
-                sampleRate: stream?.samplingRate || media.sampleRate || partialQuality?.sampleRate || 0,
-                bitDepth: stream?.bitDepth || partialQuality?.bitDepth || 0,
-                channels: media.audioChannels || stream?.channels || partialQuality?.channels || 2,
-                container: (media.container || partialQuality?.container || '').toUpperCase(),
-            };
-            _enrichCache.set(ratingKey, enriched);
-            return enriched;
-        } catch {
-            return partialQuality;
+            if (res.ok) {
+                const data = await res.json();
+                const t = data?.MediaContainer?.Metadata?.[0];
+                const media = t?.Media?.[0];
+                const part = media?.Part?.[0];
+                const stream = part?.Stream?.find(s => s.streamType === 2) || part?.Stream?.[0];
+                partKey = part?.key || null;
+                if (media) {
+                    enriched = {
+                        codec: (media.audioCodec || media.codec || partialQuality?.codec || '').toUpperCase(),
+                        bitrate: media.bitrate || partialQuality?.bitrate || 0,
+                        sampleRate: stream?.samplingRate || media.sampleRate || partialQuality?.sampleRate || 0,
+                        bitDepth: stream?.bitDepth || partialQuality?.bitDepth || 0,
+                        channels: media.audioChannels || stream?.channels || partialQuality?.channels || 2,
+                        container: (media.container || partialQuality?.container || '').toUpperCase(),
+                    };
+                }
+            }
+        } catch { /* fall through to ffprobe */ }
+
+        // Stage 2: ffprobe the actual part URL if Plex metadata left holes.
+        // This catches re-imported/transcoded files where Plex's index lags.
+        if (partKey && (!enriched.bitDepth || !enriched.sampleRate)) {
+            try {
+                const partUrl = `${url.replace(/\/+$/, '')}${partKey}?X-Plex-Token=${encodeURIComponent(token)}`;
+                const probeRes = await fetch(`/api/probe-quality?url=${enc(partUrl)}`);
+                if (probeRes.ok) {
+                    const p = await probeRes.json();
+                    enriched = {
+                        codec:      enriched.codec      || (p.codec || '').toUpperCase(),
+                        bitrate:    enriched.bitrate    || p.bitrate    || 0,
+                        sampleRate: enriched.sampleRate || p.sampleRate || 0,
+                        bitDepth:   enriched.bitDepth   || p.bitDepth   || 0,
+                        channels:   enriched.channels   || p.channels   || 2,
+                        container:  enriched.container  || (p.container || '').toUpperCase(),
+                    };
+                }
+            } catch { /* probe failed — keep what we have */ }
         }
+
+        _enrichCache.set(ratingKey, enriched);
+        return enriched;
     }
 
     // Returns ALL plausible matches for (title, artist), best-match first.

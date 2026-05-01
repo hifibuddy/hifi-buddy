@@ -72,14 +72,23 @@ window.HiFiBuddyABX = (() => {
         const res = await fetch(url, { credentials: 'same-origin' });
         if (!res.ok) throw new Error(`fetch ${url} → ${res.status}`);
         const arrBuf = await res.arrayBuffer();
+        // Capture byteLength up front. decodeAudioData detaches whatever
+        // ArrayBuffer we hand it (even on failure), so reading byteLength
+        // afterwards would throw "detached".
+        const byteLength = arrBuf.byteLength;
         const contentType = res.headers.get('Content-Type') || '(none)';
         const ctx = ensureCtx();
         // CROSS-BROWSER: Safari < 14.1 only exposes the legacy callback form of decodeAudioData.
         // The promise form throws/returns undefined there. Try the promise form first; if it
         // returns a non-Promise (or throws synchronously about the signature), fall back to callbacks.
+        //
+        // We always pass a fresh slice instead of arrBuf directly. Reason: any
+        // failed decodeAudioData call still detaches its input, which means
+        // the fallback path used to throw "Cannot perform slice on a detached
+        // ArrayBuffer" — masking the real codec error from the first attempt.
         let buffer;
         try {
-            buffer = await ctx.decodeAudioData(arrBuf);
+            buffer = await ctx.decodeAudioData(arrBuf.slice(0));
         } catch (e) {
             // Fall back to the legacy callback-style API on browsers that reject the promise
             // form or where the FLAC/MP3 codec isn't wired into decodeAudioData (rare on
@@ -89,11 +98,19 @@ window.HiFiBuddyABX = (() => {
                     ctx.decodeAudioData(arrBuf.slice(0), resolve, reject);
                 });
             } catch (e2) {
-                throw new Error(`decodeAudioData failed: ${e2?.message || e?.message || 'unknown decode error'}`);
+                // Surface BOTH errors when both paths fail — the second is
+                // often more informative (codec name, file size mismatch).
+                const primary = e?.message || 'unknown';
+                const secondary = e2?.message || 'unknown';
+                throw new Error(
+                    primary === secondary
+                        ? `decodeAudioData failed: ${primary} (content-type: ${contentType}, size: ${byteLength}B)`
+                        : `decodeAudioData failed: ${secondary} (initial: ${primary}; content-type: ${contentType}, size: ${byteLength}B)`
+                );
             }
         }
-        console.log(`[ABX] ${label}: ${(arrBuf.byteLength / 1024).toFixed(0)} KB, ${buffer.duration.toFixed(2)}s, ${buffer.sampleRate} Hz, content-type=${contentType}`);
-        return { buffer, byteLength: arrBuf.byteLength, contentType };
+        console.log(`[ABX] ${label}: ${(byteLength / 1024).toFixed(0)} KB, ${buffer.duration.toFixed(2)}s, ${buffer.sampleRate} Hz, content-type=${contentType}`);
+        return { buffer, byteLength, contentType };
     }
 
     // RMS over the audible window, all channels averaged. Returns linear gain.
@@ -244,23 +261,32 @@ window.HiFiBuddyABX = (() => {
     // ===== Persistence =====
 
     function persistResult() {
+        const lessonId = opts.lesson.id;
+        const correct = trials.filter(t => t.correct).length;
+        const result = {
+            bitrate: opts.bitrate,
+            trials: TRIAL_COUNT,
+            correct,
+            pValue: binomialPValue(correct, TRIAL_COUNT),
+            segment: typeof opts.segment === 'string' ? opts.segment : null,
+            completedAt: Date.now(),
+        };
+        // Local mirror — keeps reads fast and keeps the result alive even
+        // when the server is briefly unreachable.
         try {
             const all = JSON.parse(localStorage.getItem(RESULTS_KEY) || '{}');
-            const lessonId = opts.lesson.id;
             if (!all[lessonId]) all[lessonId] = [];
-            const correct = trials.filter(t => t.correct).length;
-            all[lessonId].push({
-                bitrate: opts.bitrate,
-                trials: TRIAL_COUNT,
-                correct,
-                pValue: binomialPValue(correct, TRIAL_COUNT),
-                segment: typeof opts.segment === 'string' ? opts.segment : null,
-                completedAt: Date.now(),
-            });
+            all[lessonId].push(result);
             localStorage.setItem(RESULTS_KEY, JSON.stringify(all));
         } catch (e) {
-            console.warn('[ABX] persist failed:', e);
+            console.warn('[ABX] localStorage persist failed:', e);
         }
+        // Durable copy. Survives "Clear site data" and browser switches.
+        fetch('/api/abx/log', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...result, lessonId }),
+        }).catch(() => { /* offline — localStorage has it; init() will retry on next boot */ });
     }
 
     function getResults(lessonId) {
@@ -268,6 +294,59 @@ window.HiFiBuddyABX = (() => {
             const all = JSON.parse(localStorage.getItem(RESULTS_KEY) || '{}');
             return lessonId ? (all[lessonId] || []) : all;
         } catch { return lessonId ? [] : {}; }
+    }
+
+    // ===== Server bootstrap =====
+    //
+    // Called from app.js on app boot. Reconciles localStorage with the
+    // server-side ~/.hifi-buddy/abx_results.jsonl:
+    //   - Pulls the server's view down (it's the durable source of truth).
+    //   - Pushes any localStorage-only entries up via /api/abx/import,
+    //     which dedupes on (lessonId, completedAt) so re-running is safe.
+    //   - Writes the merged set back to localStorage so subsequent sync
+    //     reads (getResults / abx-stats readResults) see everything.
+    async function init() {
+        let serverResults = {};
+        try {
+            const res = await fetch('/api/abx/results', { cache: 'no-store' });
+            if (res.ok) serverResults = await res.json();
+        } catch { /* server unreachable — keep localStorage */ }
+
+        let localResults = {};
+        try { localResults = JSON.parse(localStorage.getItem(RESULTS_KEY) || '{}'); }
+        catch { localResults = {}; }
+
+        const merged = JSON.parse(JSON.stringify(serverResults || {}));
+        const seen = new Set();
+        for (const lid of Object.keys(merged)) {
+            for (const r of (merged[lid] || [])) seen.add(`${lid}|${r.completedAt}`);
+        }
+        const toUpload = {};
+        let unsynced = 0;
+        for (const lid of Object.keys(localResults || {})) {
+            for (const r of (localResults[lid] || [])) {
+                const key = `${lid}|${r?.completedAt}`;
+                if (seen.has(key)) continue;
+                (merged[lid] = merged[lid] || []).push(r);
+                (toUpload[lid] = toUpload[lid] || []).push(r);
+                seen.add(key);
+                unsynced++;
+            }
+        }
+        if (unsynced > 0) {
+            try {
+                await fetch('/api/abx/import', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(toUpload),
+                });
+                console.log(`[ABX] Migrated ${unsynced} result(s) from localStorage to ~/.hifi-buddy/abx_results.jsonl`);
+            } catch (e) {
+                console.warn('[ABX] Server migration failed (will retry next boot):', e?.message || e);
+            }
+        }
+        try { localStorage.setItem(RESULTS_KEY, JSON.stringify(merged)); }
+        catch { /* quota — leave localStorage as-is */ }
     }
 
     // ===== Modal UI =====
@@ -530,5 +609,5 @@ window.HiFiBuddyABX = (() => {
         if (typeof opts?.onClose === 'function') opts.onClose();
     }
 
-    return { open, close, getResults };
+    return { init, open, close, getResults };
 })();
