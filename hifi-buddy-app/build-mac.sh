@@ -23,6 +23,25 @@ if ! command -v pyinstaller >/dev/null 2>&1; then
   exit 1
 fi
 
+# Regenerate the app icon from the brand soundwave so we never ship the
+# default Python placeholder. The script is idempotent — overwrites
+# assets/icon.icns each time so source-of-truth changes (logo color,
+# bar layout) flow through automatically on the next build.
+#
+# Prefer the local venv's Python if one exists (it has Pillow); fall
+# back to system python3 otherwise. The user can override with
+# PYTHON=/path/to/python ./build-mac.sh.
+PY="${PYTHON:-}"
+if [[ -z "$PY" ]]; then
+  for cand in .env/bin/python venv/bin/python .venv/bin/python python3; do
+    if [[ -x "$cand" ]] || command -v "$cand" >/dev/null 2>&1; then
+      PY="$cand"; break
+    fi
+  done
+fi
+echo "Generating assets/icon.icns from the brand soundwave (using $PY)…"
+"$PY" tools/make-icon.py
+
 # Clean previous output so stale code can't sneak into the bundle.
 rm -rf build/ dist/
 
@@ -50,6 +69,7 @@ pyinstaller \
   --windowed \
   --name "HiFi Buddy" \
   --osx-bundle-identifier "net.hifibuddy.app" \
+  --icon "assets/icon.icns" \
   --collect-all=pystray \
   --collect-all=PIL \
   --collect-all=AppKit \

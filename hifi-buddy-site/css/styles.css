@@ -1059,6 +1059,58 @@ body > *:not(.ambient) {
   .install-grid { grid-template-columns: 1fr; }
 }
 
+/* Configure-after-install cards. Lower-key than the download buttons —
+   small text, subtle borders, hover-lift. Users only land here after
+   they've installed, so the visual hierarchy stays focused on Get-It-
+   Running until that's done. */
+.post-install {
+  margin-top: 56px;
+  padding-top: 36px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+.post-install h3 {
+  font-size: 1.3rem;
+  margin: 0 0 8px;
+}
+.post-install > p {
+  color: var(--muted, #a8a4b8);
+  font-size: 0.95rem;
+  margin: 0 0 24px;
+  max-width: 640px;
+  line-height: 1.55;
+}
+.post-install-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+.post-install-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.015);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 200ms ease, background 200ms ease, transform 200ms ease;
+}
+.post-install-card:hover {
+  border-color: rgba(155, 89, 182, 0.4);
+  background: rgba(155, 89, 182, 0.06);
+  transform: translateY(-1px);
+}
+.post-install-card strong {
+  font-size: 0.95rem;
+  color: var(--text, #f3f1f8);
+}
+.post-install-card span {
+  font-size: 0.82rem;
+  color: var(--muted, #a8a4b8);
+  line-height: 1.45;
+}
+
 .install-code {
   position: relative;
   background: linear-gradient(180deg, #14141d, #0f0f17);

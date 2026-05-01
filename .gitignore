@@ -16,3 +16,8 @@ hifi-buddy-app/.hifi-buddy-cache/
 hifi-buddy-app/build/
 hifi-buddy-app/dist/
 hifi-buddy-app/*.spec
+
+# App icon — regenerated from tools/make-icon.py on every build. The
+# script is the source of truth; the .icns is a build artifact.
+hifi-buddy-app/assets/icon.icns
+hifi-buddy-app/assets/icon.iconset/

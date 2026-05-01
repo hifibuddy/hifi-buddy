@@ -36,17 +36,26 @@ You play the song from your **Plex library** (lossless FLAC — recommended) or 
 
 ## Quickstart
 
+### macOS — install the app
+
+1. Download [**`HiFi-Buddy.dmg`**](https://github.com/hifibuddy/hifi-buddy/releases/latest/download/HiFi-Buddy.dmg) (~18 MB, Apple Silicon)
+2. Open the DMG, drag **HiFi Buddy** into `/Applications`
+3. **First launch**: right-click → **Open** → confirm "Open Anyway" once. The app is unsigned in v1.x; one-time Gatekeeper confirmation, then double-click works normally
+4. The app shows a soundwave icon in the menu bar and auto-opens your default browser at `http://127.0.0.1:8090/`
+
+Quit from the menu bar icon. Everything you configure lives at `~/.hifi-buddy/` — back up the folder to migrate to another machine.
+
+### Run from source (Linux, contributors, anyone without a Mac)
+
 ```bash
 git clone https://github.com/hifibuddy/hifi-buddy.git
 cd hifi-buddy/hifi-buddy-app
 python3 server.py
 ```
 
-Then open **http://127.0.0.1:8090/** in your browser. (Use `127.0.0.1`, **not** `localhost` — Spotify's OAuth requires the loopback IP form for HTTP redirect URIs.)
+Then open **http://127.0.0.1:8090/** in your browser. (Use `127.0.0.1`, **not** `localhost` — Spotify's OAuth requires the loopback IP form for HTTP redirect URIs.) To use a different port: `PORT=8200 python3 server.py`.
 
-To use a different port: `PORT=8200 python3 server.py`.
-
-No build step, no dependencies, no Node, no bundler. Pure Python 3 stdlib + vanilla browser JS.
+No build step, no dependencies, no Node, no bundler. Pure Python 3 stdlib + vanilla browser JS. Building the macOS app yourself: see [docs/BUILDING.md](./docs/BUILDING.md).
 
 ## Setup
 

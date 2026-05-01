@@ -4,7 +4,19 @@ This document walks you through getting HiFi Buddy running on your machine
 the first time. Budget five minutes for the basic install, plus 5–15 more
 for each optional integration (Plex, Spotify, Local FLAC, Claude, Ollama).
 
-## Prerequisites
+## Two install paths
+
+**Most users (macOS)**: download the prebuilt `.app` from the
+[GitHub Releases page](https://github.com/hifibuddy/hifi-buddy/releases).
+Drag-to-Applications, right-click → Open the first time, done. Skip
+straight to the [integration setup](#plex-recommended) below — the
+"Get the code" / "Run the validator" / "Start the server" sections only
+apply if you're running from source.
+
+**From source** (Linux, Windows for now, contributors, anyone tracking
+`main`): you need Python 3.8+ and the prerequisites table below.
+
+## Prerequisites (source install only)
 
 | Thing | Version | Why |
 |---|---|---|

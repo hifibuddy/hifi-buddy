@@ -614,6 +614,38 @@
           </ul>
         </div>
       </div>
+
+      <!-- After-install: where to learn how to set up Plex/Spotify/Claude/Ollama. -->
+      <div class="post-install reveal">
+        <h3>After you install — set up your music sources</h3>
+        <p>
+          HiFi Buddy talks to whatever you already use. Plex for lossless,
+          Spotify Premium for in-browser playback, a local FLAC folder, or
+          all three. Each takes 2–5 minutes the first time.
+        </p>
+        <div class="post-install-grid">
+          <a class="post-install-card" href="https://github.com/hifibuddy/hifi-buddy/blob/main/hifi-buddy-app/docs/INTEGRATIONS.md#plex" rel="noopener">
+            <strong>Plex setup →</strong>
+            <span>Server URL + token. Lossless FLAC and ABX testing.</span>
+          </a>
+          <a class="post-install-card" href="https://github.com/hifibuddy/hifi-buddy/blob/main/hifi-buddy-app/docs/INTEGRATIONS.md#spotify" rel="noopener">
+            <strong>Spotify setup →</strong>
+            <span>Free Developer app + Premium account. PKCE auth.</span>
+          </a>
+          <a class="post-install-card" href="https://github.com/hifibuddy/hifi-buddy/blob/main/hifi-buddy-app/docs/SETUP.md#local-flac-mode" rel="noopener">
+            <strong>Local FLAC →</strong>
+            <span>Point at a folder. Optional ffmpeg for ABX.</span>
+          </a>
+          <a class="post-install-card" href="https://github.com/hifibuddy/hifi-buddy/blob/main/hifi-buddy-app/docs/USER_GUIDE.md" rel="noopener">
+            <strong>User guide →</strong>
+            <span>Lessons, ABX methodology, equipment profile, listening tips.</span>
+          </a>
+          <a class="post-install-card" href="https://github.com/hifibuddy/hifi-buddy/blob/main/hifi-buddy-app/docs/TROUBLESHOOTING.md" rel="noopener">
+            <strong>Troubleshooting →</strong>
+            <span>Common issues — port conflicts, expired tokens, OAuth.</span>
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -623,9 +655,12 @@
       <span class="section-tag">Open source</span>
       <h2>MIT licensed. No tracking. No SaaS.</h2>
       <p>
-        HiFi Buddy is built in vanilla JavaScript with the Web Audio API and
-        the MusicBrainz catalog. No frameworks. No build step. No bundler. No
-        analytics. The whole thing is one folder you can read in an afternoon.
+        Whether you grab the macOS app or run from source, HiFi Buddy is the
+        same codebase: vanilla JavaScript, the Web Audio API, the MusicBrainz
+        catalog, and a small Python server. No frameworks, no bundler, no
+        analytics, no telemetry. Everything runs locally and your config
+        lives in a plain JSON file at <code>~/.hifi-buddy/</code> — yours
+        to back up, edit, or move between machines.
       </p>
       <p>
         Issues, pull requests, lesson contributions, and reference-track
