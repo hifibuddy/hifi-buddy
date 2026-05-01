@@ -21,7 +21,7 @@ caching old code, or (d) a missing system dep (ffmpeg, mutagen).
 9. [Spotify SDK 256 kbps cap (Web SDK quality limit)](#9-spotify-sdk-256-kbps-cap-web-sdk-quality-limit)
 10. [Album art doesn't load](#10-album-art-doesnt-load)
 11. [Ollama "Cannot reach Ollama"](#11-ollama-cannot-reach-ollama)
-12. [Server won't start: port 8091 already in use](#12-server-wont-start-port-8091-already-in-use)
+12. [Server won't start: port 8090 already in use](#12-server-wont-start-port-8090-already-in-use)
 13. [Duration mismatch warning on a lesson](#13-duration-mismatch-warning-on-a-lesson)
 14. [Spotify "Premium required" or `account_error`](#14-spotify-premium-required-or-account_error)
 15. [Local FLAC: "ffmpeg not installed" / ABX missing on local files](#15-local-flac-ffmpeg-not-installed--abx-missing-on-local-files)
@@ -83,7 +83,7 @@ There are three:
    expired. The Diagnostics panel will show "Plex: Issue HTTP 401" or
    "unreachable".
 2. **Origin partition.** You set up Plex in Settings while loading the
-   app from `127.0.0.1:8091`, then switched to `localhost:8091` (or
+   app from `127.0.0.1:8090`, then switched to `localhost:8090` (or
    vice versa). `localStorage` is partitioned per origin.
 3. **Title/artist mismatch.** The lesson says "I Love Being Here With
    You" but your Plex copy is tagged "I Love Being Here with You"
@@ -157,18 +157,18 @@ The app sends:
 window.location.origin + window.location.pathname
 ```
 
-So if you load at `http://127.0.0.1:8091/`, the redirect URI sent is
-`http://127.0.0.1:8091/`. That exact string must be registered.
+So if you load at `http://127.0.0.1:8090/`, the redirect URI sent is
+`http://127.0.0.1:8090/`. That exact string must be registered.
 
 Common mismatches:
 
 | Dashboard | What the app sends | Match? |
 |---|---|---|
-| `http://localhost:8091/` | `http://127.0.0.1:8091/` | No |
-| `http://127.0.0.1:8091` (no slash) | `http://127.0.0.1:8091/` | No |
-| `http://127.0.0.1:8090/` (old port) | `http://127.0.0.1:8091/` | No |
-| `https://127.0.0.1:8091/` | `http://127.0.0.1:8091/` | No |
-| `http://127.0.0.1:8091/` | `http://127.0.0.1:8091/` | Yes |
+| `http://localhost:8090/` | `http://127.0.0.1:8090/` | No |
+| `http://127.0.0.1:8090` (no slash) | `http://127.0.0.1:8090/` | No |
+| `http://127.0.0.1:8200/` (different port) | `http://127.0.0.1:8090/` | No |
+| `https://127.0.0.1:8090/` | `http://127.0.0.1:8090/` | No |
+| `http://127.0.0.1:8090/` | `http://127.0.0.1:8090/` | Yes |
 
 ### Fix
 
@@ -278,7 +278,7 @@ If `streaming` is missing, that's the problem.
 
 Clicking the ABX button on a HiFi Buddy lesson shows:
 
-> Could not load sources: fetch http://127.0.0.1:8091/api/plex-stream/... → 502.
+> Could not load sources: fetch http://127.0.0.1:8090/api/plex-stream/... → 502.
 > Make sure Plex is reachable and the track is in your library.
 
 ### Root cause
@@ -399,7 +399,7 @@ If you want the manual route:
    `hifi-buddy` worker.
 5. **Cache Storage** section: right-click each cache and delete.
 6. Close all tabs.
-7. Re-open `http://127.0.0.1:8091/`.
+7. Re-open `http://127.0.0.1:8090/`.
 
 If you're constantly fighting the SW during development, keep DevTools
 open with the **Disable cache** checkbox ticked (Network tab) and
@@ -411,8 +411,8 @@ open with the **Disable cache** checkbox ticked (Network tab) and
 
 ### Symptom
 
-You opened the app at `http://127.0.0.1:8091/` instead of
-`http://localhost:8091/` (or vice versa) and now:
+You opened the app at `http://127.0.0.1:8090/` instead of
+`http://localhost:8090/` (or vice versa) and now:
 - All settings (Plex URL, Spotify Client ID, Claude key) are blank.
 - Lesson progress shows 0/30.
 - ABX results are gone.
@@ -425,10 +425,10 @@ port.
 
 | Origin A | Origin B | Same store? |
 |---|---|---|
-| `http://127.0.0.1:8091` | `http://localhost:8091` | **No** |
-| `http://127.0.0.1:8091` | `http://127.0.0.1:8091/some/path` | Yes (path doesn't count) |
-| `http://127.0.0.1:8091` | `https://127.0.0.1:8091` | No |
-| `http://127.0.0.1:8091` | `http://127.0.0.1:8200` | No (different port) |
+| `http://127.0.0.1:8090` | `http://localhost:8090` | **No** |
+| `http://127.0.0.1:8090` | `http://127.0.0.1:8090/some/path` | Yes (path doesn't count) |
+| `http://127.0.0.1:8090` | `https://127.0.0.1:8090` | No |
+| `http://127.0.0.1:8090` | `http://127.0.0.1:8200` | No (different port) |
 
 When you switch from `localhost` to `127.0.0.1`, you're switching to a
 different origin that has its own empty `localStorage`. Your data is
@@ -450,7 +450,7 @@ before the standalone rename. Keys are transparently rewritten.
 **Avoid this in the future:**
 
 Pick one URL and use it always. The recommended is
-`http://127.0.0.1:8091/` because:
+`http://127.0.0.1:8090/` because:
 - Spotify's PKCE redirect URI must be registered to that exact URL.
 - Some browsers treat `localhost` differently for security purposes.
 
@@ -628,7 +628,7 @@ The HiFi Buddy server tries to fetch from your configured Ollama URL
 
 ---
 
-## 12. Server won't start: port 8091 already in use
+## 12. Server won't start: port 8090 already in use
 
 ### Symptom
 
@@ -640,7 +640,7 @@ OSError: [Errno 48] Address already in use
 
 ### Root cause
 
-Another process is bound to port 8091. Most often a previous
+Another process is bound to port 8090. Most often a previous
 `server.py` you forgot to kill.
 
 ### Fix
@@ -650,7 +650,7 @@ Find and kill it.
 **macOS / Linux:**
 
 ```bash
-lsof -i :8091
+lsof -i :8090
 # look for the PID in the output, then:
 kill <PID>
 ```
@@ -658,11 +658,11 @@ kill <PID>
 **Windows:**
 
 ```cmd
-netstat -ano | findstr :8091
+netstat -ano | findstr :8090
 taskkill /PID <PID> /F
 ```
 
-If you can't free 8091, change the port:
+If you can't free 8090, change the port:
 
 ```bash
 PORT=8200 python3 server.py
@@ -671,8 +671,8 @@ PORT=8200 python3 server.py
 …and open `http://127.0.0.1:8200/` instead. **Critical**:
 
 - This is a new origin from the browser's perspective. Your localStorage
-  on `:8091` won't be visible. Use the backup/restore flow.
-- Your Spotify Redirect URI was registered to `http://127.0.0.1:8091/`.
+  on `:8090` won't be visible. Use the backup/restore flow.
+- Your Spotify Redirect URI was registered to `http://127.0.0.1:8090/`.
   If you changed the port, register the new one too (or instead).
 
 ---

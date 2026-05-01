@@ -53,7 +53,7 @@ cd hifi-buddy/hifi-buddy-app
 python3 server.py
 ```
 
-Then open **http://127.0.0.1:8091/** in your browser. (Use `127.0.0.1`,
+Then open **http://127.0.0.1:8090/** in your browser. (Use `127.0.0.1`,
 **not** `localhost` — Spotify's OAuth requires the loopback IP form for HTTP
 redirect URIs.)
 

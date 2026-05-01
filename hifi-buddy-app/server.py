@@ -26,9 +26,9 @@ Run with:
 
     python3 server.py
 
-Defaults to port 8091. Override with PORT=NNNN env var. Open at:
+Defaults to port 8090. Override with PORT=NNNN env var. Open at:
 
-    http://127.0.0.1:8091/
+    http://127.0.0.1:8090/
 
 (IMPORTANT — use 127.0.0.1, NOT localhost. Spotify's OAuth requires the
 loopback IP form for HTTP redirect URIs.)
@@ -1295,8 +1295,15 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         super().log_message(format, *args)
 
 
+def make_server(port=None, host=''):
+    """Construct a ThreadingHTTPServer ready to serve. Lets external
+    runners (the launcher app) reuse the same Handler + lifecycle without
+    duplicating the binding logic here."""
+    return http.server.ThreadingHTTPServer((host, port if port is not None else PORT), Handler)
+
+
 def main():
-    server = http.server.ThreadingHTTPServer(('', PORT), Handler)
+    server = make_server(PORT)
     print(f'HiFi Buddy server running at http://127.0.0.1:{PORT}/')
     print(f'Config:  {CONFIG_PATH}')
     print('Press Ctrl+C to stop.')

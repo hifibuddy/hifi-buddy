@@ -499,11 +499,57 @@
     <div class="container">
       <div class="section-head reveal">
         <span class="section-tag">Get started</span>
-        <h2>One clone. One Python. You're listening in two minutes.</h2>
+        <h2>Download or run from source.</h2>
         <p class="section-sub">
-          No installer, no signup, no account. Clone the repo, run it locally,
-          point your browser at it.
+          The macOS app is a 90&nbsp;MB drag-to-Applications install. No
+          signup, no account, no telemetry — runs entirely on your machine.
         </p>
+      </div>
+
+      <!-- Platform downloads — pre-built binaries from GitHub Releases.
+           "latest" URLs auto-track the most recent tagged release, so this
+           markup never needs to bump version numbers. -->
+      <div class="downloads reveal">
+        <a class="dl-card dl-card-primary"
+           href="https://github.com/hifibuddy/hifi-buddy/releases/latest/download/HiFi-Buddy.dmg"
+           rel="noopener">
+          <div class="dl-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+              <path d="M16.365 1.43c0 1.14-.42 2.18-1.13 2.93-.78.83-2.06 1.47-3.07 1.39-.13-1.06.43-2.16 1.07-2.86.74-.81 2.04-1.42 3.13-1.46zM20.5 17.36c-.65 1.49-.96 2.16-1.79 3.48-1.16 1.86-2.8 4.18-4.83 4.2-1.81.02-2.27-1.18-4.72-1.16-2.45.02-2.96 1.18-4.77 1.16-2.03-.02-3.59-2.11-4.75-3.97C-2.13 17.31-2.42 9.94 1.5 6.06c1.39-1.39 3.21-2.27 5.13-2.31 1.84-.04 3.58 1.27 4.72 1.27 1.13 0 3.24-1.57 5.46-1.34.93.04 3.55.38 5.23 2.83-4.55 2.49-3.81 9-1.54 10.85z"/>
+            </svg>
+          </div>
+          <div class="dl-body">
+            <div class="dl-eyebrow">Recommended</div>
+            <strong class="dl-title">Download for macOS</strong>
+            <span class="dl-meta">.dmg · Apple Silicon · ~90 MB</span>
+          </div>
+          <svg class="dl-chevron" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <div class="dl-card dl-card-disabled" aria-disabled="true">
+          <div class="dl-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+              <path d="M3 5.5l7-1v8H3v-7zM11 4.5l10-1.5v9.5H11v-8zM3 13.5h7v8L3 20.5v-7zM11 13.5h10v9.5l-10-1.5v-8z"/>
+            </svg>
+          </div>
+          <div class="dl-body">
+            <div class="dl-eyebrow">Coming soon</div>
+            <strong class="dl-title">Windows installer</strong>
+            <span class="dl-meta">.exe · 64-bit · auto-built via CI</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="dl-note reveal">
+        macOS Gatekeeper note: the app is unsigned. First launch needs
+        <strong>right-click → Open</strong> → confirm "Open Anyway" once. After
+        that, double-click works normally.
+        <a href="https://github.com/hifibuddy/hifi-buddy/blob/main/hifi-buddy-app/docs/BUILDING.md#first-launch-on-a-friends-mac" rel="noopener">More detail</a>.
+      </p>
+
+      <div class="install-or reveal">
+        <span>Or run from source</span>
       </div>
 
       <div class="install-grid">
@@ -517,7 +563,7 @@
           <pre><code><span class="c-prompt">$</span> <span class="c-cmd">git clone</span> https://github.com/hifibuddy/hifi-buddy
 <span class="c-prompt">$</span> <span class="c-cmd">cd</span> hifi-buddy/hifi-buddy-app
 <span class="c-prompt">$</span> <span class="c-cmd">python3</span> server.py
-<span class="c-comment"># open http://127.0.0.1:8091/ in your browser</span></code></pre>
+<span class="c-comment"># open http://127.0.0.1:8090/ in your browser</span></code></pre>
           <button class="copy-btn" type="button" data-copy="git clone https://github.com/hifibuddy/hifi-buddy && cd hifi-buddy/hifi-buddy-app && python3 server.py">
             <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
               <rect x="4" y="4" width="9" height="9" rx="1.5"/>

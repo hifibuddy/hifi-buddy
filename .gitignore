@@ -11,3 +11,8 @@ node_modules/
 # HiFi Buddy runtime data (user-specific, do not commit)
 hifi-buddy-app/local-library-index.json
 hifi-buddy-app/.hifi-buddy-cache/
+
+# PyInstaller build artifacts
+hifi-buddy-app/build/
+hifi-buddy-app/dist/
+hifi-buddy-app/*.spec

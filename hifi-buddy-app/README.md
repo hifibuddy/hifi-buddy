@@ -42,7 +42,7 @@ cd hifi-buddy/hifi-buddy-app
 python3 server.py
 ```
 
-Then open **http://127.0.0.1:8091/** in your browser. (Use `127.0.0.1`, **not** `localhost` — Spotify's OAuth requires the loopback IP form for HTTP redirect URIs.)
+Then open **http://127.0.0.1:8090/** in your browser. (Use `127.0.0.1`, **not** `localhost` — Spotify's OAuth requires the loopback IP form for HTTP redirect URIs.)
 
 To use a different port: `PORT=8200 python3 server.py`.
 
@@ -61,7 +61,7 @@ For lossless FLAC playback and the ABX test:
 ### Spotify Premium (optional, for in-browser playback)
 
 1. Create an app at [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard)
-2. Add **`http://127.0.0.1:8091/`** to your app's **Redirect URIs**
+2. Add **`http://127.0.0.1:8090/`** to your app's **Redirect URIs**
 3. **Settings → Spotify** → paste your Client ID, choose **PKCE**, click Connect
 4. Approve the OAuth scopes (`streaming`, `user-modify-playback-state`, etc.)
 
@@ -199,7 +199,7 @@ cd hifi-buddy/hifi-buddy-app
 python3 server.py
 \`\`\`
 
-Then open http://127.0.0.1:8091/ (use 127.0.0.1, **not** localhost —
+Then open http://127.0.0.1:8090/ (use 127.0.0.1, **not** localhost —
 Spotify OAuth requires the loopback IP).
 
 ## License

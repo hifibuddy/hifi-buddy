@@ -424,7 +424,11 @@ window.HiFiBuddyRefBank = (() => {
         });
 
         grid.querySelectorAll('.refbank-spotify-btn').forEach(btn => {
-            btn.addEventListener('click', e => e.stopPropagation());
+            btn.addEventListener('click', e => {
+                e.stopPropagation();
+                const id = btn.dataset.clipId;
+                if (id) playClipViaSpotify(id);
+            });
         });
     }
 
@@ -477,13 +481,13 @@ window.HiFiBuddyRefBank = (() => {
                         ${HiFiBuddyIcons.play({ size: 12 })}
                         ${isPlaying ? 'Playing — click to restart' : 'Click to play segment'}
                     </span>
-                    <a class="refbank-spotify-btn"
-                       href="${spotifySearchUrl(c.track, c.artist)}"
-                       target="_blank" rel="noopener"
-                       title="Search on Spotify">
+                    <button type="button"
+                            class="refbank-spotify-btn"
+                            data-clip-id="${c.id}"
+                            title="Play on Spotify (Premium) — falls back to Spotify Web search if not connected">
                         ${HiFiBuddyIcons.spotify({ size: 12, brand: false })}
                         Spotify
-                    </a>
+                    </button>
                 </div>
             </div>
         `;
@@ -502,6 +506,11 @@ window.HiFiBuddyRefBank = (() => {
     function clearAutoStop() {
         if (currentPlayback?.autoStopTimer) {
             clearTimeout(currentPlayback.autoStopTimer);
+        }
+        // If Spotify was the source, also pause the SDK player so a fresh
+        // playClip() call doesn't end up with two sources playing at once.
+        if (currentPlayback?.source === 'spotify') {
+            try { window.HiFiBuddySpotify?.pause?.(); } catch { /* ignore */ }
         }
         currentPlayback = null;
     }
@@ -558,6 +567,125 @@ window.HiFiBuddyRefBank = (() => {
         } catch (e) {
             console.warn('[RefBank] play failed:', e);
             setStatus(`Playback failed: ${e.message}`, true);
+        }
+    }
+
+    // ===== Spotify (Premium SDK) playback =====
+    //
+    // Same shape as playClip() but routes through the Spotify Web Playback
+    // SDK: search the track, play with seek-to-start in milliseconds, set
+    // up an auto-stop timer for the clip duration. Falls back to opening
+    // Spotify Web search when the SDK isn't ready (no Premium, not yet
+    // connected, or not a desktop browser).
+    async function playClipViaSpotify(clipId) {
+        const clip = (clips || []).find(c => c.id === clipId);
+        if (!clip) return;
+        clearAutoStop();
+
+        const { start, end } = parseSegment(clip.segment);
+        const playRangeSecs = Math.max(2, end - start);
+
+        const S = window.HiFiBuddySpotify;
+        const canPremium = S && S.isConnected?.() && S.hasStreamingScope?.();
+        if (!canPremium) {
+            setStatus('Spotify not connected — opening Spotify search.', true);
+            window.open(spotifySearchUrl(clip.track, clip.artist), '_blank', 'noopener');
+            return;
+        }
+
+        try {
+            // Bring the SDK player up if it isn't already. ensureSDK() is a
+            // no-op on subsequent calls, so this is cheap to repeat.
+            if (!S.isPlayerReady?.()) {
+                setStatus('Connecting to Spotify…');
+                await S.ensureSDK?.();
+                await S.initPlayer?.();
+                if (!S.isPlayerReady?.()) {
+                    await new Promise(resolve => {
+                        const t = setTimeout(resolve, 5000);
+                        window.addEventListener('hifibuddy-spotify-player-ready',
+                            () => { clearTimeout(t); resolve(); }, { once: true });
+                    });
+                }
+                if (!S.isPlayerReady?.()) {
+                    setStatus('Spotify player not ready — Premium account required.', true);
+                    return;
+                }
+            }
+
+            setStatus(`Searching Spotify for "${clip.track}"…`);
+            const track = await S.searchTrack(clip.track, clip.artist);
+            if (!track?.uri) {
+                setStatus(`Not found on Spotify: "${clip.track}".`, true);
+                return;
+            }
+
+            // Spotify wants positionMs. Hand off everything in one call.
+            setStatus(`Playing ${clip.segment} — ${clip.track} (Spotify)`);
+            const startMs = Math.max(0, Math.round(start * 1000));
+            const endMs = Math.round(end * 1000);
+            const ok = await S.playTrackUri(track.uri, startMs);
+            if (!ok) {
+                setStatus('Spotify playback failed. Make sure Spotify desktop is closed.', true);
+                return;
+            }
+
+            // Drive the same player bar the lessons + Plex clips use, but
+            // route its controls through the SDK. The bar's progress shows
+            // position WITHIN the clip (not within the full track), so the
+            // scrubber feels like it represents the segment the user asked
+            // for — same UX as Plex clips.
+            if (typeof HiFiBuddyAudio !== 'undefined' && HiFiBuddyAudio.playExternal) {
+                const clipDurMs = endMs - startMs;
+                const albumImg = track.album?.images?.[0]?.url || '';
+                const trackArtist = (track.artists || []).map(a => a.name).filter(Boolean).join(', ') || clip.artist;
+                HiFiBuddyAudio.playExternal({
+                    title: track.name || clip.track,
+                    artist: trackArtist,
+                    imageUrl: albumImg,
+                    ctx: { type: 'spotify', label: `Reference Clip · ${clip.title || clip.track || clip.id}` },
+                    controls: {
+                        pause:  async () => { await S.pause?.();  },
+                        resume: async () => { await S.resume?.(); },
+                        stop:   async () => {
+                            await S.pause?.();
+                            clearAutoStop();
+                            if (currentPlayback?.clipId === clipId) {
+                                currentPlayback = null;
+                                renderClipList();
+                            }
+                        },
+                        getState: async () => {
+                            const state = await S.getCurrentState?.();
+                            if (!state) return null;
+                            const rel = (state.position || 0) - startMs;
+                            return {
+                                positionMs: Math.max(0, Math.min(rel, clipDurMs)),
+                                durationMs: clipDurMs,
+                                paused: !!state.paused,
+                                ended: rel >= clipDurMs,
+                            };
+                        },
+                    },
+                });
+            }
+
+            // Auto-stop timer. SDK playback is independent of the local
+            // <audio> element, so we pause via the SDK + close the player
+            // bar at end of range.
+            const timer = setTimeout(() => {
+                S.pause?.();
+                if (typeof HiFiBuddyAudio !== 'undefined') HiFiBuddyAudio.stop?.();
+                if (currentPlayback?.clipId === clipId) {
+                    currentPlayback = null;
+                    renderClipList();
+                }
+            }, playRangeSecs * 1000);
+            currentPlayback = { clipId, autoStopTimer: timer, source: 'spotify' };
+            renderClipList();
+        } catch (e) {
+            console.warn('[RefBank] Spotify play failed:', e);
+            setStatus(`Spotify playback failed: ${e.message || 'unknown'}`, true);
         }
     }
 

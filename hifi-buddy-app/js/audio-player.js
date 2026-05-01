@@ -9,6 +9,11 @@ window.HiFiBuddyAudio = (() => {
     let currentTrack = null;
     let currentContext = null; // { type, label }
     let progressInterval = null;
+    // When set, the bar's controls (play/pause toggle, close) drive an
+    // external player (e.g., the Spotify Web Playback SDK) instead of the
+    // local <audio> element. Shape: {pause, resume, stop, getState}.
+    // getState() returns {positionMs, durationMs, paused, ended} or null.
+    let externalControls = null;
 
     // Color map for context badges. Keep in sync with .ap-context-* classes.
     const CONTEXT_COLORS = {
@@ -40,6 +45,8 @@ window.HiFiBuddyAudio = (() => {
 
     function play(url, title, artist, imageUrl, context) {
         if (!audio) init();
+        // Switching between modes — make sure no external session lingers.
+        externalControls = null;
         if (currentTrack?.url === url && !audio.paused) {
             pause();
             return;
@@ -52,6 +59,34 @@ window.HiFiBuddyAudio = (() => {
         showBar();
         updateUI(true);
         startProgress();
+    }
+
+    // External-source playback (Spotify SDK, future Roon/MPD, etc). Renders
+    // the same player bar but routes the toggle button to the provided
+    // controls object. Progress is polled from controls.getState() so the
+    // scrubber tracks whatever the external player is doing.
+    //
+    // opts: {
+    //   title, artist, imageUrl,           // chrome
+    //   ctx,                               // {type, label} — same shape as play()
+    //   controls: { pause, resume, stop, getState },
+    // }
+    function playExternal(opts = {}) {
+        if (!audio) init();
+        // Stop the local element so we don't have two sources audible.
+        try { audio.pause(); audio.src = ''; } catch { /* ignore */ }
+        externalControls = opts.controls || {};
+        currentTrack = {
+            url: null,
+            title: opts.title || '',
+            artist: opts.artist || '',
+            imageUrl: opts.imageUrl || '',
+            isExternal: true,
+        };
+        currentContext = sanitizeContext(opts.ctx);
+        showBar();
+        updateUI(true);
+        startExternalProgress();
     }
 
     // Validate and normalize an optional context object passed to play().
@@ -89,7 +124,23 @@ window.HiFiBuddyAudio = (() => {
         stopProgress();
     }
 
-    function toggle() {
+    async function toggle() {
+        if (externalControls) {
+            // External mode — query state, then call the right method.
+            try {
+                const state = await externalControls.getState?.();
+                if (state?.paused) {
+                    await externalControls.resume?.();
+                    updateUI(true);
+                } else {
+                    await externalControls.pause?.();
+                    updateUI(false);
+                }
+            } catch (e) {
+                console.warn('[AudioPlayer] external toggle failed:', e);
+            }
+            return;
+        }
         if (!audio || !currentTrack) return;
         if (audio.paused) {
             audio.play().catch(() => {});
@@ -146,9 +197,49 @@ window.HiFiBuddyAudio = (() => {
     }
 
     function stop() {
+        // External players: tell them to stop too. Do this BEFORE clearing
+        // local state so the controls reference is still valid.
+        if (externalControls) {
+            try { externalControls.stop?.(); } catch { /* ignore */ }
+            externalControls = null;
+        }
         if (audio) { audio.pause(); audio.src = ''; }
         currentTrack = null;
         stopProgress();
+    }
+
+    // Progress poller for external mode. Calls controls.getState() at
+    // ~250ms cadence and updates the scrubber + time + play/pause icon.
+    // When state.ended is true (segment auto-stop, track finished, etc.)
+    // we hide the bar so the user isn't left with stale UI.
+    function startExternalProgress() {
+        stopProgress();
+        progressInterval = setInterval(async () => {
+            if (!externalControls?.getState) return;
+            let state;
+            try { state = await externalControls.getState(); }
+            catch { return; }
+            if (!state) return;
+            const dur = state.durationMs || 0;
+            const pos = Math.max(0, state.positionMs || 0);
+            const fill = document.getElementById('apProgressFill');
+            const time = document.getElementById('apTime');
+            if (fill) fill.style.width = (dur ? Math.min(100, (pos / dur) * 100) : 0) + '%';
+            if (time) {
+                const totalSec = Math.floor(pos / 1000);
+                const min = Math.floor(totalSec / 60);
+                const sec = totalSec % 60;
+                time.textContent = `${min}:${sec.toString().padStart(2, '0')}`;
+            }
+            updateUI(!state.paused);
+            if (state.ended) {
+                stopProgress();
+                const bar = document.getElementById('audioPlayerBar');
+                if (bar) bar.style.display = 'none';
+                externalControls = null;
+                currentTrack = null;
+            }
+        }, 250);
     }
 
     function updateUI(playing) {
@@ -219,7 +310,7 @@ window.HiFiBuddyAudio = (() => {
     }
 
     return {
-        init, play, pause, toggle, stop, setVolume,
+        init, play, playExternal, pause, toggle, stop, setVolume,
         isPlaying, getCurrentTrack, preload,
         setContext, getContext,
     };

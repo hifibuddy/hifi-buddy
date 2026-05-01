@@ -945,6 +945,109 @@ body > *:not(.ambient) {
 }
 
 /* ---------- Install ---------- */
+
+/* Download cards — primary + disabled-coming-soon. The primary one
+   pulls the eye via the gradient border + subtle hover lift; the
+   disabled one looks like a real card so users can see what's coming. */
+.downloads {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 18px;
+}
+@media (max-width: 720px) {
+  .downloads { grid-template-columns: 1fr; }
+}
+
+.dl-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 20px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 200ms ease, border-color 200ms ease, background 200ms ease;
+  position: relative;
+  overflow: hidden;
+}
+.dl-card-primary {
+  background:
+    radial-gradient(120% 200% at 0% 0%, rgba(155, 89, 182, 0.18), transparent 60%),
+    radial-gradient(120% 200% at 100% 100%, rgba(102, 126, 234, 0.18), transparent 60%),
+    rgba(255, 255, 255, 0.02);
+  border-color: rgba(155, 89, 182, 0.35);
+}
+.dl-card-primary:hover {
+  transform: translateY(-2px);
+  border-color: rgba(155, 89, 182, 0.6);
+}
+.dl-card-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.dl-icon {
+  flex-shrink: 0;
+  width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 10px;
+  color: var(--text, #f3f1f8);
+  background: rgba(255, 255, 255, 0.04);
+}
+.dl-card-primary .dl-icon { color: #cdb6ff; }
+.dl-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.dl-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted, #a8a4b8);
+}
+.dl-card-primary .dl-eyebrow { color: #b794f4; }
+.dl-title { font-size: 1.05rem; line-height: 1.2; }
+.dl-meta { font-size: 0.85rem; color: var(--muted, #a8a4b8); }
+.dl-chevron {
+  flex-shrink: 0;
+  color: var(--muted, #a8a4b8);
+  transition: transform 200ms ease, color 200ms ease;
+}
+.dl-card-primary:hover .dl-chevron {
+  transform: translateX(3px);
+  color: #cdb6ff;
+}
+
+.dl-note {
+  font-size: 0.85rem;
+  color: var(--muted, #a8a4b8);
+  margin: 0 0 36px;
+  text-align: center;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.55;
+}
+.dl-note a { color: var(--text, #f3f1f8); text-decoration: underline; text-decoration-color: rgba(155, 89, 182, 0.5); text-underline-offset: 2px; }
+.dl-note a:hover { text-decoration-color: rgba(155, 89, 182, 0.9); }
+
+.install-or {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 18px 0 28px;
+  color: var(--muted, #a8a4b8);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+.install-or::before, .install-or::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
 .install-grid {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;

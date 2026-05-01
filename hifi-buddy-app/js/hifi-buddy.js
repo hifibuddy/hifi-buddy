@@ -937,8 +937,22 @@ window.HiFiBuddyApp = (() => {
         containerEl.innerHTML = `
             <div class="hifi-dashboard">
                 <div class="hifi-header">
-                    <div class="hifi-header-icon">${HiFiBuddyIcons.headphones({ size: 28 })}</div>
-                    <h2 class="hifi-title">HiFi Buddy</h2>
+                    <div class="hifi-header-mark" aria-hidden="true">
+                        <svg viewBox="0 0 32 32" width="56" height="56">
+                            <defs>
+                                <linearGradient id="hifiHeroGrad" x1="0" y1="0" x2="1" y2="1">
+                                    <stop offset="0%" stop-color="#9b59b6"/>
+                                    <stop offset="100%" stop-color="#667eea"/>
+                                </linearGradient>
+                            </defs>
+                            <rect x="3"  y="13" width="2.5" height="6"  rx="1.25" fill="url(#hifiHeroGrad)"/>
+                            <rect x="8"  y="9"  width="2.5" height="14" rx="1.25" fill="url(#hifiHeroGrad)"/>
+                            <rect x="13" y="5"  width="2.5" height="22" rx="1.25" fill="url(#hifiHeroGrad)"/>
+                            <rect x="18" y="9"  width="2.5" height="14" rx="1.25" fill="url(#hifiHeroGrad)"/>
+                            <rect x="23" y="13" width="2.5" height="6"  rx="1.25" fill="url(#hifiHeroGrad)"/>
+                        </svg>
+                    </div>
+                    <h2 class="hifi-title"><span class="hifi-title-base">HiFi</span> <span class="hifi-title-accent">Buddy</span></h2>
                     <p class="hifi-subtitle">Develop your critical listening skills with curated reference recordings</p>
                     <p class="hifi-equip-note">Best experienced with: <strong>lossless audio (FLAC/CD)</strong> + <strong>open-back headphones (HD560s, HD600)</strong></p>
                 </div>

@@ -1,0 +1,54 @@
+feat(v1.2.0): macOS app, Spotify Connect, Reference Library SDK playback
+
+Sprint 2 part 1: HiFi Buddy is now a real macOS app you can double-click.
+Plus a substantial Spotify UX overhaul and a handful of polish + bug fixes.
+
+Distribution
+- launcher.py wraps server.py in a menu-bar shell (pystray icon, default-
+  browser auto-open, "Reveal config folder", clean shutdown)
+- build-mac.sh produces dist/HiFi Buddy.app + dist/HiFi Buddy.dmg
+  - Unsigned for v1.x — right-click → Open on first launch
+  - LSUIElement = true so it's menu-bar-only, no Dock icon
+  - Singleton lock + auto-pick port in 8090..8099 range
+- docs/BUILDING.md covers install/sign/run for contributors
+- requirements-build.txt: pyinstaller + pystray + Pillow
+
+Spotify
+- "Connect to Spotify" button in Settings -> Spotify section. Saves
+  Client ID + auth method, awaits server config write, then triggers
+  PKCE redirect or Client Credentials fetch.
+- Reference Library Spotify button now plays the clip via Web Playback
+  SDK with seek-to-start, instead of opening Spotify Web search.
+- The bottom audio-player bar gains an "external mode" - same chrome,
+  controls route through Spotify SDK callbacks. Progress scrubber shows
+  position WITHIN the clip segment, not within the full track.
+- Pause/resume toggle added to the playline transport. Top source
+  buttons stay as source selectors.
+- Post-render rehydrate: navigating back to a lesson with Spotify still
+  playing now restores the visual state.
+
+Brand
+- Dashboard hero uses the same 5-bar gradient wave + "HiFi" + gradient
+  "Buddy" treatment as the top-bar logo.
+- Welcome card (first-run onboarding) gains the same animated soundwave
+  used on hifibuddy.net hero - visual continuity.
+
+Fixes
+- Default port 8090 (was 8091) - aligns with common Spotify Dev app
+  redirect URIs. Updated everywhere.
+- ABX decodeAudioData fallback was throwing "Cannot perform slice on
+  detached ArrayBuffer". Now slices upfront so both attempts get fresh
+  buffers, and surfaces the real codec error instead of the masking one.
+- Lesson generator: equipment block is now optional with a sensible
+  default. Smaller LLMs frequently drop secondary objects.
+- Player bar height bumped 64 -> 92px so the context chip + title +
+  artist stack actually fits inside the bar.
+- Context chip max-width bumped 220 -> 360px for longer reference clip
+  labels.
+
+Site (hifibuddy.net)
+- New "Download or run from source" install section: macOS DMG card
+  links to releases/latest/download/HiFi-Buddy.dmg, Windows card shows
+  "coming soon" until M4.4 CI lands.
+
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>

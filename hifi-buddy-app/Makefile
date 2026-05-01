@@ -12,7 +12,7 @@ test: validate lint
 	@echo "All tests passed."
 
 serve:
-	@PORT=8091 python3 server.py
+	@PORT=8090 python3 server.py
 
 clean:
 	@rm -f local-library-index.json

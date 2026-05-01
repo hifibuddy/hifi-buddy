@@ -159,7 +159,7 @@ streams through `/api/plex-stream/*`. The reasons:
 - **Range requests**: the proxy forwards `Range` headers so seeking
   works.
 
-The proxy is the reason `127.0.0.1:8091` is the recommended URL —
+The proxy is the reason `127.0.0.1:8090` is the recommended URL —
 your browser is talking to the proxy on localhost, which is talking to
 Plex on your LAN. The token never leaves your machine (it's passed as
 a query param to the local proxy, which makes the actual Plex API
@@ -345,8 +345,8 @@ Redirect URI. The app uses:
 window.location.origin + window.location.pathname
 ```
 
-So if you load HiFi Buddy at `http://127.0.0.1:8091/`, the redirect URI
-is `http://127.0.0.1:8091/`.
+So if you load HiFi Buddy at `http://127.0.0.1:8090/`, the redirect URI
+is `http://127.0.0.1:8090/`.
 
 **You must register this exact URL in the Spotify dashboard, including
 the trailing slash and the `http` (not `https`).**
@@ -380,7 +380,7 @@ This is the real one for HiFi Buddy.
 
 1. Go to https://developer.spotify.com/dashboard.
 2. Create an app.
-3. **Redirect URI**: register `http://127.0.0.1:8091/`. (If you've
+3. **Redirect URI**: register `http://127.0.0.1:8090/`. (If you've
    changed the port via `PORT=NNNN`, register `http://127.0.0.1:NNNN/`
    instead — including the trailing slash.)
 4. Tick **Web API** *and* **Web Playback SDK**. Save.

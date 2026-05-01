@@ -10,7 +10,7 @@ for each optional integration (Plex, Spotify, Local FLAC, Claude, Ollama).
 |---|---|---|
 | Python 3 | 3.8+ | Runs the dev server (`server.py`). Python 3 ships with macOS, Linux, and on Windows via the installer. |
 | A modern browser | Chrome 120+, Firefox 120+, Safari 17+, Edge 120+ | The app uses the Web Audio API, the Spotify Web Playback SDK, and modern JS. Chrome and Edge are the most thoroughly tested. |
-| Open port `8091` | — | The server binds to `127.0.0.1:8091`. Override with `PORT=NNNN python3 server.py` if it conflicts. |
+| Open port `8090` | — | The server binds to `127.0.0.1:8090`. Override with `PORT=NNNN python3 server.py` if it conflicts. |
 
 Optional but commonly wanted:
 
@@ -69,7 +69,7 @@ make serve
 You should see:
 
 ```
-HiFi Buddy server running at http://127.0.0.1:8091/
+HiFi Buddy server running at http://127.0.0.1:8090/
 ```
 
 The server is dumb on purpose — it serves the static files (HTML/CSS/JS),
@@ -87,7 +87,7 @@ no `node_modules`. To update: `git pull`, then hard-refresh the browser
 Open your browser to:
 
 ```
-http://127.0.0.1:8091/
+http://127.0.0.1:8090/
 ```
 
 > Critical: use `127.0.0.1`, NOT `localhost`. They look the same to you,
@@ -175,7 +175,7 @@ buttons. See
 The app stores everything in `localStorage`, which is fragile:
 
 - Cleared if you reset browser data.
-- Partitioned per origin (`localhost:8091` vs `127.0.0.1:8091` are
+- Partitioned per origin (`localhost:8090` vs `127.0.0.1:8090` are
   different stores).
 - Tied to a single browser profile on a single machine.
 - On iOS Safari, ITP can wipe non-PWA localStorage after 7 days of

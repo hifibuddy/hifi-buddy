@@ -572,8 +572,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument('--ollama-model',
                    default=os.environ.get('OLLAMA_MODEL', 'gemma2:9b'),
                    help='Ollama model (default gemma2:9b, or env OLLAMA_MODEL).')
-    p.add_argument('--hifi-server', default='http://127.0.0.1:8091',
-                   help='Running HiFi Buddy server (default http://127.0.0.1:8091).')
+    p.add_argument('--hifi-server', default='http://127.0.0.1:8090',
+                   help='Running HiFi Buddy server (default http://127.0.0.1:8090).')
     p.add_argument('--top', type=int, default=12,
                    help='How many candidates to draft lessons for (default 12).')
     p.add_argument('--output', default=os.path.join(REPO_ROOT, 'proposed-lessons.json'),

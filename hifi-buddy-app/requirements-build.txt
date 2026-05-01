@@ -1,0 +1,14 @@
+# Build-time dependencies for packaging HiFi Buddy as a standalone app.
+# Install with:  pip3 install -r requirements-build.txt
+#
+# Runtime dependencies are zero (Python stdlib + optional mutagen via
+# requirements.txt). These are ONLY needed to produce HiFi Buddy.app /
+# HiFiBuddy.exe.
+
+pyinstaller>=6.10
+pystray>=0.19
+Pillow>=10.0
+# pystray on macOS uses AppKit via pyobjc. pystray's metadata declares
+# this transitively but pip's resolver occasionally skips it; pin it
+# explicitly so the build is reproducible.
+pyobjc-framework-Cocoa>=10.0; sys_platform == "darwin"

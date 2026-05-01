@@ -18,7 +18,7 @@ automatically.
 
 | Doc | What it covers |
 |---|---|
-| [SETUP.md](./SETUP.md) | First-time install, running the server on `127.0.0.1:8091`, `make test`, settings backup |
+| [SETUP.md](./SETUP.md) | First-time install, running the server on `127.0.0.1:8090`, `make test`, settings backup |
 | [USER_GUIDE.md](./USER_GUIDE.md) | Tour of every view: Lessons, Reference Library, Stats, Settings, Onboarding |
 | [HIFI_BUDDY.md](./HIFI_BUDDY.md) | Deep dive on lessons, ABX, equipment profiles, visualizer + FR overlay, AI lesson generation, track variant picker, timing feedback, the reference-catalog/`propose_lessons.py` workflow |
 | [INTEGRATIONS.md](./INTEGRATIONS.md) | Plex, Spotify, Local FLAC (ffmpeg + mutagen), Claude API, Ollama, MusicBrainz |

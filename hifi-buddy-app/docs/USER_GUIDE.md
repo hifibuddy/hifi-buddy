@@ -318,7 +318,7 @@ and re-import elsewhere.
 
 ### Why you might need it
 
-- Moving from `localhost:8091` to `127.0.0.1:8091` (or vice versa).
+- Moving from `localhost:8090` to `127.0.0.1:8090` (or vice versa).
   Browsers treat them as separate origins, so localStorage doesn't
   carry over. See
   [origin partition](./TROUBLESHOOTING.md#7-all-settings-disappeared-after-changing-the-url).
@@ -339,7 +339,7 @@ The file looks like:
 ```json
 {
   "exportedAt": "2026-04-25T14:32:10.000Z",
-  "origin": "http://127.0.0.1:8091",
+  "origin": "http://127.0.0.1:8090",
   "version": 1,
   "data": {
     "hifibuddy_plex_url": "http://192.168.1.100:32400",

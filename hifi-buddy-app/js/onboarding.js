@@ -122,6 +122,7 @@ window.HiFiBuddyOnboarding = (() => {
         state.step = 1;
         renderStep(`
             ${progressBar(1)}
+            <div class="ob-wave" aria-hidden="true">${buildWaveBars(48)}</div>
             <div class="ob-body">
                 <h2 class="ob-title">Welcome to HiFi Buddy</h2>
                 <p class="ob-lead">A critical-listening tutor that trains your ears on real recordings.</p>
@@ -137,6 +138,27 @@ window.HiFiBuddyOnboarding = (() => {
             state.source = 'skip';
             finish();
         });
+    }
+
+    // Deterministic-feeling soundwave: a sine envelope plus two harmonics so
+    // every render gets the same shape (no Math.random — keeps the welcome
+    // visual stable across reloads). Pattern matches the marketing site's
+    // hero waveform so the app feels visually coherent with hifibuddy.net.
+    function buildWaveBars(count) {
+        const bars = [];
+        for (let i = 0; i < count; i++) {
+            const envelope = Math.sin((i / count) * Math.PI) * 0.55 + 0.35;
+            const noise = Math.sin(i * 1.7) * 0.18 + Math.cos(i * 0.6) * 0.12;
+            const h = Math.max(0.18, Math.min(1, envelope + noise));
+            // animation-delay staggers neighbors so the wave appears to
+            // travel across the bar field rather than pulse uniformly.
+            const delay = (i % 12) * 0.08;
+            const dur = 1.8 + (i % 5) * 0.18;
+            bars.push(
+                `<span class="ob-wave-bar" style="height:${Math.round(h * 100)}%;animation-delay:${delay}s;animation-duration:${dur}s"></span>`
+            );
+        }
+        return bars.join('');
     }
 
     function step2() {
@@ -253,7 +275,7 @@ window.HiFiBuddyOnboarding = (() => {
             <div class="ob-body">
                 <h2 class="ob-title">Connect Spotify</h2>
                 <p class="ob-copy">PKCE flow only — no client secret stored. Register the redirect URI exactly:</p>
-                <code class="ob-code">http://127.0.0.1:8091/</code>
+                <code class="ob-code">http://127.0.0.1:8090/</code>
                 <label class="ob-field">
                     <span>Client ID</span>
                     <input type="text" id="obSpotifyClientId" placeholder="32-char hex from Spotify dashboard" value="${escapeHtml(cur)}">

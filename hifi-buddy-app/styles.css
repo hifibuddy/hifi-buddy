@@ -88,7 +88,11 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 64px;
+    /* 64px was too tight: with the context-chip + title + artist stack
+       (~58-62px of content), the chip overflowed above the bar's clip
+       region. 92px gives the chip room to sit fully inside, with a small
+       breathing margin top and bottom. */
+    height: 92px;
     background: var(--bg-secondary);
     border-top: 1px solid var(--border-color);
     display: flex;
@@ -99,11 +103,11 @@ body {
     box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
 }
 
-.ap-track-info { display: flex; align-items: center; gap: 10px; min-width: 180px; }
+.ap-track-info { display: flex; align-items: center; gap: 12px; min-width: 200px; }
 
-.ap-cover { width: 42px; height: 42px; border-radius: 6px; object-fit: cover; }
+.ap-cover { width: 54px; height: 54px; border-radius: 6px; object-fit: cover; }
 .ap-cover-placeholder {
-    width: 42px; height: 42px; border-radius: 6px;
+    width: 54px; height: 54px; border-radius: 6px;
     background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center;
     font-size: 1.2rem; color: var(--text-muted);
 }
@@ -390,12 +394,29 @@ body {
     animation: fadeIn 0.3s ease-out;
 }
 .hifi-header { text-align: center; margin-bottom: 28px; }
-.hifi-header-icon { font-size: 2.5rem; margin-bottom: 4px; }
+.hifi-header-mark {
+    display: flex; justify-content: center;
+    margin: 4px 0 12px;
+    line-height: 0;
+}
+.hifi-header-mark svg {
+    filter: drop-shadow(0 4px 18px rgba(155, 89, 182, 0.28));
+}
+/* Composite title: "HiFi" in body color, " Buddy" in the brand
+   purple→indigo gradient. Mirrors the top-bar logo treatment so the
+   dashboard feels like the same product, not a separate skin. */
 .hifi-title {
-    font-size: 1.6rem; font-weight: 800;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    font-size: 1.9rem;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    margin: 0;
+}
+.hifi-title-base { color: var(--text-primary); }
+.hifi-title-accent {
+    background: linear-gradient(135deg, #9b59b6, #667eea);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-clip: text;
+    color: transparent; /* fallback for non-WebKit */
 }
 .hifi-subtitle { font-size: 0.88rem; color: var(--text-secondary); margin-top: 6px; }
 .hifi-equip-note {
@@ -1372,6 +1393,34 @@ body.ob-locked { overflow: hidden; }
 }
 
 .ob-body { margin-bottom: 18px; }
+
+/* Welcome-card soundwave — purely decorative. Mirrors the marketing
+   site's hero waveform so the app and the site feel visually coherent. */
+.ob-wave {
+    display: grid;
+    grid-template-columns: repeat(48, 1fr);
+    gap: 3px;
+    align-items: center;
+    height: 80px;
+    margin: -8px 0 22px;
+    padding: 0 4px;
+}
+.ob-wave-bar {
+    width: 100%;
+    border-radius: 3px;
+    background: linear-gradient(180deg, rgba(102, 126, 234, 0.85), rgba(155, 89, 182, 0.9));
+    animation: ob-wave-pulse 2.4s ease-in-out infinite;
+    transform-origin: center;
+}
+@keyframes ob-wave-pulse {
+    0%, 100% { transform: scaleY(0.5); opacity: 0.55; }
+    50%      { transform: scaleY(1);   opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+    /* Honor the user's "less motion please" — show the bars statically
+       at their drawn height, no pulse. */
+    .ob-wave-bar { animation: none; opacity: 0.85; }
+}
 .ob-title {
     font-size: 1.4rem; font-weight: 700;
     margin: 0 0 8px;
@@ -1737,7 +1786,10 @@ body.ob-locked { overflow: hidden; }
     color: var(--ap-ctx-color, var(--accent-color));
     background: color-mix(in srgb, var(--ap-ctx-color, var(--accent-color)) 18%, transparent);
     border: 1px solid color-mix(in srgb, var(--ap-ctx-color, var(--accent-color)) 40%, transparent);
-    max-width: 220px;
+    /* 220px was clipping "REFERENCE CLIP · MONEY FOR NOTHING" mid-track-name.
+       360px fits the longest reference-clip label in the catalog with room
+       to spare; we still ellipsize for safety on tiny windows. */
+    max-width: 360px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

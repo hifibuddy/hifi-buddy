@@ -322,14 +322,32 @@ If you do not know the track or are uncertain about facts (year, label, masterin
                 });
             }
         }
-        if (!obj.equipment || typeof obj.equipment !== 'object') {
-            errs.push('Missing `equipment` object.');
-        } else {
-            if (typeof obj.equipment.source !== 'string') errs.push('equipment.source must be a string.');
-            if (typeof obj.equipment.whyItMatters !== 'string') errs.push('equipment.whyItMatters must be a string.');
+        // `equipment` is documented in the prompt but treat it as optional —
+        // smaller LLMs frequently drop secondary objects when the response
+        // gets long, and it's not load-bearing data (just a source-format
+        // recommendation tile). Fill in a sensible default below if missing
+        // or partial.
+        if (obj.equipment && typeof obj.equipment === 'object') {
+            if (obj.equipment.source !== undefined && typeof obj.equipment.source !== 'string') {
+                errs.push('equipment.source must be a string when present.');
+            }
+            if (obj.equipment.whyItMatters !== undefined && typeof obj.equipment.whyItMatters !== 'string') {
+                errs.push('equipment.whyItMatters must be a string when present.');
+            }
         }
 
         if (errs.length) return { ok: false, error: errs.join(' ') };
+
+        // Synthesize equipment.source from album.format if the model omitted
+        // it. The album.format is something like "1985 CD master, DDD" or
+        // "2014 Mobile Fidelity vinyl rip" — already a usable answer.
+        const equip = (obj.equipment && typeof obj.equipment === 'object') ? obj.equipment : {};
+        const equipSource = (typeof equip.source === 'string' && equip.source.trim())
+            ? equip.source.trim()
+            : (obj.album?.format || 'FLAC 16/44.1 or better');
+        const equipWhy = (typeof equip.whyItMatters === 'string' && equip.whyItMatters.trim())
+            ? equip.whyItMatters.trim()
+            : `These cues need a clean source — compressed lossy formats blur the ${(obj.skills || ['detail'])[0]} this lesson targets.`;
 
         // Normalize into the canonical lesson shape (id assigned at save time)
         const lesson = {
@@ -360,8 +378,8 @@ If you do not know the track or are uncertain about facts (year, label, masterin
                 takeaway: obj.guide.takeaway,
             },
             equipment: {
-                source: obj.equipment.source,
-                whyItMatters: obj.equipment.whyItMatters,
+                source: equipSource,
+                whyItMatters: equipWhy,
             },
             generated: true,
             generatedAt: Date.now(),
